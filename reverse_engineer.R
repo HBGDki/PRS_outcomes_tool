@@ -93,12 +93,12 @@ get_int_data <- function(cur_nm, prev_nm, ints) {
   obj$n_pe <- ints[[prev_nm]]$n_pe_after
   obj$pe_rate <- ifelse(obj$n_patient == 0, 0, obj$n_pe / obj$n_patient)
   obj$n_pe2 <- obj$n_patient2 * obj$pe_rate
-  obj$pe_reduce <- obj$n_pe2 * cur_int_inputs$efficacy_reducing_PE
+  obj$pe_reduce <- obj$n_pe2 * cur_int_inputs$eff_reducing_PE
   obj$n_pe_after <- obj$n_pe - obj$pe_reduce
   obj$n_pe_after2 <- obj$n_pe2 - obj$pe_reduce
 
   obj$mort_rate_mat <- ints[[prev_nm]]$mort_rate_mat_after
-  obj$lifesave_mat <- cur_int_inputs$efficacy_reducing_maternal_deaths *
+  obj$lifesave_mat <- cur_int_inputs$eff_reducing_mat_deaths *
     obj$n_pe2 *
     obj$mort_rate_mat
   # obj$mort_rate_mat_after <- ifelse(obj$n_pe_after2 == 0, obj$mort_rate_mat,
@@ -109,10 +109,10 @@ get_int_data <- function(cur_nm, prev_nm, ints) {
   obj$mort_rate_neo <- ints[[prev_nm]]$mort_rate_neo_after
 
   # NA coded to mean "Same # as mom" as seen in spreadsheet
-  if (is.na(cur_int_inputs$eff_reducing_neonatal_deaths)) {
+  if (is.na(cur_int_inputs$eff_reducing_neo_deaths)) {
     obj$lifesave_neo <- obj$lifesave_mat
   } else {
-    obj$lifesave_neo <- cur_int_inputs$eff_reducing_neonatal_deaths *
+    obj$lifesave_neo <- cur_int_inputs$eff_reducing_neo_deaths *
       obj$n_pe2 *
       obj$mort_rate_neo
   }
@@ -247,7 +247,18 @@ base_tab <- tibble::tribble(
   NA    , FALSE , TRUE  , FALSE , "Any"
 )
 
-pe_int_inputs <- readr::read_csv("pe_intervention_inputs.csv")
+pe_int_inputs <- readr::read_csv('int,name,on_off,applied_to,location_of_care,coverage,elig_pop_haircut,eff_reducing_PE,eff_reducing_mat_deaths,eff_reducing_neo_deaths
+Antenatal monitoring + diff CFL,int_am,TRUE,,,,,,,
+Antenatal monitoring + early C-section,int_am_csect,TRUE,All risk stratified,FRU only,1,1,0,0.29374,0.29374
+Calcium,int_calcium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.33,0.33,0.33
+Selenium for PE,int_selenium,FALSE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.72,0.72,0.72
+Statins,int_statins,TRUE,Risk stratified & flagged high risk,"FRU, PHC, and Home",0.5,0.49436655,0.03,0.03,0.03
+Aspirin,int_aspirin,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.49436655,0.292922754,0.292922754,0.292922754
+Antihypertensives,int_antihyper,TRUE,Hypertensive (and risk stratified),FRU and PHC,0.5,1,0,0.1,0.1
+Incremental magnesium roll-out - FRU,int_mag_fru,TRUE,Actually high risk (presume can discern),FRU only,0.5,0.64,0,0.46,
+Incremental magnesium roll-out - PHC,int_mag_phc,TRUE,Actually high risk (presume can discern),PHC only,0.5,1,0,0.46,
+Intrapartum antihypertensives,int_intantihyper,TRUE,Actually high risk (presume can discern),FRU only,0.5,1,0,0.015,0.015
+Novel drug,int_drug,TRUE,All,"FRU, PHC, and Home",0.5,1,0.5,0.5,0.5')
 
 ##
 ##---------------------------------------------------------
@@ -398,4 +409,6 @@ lapply(names(ints)[-1], function(nm) {
 bind_rows()
 
 # pe_int_inputs$name
+
+jsonlite::toJSON(pe_int_inputs[-1,], pretty = TRUE)
 

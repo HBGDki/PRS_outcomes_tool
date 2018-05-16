@@ -1,0 +1,150 @@
+/*@font-face {
+  font-family: 'Gidole-Regular';
+
+  src:
+    url('fonts/gidole/Gidole-Regular.woff2') format('woff2'),
+    url('fonts/gidole/Gidole-Regular.woff') format('woff');
+
+  font-weight: normal;
+  font-style: normal;
+}
+*/
+
+@font-face {
+  font-family: 'DIN-Regular';
+  src:
+    url('../fonts/din-ot/DINOT-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'DIN-Medium';
+  src:
+    url('../fonts/din-ot/DINOT-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'DIN-Bold';
+  src:
+    url('../fonts/din-ot/DINOT-Bold.otf') format('opentype');
+}
+
+body {
+  font-family: 'DIN-Regular', sans-serif;
+}
+
+nav {
+  height: 50px;
+  line-height: 50px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'DIN-Medium', sans-serif;
+}
+
+.header-text {
+  font-family: 'DIN-Bold', sans-serif;
+  font-size: 1.5em;
+}
+
+.header-pad {
+  padding-left:20px;
+}
+
+#controls {
+  position: fixed;
+  left: 0;
+  padding-left: 15px;
+  top: 60px;
+  width: 450px;
+  overflow-y: auto;
+  /*border-right: 1px solid #dedede;*/
+}
+
+#output {
+  position: fixed;
+  left: 450px;
+  padding-left: 15px;
+  top: 60px;
+  overflow-y: auto;
+}
+
+.collapsible-header {
+  font-family: 'DIN-Medium', sans-serif;
+  background: #f8f8f8;
+}
+
+.mutedfocus:focus { outline: 1px solid lightgray; }
+
+.active-indicator {
+  position: relative;
+}
+
+.active-indicator-child {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  height: 52px;
+  width: 6px;
+  background: #e57373;
+}
+
+.active-indicator-child.on {
+  background: #84c7c1;
+}
+
+.settings-icon {
+  line-height: -1;
+  padding-right: 8px;
+  padding-left: 2px;
+  padding-top: 2px;
+  color: #999;
+}
+
+.switch-wrapper {
+  padding-bottom: 0px;
+  text-align: right;
+}
+
+.select-wrapper {
+  padding-bottom: 8px;
+}
+
+.input-field {
+  margin-bottom: 0px;
+}
+
+.slider-field {
+  height: 60px;
+}
+
+.slider-label {
+  display: inline-block;
+  margin-left: -2px;
+  padding-bottom: 5px;
+}
+
+.noUi-pips-horizontal {
+  padding-top: 0px !important;
+}
+
+.noUi-marker-horizontal.noUi-marker-large {
+  height: 8px !important;
+  margin-left: 0px !important;
+}
+
+.noUi-marker-horizontal.noUi-marker {
+  width: 1px !important;
+  margin-left: 0px !important;
+}
+
+.noUi-value-horizontal {
+  font-size: 11px;
+}
+
+.noUi-target {
+  background: rgb(144, 144, 144) !important;
+}
+
+.noUi-handle {
+  /*left: -7px !important;*/
+}
