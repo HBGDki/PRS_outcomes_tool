@@ -1,175 +1,242 @@
-## inputs
-##---------------------------------------------------------
-
-pop <- 25642000 # field:C10
-pe_rate <- 0.110204196 # field:C11
-
-# % maternal mortality rate (conditioned pre-eclampsia)
-mort_rate_mat <- 0.000898843
-mort_rate_neo <- 0.008988427
-
-sensitivity <- 0.75 # field:C30
-specificity <- 0.75 # field:C311
-# antenatal care CDF
-anc_cdf <- c(0, 0, 0, 0.01829094, 0.04074504, 0.06759664, 0.09890153, 0.13451205, 0.17407471, 0.21704612, 0.2627304, 0.31033117, 0.35900826, 0.4079359, 0.45635737, 0.50361507, 0.54917553, 0.59263585, 0.63371515, 0.67224082, 0.70812972, 0.74136858, 0.77199645, 0.80008893, 0.82574634, 0.84908342, 0.87022135, 0.8892825, 0.90638642, 0.92164761, 0.93517563, 0.94707578, 0.95745043, 0.966402205, 0.974035475, 0.980457902, 0.985781404, 0.990121752, 0.993596935, 0.996325447, 0.998423229, 1.000000019)
-# percentage who have 1, 2, 3, 4 visits
-anc_visits <- c(0.742, 0.644666667, 0.547333333, 0.45) # fields:C36-C39
-riskstrat_firstweek <- 4 # field:C32
-riskstrat_lastweek <- 42 # field:C33
-
-# case fatality rate
-cfr_fru_maternal <- 0.000488501 # field:C19
-cfr_phc_maternal <- 0.000977003 # field:C20
-cfr_fru_neonatal <- 0.004885015 # field:C21
-cfr_phc_neonatal <- 0.009770029 # field:C22
-
-# systems
-sys_fru_pct <- 0.16 # field:C25
-sys_phc_pct <- 0.63 # field:C26
-sys_home_pct <- 0.21 # field:C27
-
-leak_fru_phc <- 0.1 # field:C51
-leak_phc_home <- 0.1 # field:C52
-
-# % actually high risk that has GHTN
-hr_act_w_ghtn_pct <- 0.8 # field:C45
-# % early onset that are caught in right period
-eo_caught <- 0.554366652 # field:C46
-# % actually high risk that are early onset
-hr_act_eo <- 0.055436665 # field:C47
-# % of low risk that has GHTN
-lr_act_w_ghtn_pct <- 0.041398985 # field:C48
-
-# Antenatal monitor settings
-# % who get it
-ante_pct <- 0.617768559 # field:C55
-# % of deaths before labor
-death_prelabor_pct <- 0.48 # field:C56
-# % of deaths in labor
-death_labor_pct <- 0.173 # field:C57
-# % patients flagged at right time
-flagintime_pct <- 0.95 # field:C58
-# % deaths before labor avoided
-death_prelabor_avoid_pct <- 0.5 # field:C59
-# % deaths during labor avoided
-death_labor_avoid_pct <- 0.4 # field:C60
-
-## derived
-##---------------------------------------------------------
-
-n_pe <- pop * pe_rate # field:C12
-# % who get risk stratified
-riskstrat_pct <- (anc_cdf[riskstrat_lastweek] - anc_cdf[riskstrat_firstweek]) *
-  anc_visits[1] # field:C89
-
-hr_tp <- sensitivity * n_pe * riskstrat_pct # field:E94
-lr_tp <- specificity * (pop - n_pe) * riskstrat_pct # field:E98
-hr_fp <- riskstrat_pct * (pop - n_pe) - lr_tp # field:E95
-lr_fn <- riskstrat_pct * n_pe - hr_tp # field: E99
-
-hr_flagged <- hr_tp + hr_fp # field: E93
-lr_flagged <- lr_tp + lr_fn # field: E97
-
-n_riskstrat <- hr_flagged + lr_flagged  # field:C90
-
-nostrat_hr <- ((pop - n_riskstrat) / pop) * n_pe
-nostrat_lr <- ((pop - n_riskstrat) / pop) * (pop - n_pe)
-
-locs_of_care <- c(
-  "FRU only" = sys_fru_pct,
-  "PHC only" = sys_phc_pct,
-  "Home only" = sys_home_pct,
-  "FRU and PHC" = sys_fru_pct + sys_phc_pct,
-  "FRU, PHC, and Home" = sys_fru_pct + sys_phc_pct + sys_home_pct,
-  "None" = 0
-)
-
-## data
-##---------------------------------------------------------
-
-base_tab <- tibble::tribble(
-  ~hr_flagged, ~hr_actual, ~hypertensive, ~proteinuria, ~deliv_loc,
-  TRUE  , TRUE  , TRUE  , TRUE  , "FRU",
-  TRUE  , TRUE  , TRUE  , TRUE  , "PHC",
-  TRUE  , TRUE  , TRUE  , FALSE , "FRU",
-  TRUE  , TRUE  , TRUE  , FALSE , "PHC",
-  TRUE  , TRUE  , FALSE , NA    , "FRU",
-  TRUE  , TRUE  , FALSE , NA    , "PHC",
-  TRUE  , FALSE , TRUE  , FALSE , "FRU",
-  TRUE  , FALSE , TRUE  , FALSE , "PHC",
-  TRUE  , FALSE , FALSE , FALSE , "FRU",
-  TRUE  , FALSE , FALSE , FALSE , "PHC",
-  FALSE , TRUE  , TRUE  , TRUE  , "FRU",
-  FALSE , TRUE  , TRUE  , TRUE  , "PHC",
-  FALSE , TRUE  , TRUE  , FALSE , "PHC",
-  FALSE , TRUE  , TRUE  , FALSE , "Home",
-  FALSE , TRUE  , FALSE , NA    , "PHC",
-  FALSE , TRUE  , FALSE , NA    , "Home",
-  FALSE , FALSE , TRUE  , FALSE , "PHC",
-  FALSE , FALSE , TRUE  , FALSE , "Home",
-  FALSE , FALSE , FALSE , FALSE , "PHC",
-  FALSE , FALSE , FALSE , FALSE , "Home",
-  NA    , TRUE  , TRUE  , TRUE  , "FRU",
-  NA    , TRUE  , TRUE  , TRUE  , "PHC",
-  NA    , TRUE  , TRUE  , TRUE  , "Home",
-  NA    , TRUE  , TRUE  , FALSE , "FRU",
-  NA    , TRUE  , TRUE  , FALSE , "PHC",
-  NA    , TRUE  , TRUE  , FALSE , "Home",
-  NA    , TRUE  , FALSE , FALSE , "FRU",
-  NA    , TRUE  , FALSE , FALSE , "PHC",
-  NA    , TRUE  , FALSE , FALSE , "Home",
-  NA    , FALSE , TRUE  , FALSE , "Any"
-)
-
-pe_int_inputs <- readr::read_csv('int,name,on_off,applied_to,location_of_care,coverage,elig_pop_haircut,eff_reducing_PE,eff_reducing_mat_deaths,eff_reducing_neo_deaths
-Antenatal monitoring + diff CFL,int_am,TRUE,,,,,,,
-Antenatal monitoring + early C-section,int_am_csect,TRUE,All risk stratified,FRU only,1,1,0,0.29374,0.29374
-Calcium,int_calcium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.33,0.33,0.33
-Selenium for PE,int_selenium,FALSE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.72,0.72,0.72
-Statins,int_statins,TRUE,Risk stratified & flagged high risk,"FRU, PHC, and Home",0.5,0.49436655,0.03,0.03,0.03
-Aspirin,int_aspirin,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.49436655,0.292922754,0.292922754,0.292922754
-Antihypertensives,int_antihyper,TRUE,Hypertensive (and risk stratified),FRU and PHC,0.5,1,0,0.1,0.1
-Incremental magnesium roll-out - FRU,int_mag_fru,TRUE,Actually high risk (presume can discern),FRU only,0.5,0.64,0,0.46,
-Incremental magnesium roll-out - PHC,int_mag_phc,TRUE,Actually high risk (presume can discern),PHC only,0.5,1,0,0.46,
-Intrapartum antihypertensives,int_intantihyper,TRUE,Actually high risk (presume can discern),FRU only,0.5,1,0,0.015,0.015
-Novel drug,int_drug,TRUE,All,"FRU, PHC, and Home",0.5,1,0.5,0.5,0.5')
+source("_fns.R")
+load("_data.Rdata")
 
 function(input, output) {
-  output$table <- shiny::renderTable({
-    for (i in 2:nrow(pe_int_inputs)) {
-      nm <- paste0("on_off_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "on_off"] <- input[[nm]]
 
-      nm <- paste0("applied_to_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "applied_to"] <- input[[nm]]
-
-      nm <- paste0("location_of_care_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "location_of_care"] <- input[[nm]]
-
-      nm <- paste0("coverage_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "coverage"] <- input[[nm]]
-
-      nm <- paste0("elig_pop_haircut_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "elig_pop_haircut"] <- input[[nm]]
-
-      nm <- paste0("eff_reducing_PE_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "eff_reducing_PE"] <- input[[nm]]
-
-      nm <- paste0("eff_reducing_mat_deaths_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "eff_reducing_mat_deaths"] <- input[[nm]]
-
-      nm <- paste0("eff_reducing_new_deaths_", pe_int_inputs$name[i])
-      if (!is.null(input[[nm]]))
-        pe_int_inputs[i, "eff_reducing_new_deaths"] <- input[[nm]]
+  pe_int_inputs_react <- reactive({
+    res <- pe_int_inputs_orig
+    for (i in 2:nrow(res)) {
+      for (vr in names(res[-c(1, 2)])) {
+        nm <- paste0(vr, "_", res$name[i])
+        if (!is.null(input[[nm]]))
+          res[i, vr] <- input[[nm]]
+      }
     }
+    res
+  })
 
-    pe_int_inputs
+  pop_react <- reactive({
+    res <- list()
+    for (nm in names(pop)) {
+      if (!is.null(input[[nm]]))
+        res[[nm]] <- input[[nm]]
+      if (is.null(res[[nm]]))
+        res[[nm]] <- pop[[nm]]
+    }
+    res
+  })
+
+  der_react <- reactive({
+    der <- list()
+    pop <- pop_react()
+    der$n_pe <- pop$pop * pop$pe_rate # field:C12
+    # % who get risk stratified
+    der$riskstrat_pct <- (anc_cdf[pop$riskstrat_lastweek] - anc_cdf[pop$riskstrat_firstweek]) *
+      pop$anc_visits1 # field:C89
+
+    der$hr_tp <- pop$sensitivity * der$n_pe * der$riskstrat_pct # field:E94
+    der$lr_tp <- pop$specificity * (pop$pop - der$n_pe) * der$riskstrat_pct # field:E98
+    der$hr_fp <- der$riskstrat_pct * (pop$pop - der$n_pe) - der$lr_tp # field:E95
+    der$lr_fn <- der$riskstrat_pct * der$n_pe - der$hr_tp # field: E99
+
+    der$hr_flagged <- der$hr_tp + der$hr_fp # field: E93
+    der$lr_flagged <- der$lr_tp + der$lr_fn # field: E97
+
+    der$n_riskstrat <- der$hr_flagged + der$lr_flagged  # field:C90
+
+    der$nostrat_hr <- ((pop$pop - der$n_riskstrat) / pop$pop) * der$n_pe
+    der$nostrat_lr <- ((pop$pop - der$n_riskstrat) / pop$pop) * (pop$pop - der$n_pe)
+
+    der$locs_of_care <- c(
+      "FRU only" = pop$sys_fru_pct,
+      "PHC only" = pop$sys_phc_pct,
+      "Home only" = pop$sys_home_pct,
+      "FRU and PHC" = pop$sys_fru_pct + pop$sys_phc_pct,
+      "FRU, PHC, and Home" = pop$sys_fru_pct + pop$sys_phc_pct + pop$sys_home_pct,
+      "None" = 0
+    )
+
+    # % who get it
+    der$ante_pct <- pop$anc_visits4 / der$riskstrat_pct # 0.617768559 # field:C55
+
+    # % early onset that are caught in right period # field:C46
+    der$eo_caught <- pop$anc_visits4 + (anc_cdf[34] - anc_cdf[25]) * pop$anc_visits1
+    # % actually high risk that are early onset # field:C47
+    der$hr_act_eo <- der$eo_caught * 0.1
+
+    # % of low risk that has GHTN # field:C48
+    der$lr_act_w_ghtn_pct <- (pop$pop_ghtn_pct * pop$pop - pop$hr_act_w_ghtn_pct * der$n_pe) / (pop$pop - der$n_pe)
+
+    der
+  })
+
+  ints_react <- reactive({
+    pop <- pop_react()
+    der <- der_react()
+    pe_int_inputs <- pe_int_inputs_react()
+
+    base_tab <- base_tab_empty
+
+    base_tab$n_patient <- NA
+
+    base_tab$n_patient[1] <- der$hr_tp * pop$hr_act_w_ghtn_pct * der$hr_act_eo * (1 - pop$leak_fru_phc)
+    base_tab$n_patient[2] <- der$hr_tp * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$leak_fru_phc
+    base_tab$n_patient[3] <- der$hr_tp * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo) * (1 - pop$leak_fru_phc) * (der$ante_pct * pop$flagintime_pct + (1 - der$ante_pct) * (pop$sys_fru_pct / (pop$sys_fru_pct + pop$sys_phc_pct)))
+    base_tab$n_patient[4] <- der$hr_tp * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo ) - base_tab$n_patient[3]
+    base_tab$n_patient[5] <- der$hr_tp * (1 - pop$hr_act_w_ghtn_pct ) * (1 - pop$leak_fru_phc) * (der$ante_pct * pop$flagintime_pct + (1 - der$ante_pct) * (pop$sys_fru_pct / (pop$sys_fru_pct + pop$sys_phc_pct)))
+    base_tab$n_patient[6] <- der$hr_tp * (1 - pop$hr_act_w_ghtn_pct ) - base_tab$n_patient[5]
+    base_tab$n_patient[7] <- der$hr_fp * der$lr_act_w_ghtn_pct * (1 - pop$leak_fru_phc)
+    base_tab$n_patient[8] <- der$hr_fp * der$lr_act_w_ghtn_pct * pop$leak_fru_phc
+    base_tab$n_patient[9] <- der$hr_fp * (1 - der$lr_act_w_ghtn_pct) * (1 - pop$leak_fru_phc)
+    base_tab$n_patient[10] <- der$hr_fp * (1 - der$lr_act_w_ghtn_pct) * (pop$leak_fru_phc)
+    base_tab$n_patient[11] <- der$lr_fn * pop$hr_act_w_ghtn_pct * der$hr_act_eo * (1 - pop$leak_fru_phc)
+    base_tab$n_patient[12] <- der$lr_fn * pop$hr_act_w_ghtn_pct * der$hr_act_eo * (pop$leak_fru_phc)
+    base_tab$n_patient[13] <- der$lr_fn * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo ) * (1 - pop$leak_phc_home)
+    base_tab$n_patient[14] <- der$lr_fn * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo ) * pop$leak_phc_home
+    base_tab$n_patient[15] <- der$lr_fn * (1 - pop$hr_act_w_ghtn_pct ) * (1 - pop$leak_phc_home)
+    base_tab$n_patient[16] <- der$lr_fn * (1 - pop$hr_act_w_ghtn_pct ) * (pop$leak_phc_home)
+    base_tab$n_patient[17] <- der$lr_tp * der$lr_act_w_ghtn_pct * (1 - pop$leak_phc_home)
+    base_tab$n_patient[18] <- der$lr_tp * der$lr_act_w_ghtn_pct * (pop$leak_phc_home)
+    base_tab$n_patient[19] <- der$lr_tp * (1 - der$lr_act_w_ghtn_pct) * (1 - pop$leak_phc_home)
+    base_tab$n_patient[20] <- der$lr_tp * (1 - der$lr_act_w_ghtn_pct) * pop$leak_phc_home
+    base_tab$n_patient[21] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_fru_pct
+    base_tab$n_patient[22] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_phc_pct
+    base_tab$n_patient[23] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_home_pct
+    base_tab$n_patient[24] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo) * pop$sys_fru_pct
+    base_tab$n_patient[25] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo) * pop$sys_phc_pct
+    base_tab$n_patient[26] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo) * pop$sys_home_pct
+    base_tab$n_patient[27] <- der$nostrat_hr * (1 - pop$hr_act_w_ghtn_pct) * pop$sys_fru_pct
+    base_tab$n_patient[28] <- der$nostrat_hr * (1 - pop$hr_act_w_ghtn_pct) * pop$sys_phc_pct
+    base_tab$n_patient[29] <- der$nostrat_hr * (1 - pop$hr_act_w_ghtn_pct) * pop$sys_home_pct
+    base_tab$n_patient[30] <- der$nostrat_lr
+
+    sum(base_tab$n_patient)
+    # 25642000
+
+    base_tab$n_pe <- base_tab$n_patient * base_tab$hr_actual
+    base_tab$mort_rate_mat <- pop$mort_rate_mat
+    base_tab$mort_rate_neo <- pop$mort_rate_neo
+
+    ## build list of tables for each intervention
+    ##---------------------------------------------------------
+
+    ints <- list()
+
+    ##
+    ##---------------------------------------------------------
+
+    obj <- base_tab
+
+    obj$n_pe_after <- obj$n_pe
+
+    obj$mort_rate_mat_after <- obj$mort_rate_mat
+    obj$mort_rate_mat_after[1] <- pop$cfr_fru_maternal
+    obj$mort_rate_mat_after[2] <- pop$cfr_phc_maternal
+    obj$mort_rate_mat_after[11] <- pop$cfr_fru_maternal
+    obj$mort_rate_mat_after[12] <- pop$cfr_phc_maternal
+
+    obj$mort_rate_neo_after <- obj$mort_rate_neo
+    obj$mort_rate_neo_after[1] <- pop$cfr_fru_neonatal
+    obj$mort_rate_neo_after[2] <- pop$cfr_phc_neonatal
+    obj$mort_rate_neo_after[11] <- pop$cfr_fru_neonatal
+    obj$mort_rate_neo_after[12] <- pop$cfr_phc_neonatal
+
+    obj$lifesave_mat <- obj$n_pe * obj$mort_rate_mat - obj$n_pe_after * obj$mort_rate_mat_after
+    obj$lifesave_neo <- obj$n_pe * obj$mort_rate_neo - obj$n_pe_after * obj$mort_rate_neo_after
+    obj$pe_reduce <- 0
+
+    # sum(obj$lifesave_mat)
+    # sum(obj$lifesave_neo)
+
+    ints$am <- obj
+
+    ##
+    ##---------------------------------------------------------
+
+    obj <- base_tab
+    obj$n_pe_after <- obj$n_pe
+    # assuming global_coverage_assumption is always "Static"
+    obj$mort_rate_mat <- ints$am$mort_rate_mat_after
+    obj$mort_rate_mat_after <- ifelse(obj$deliv_loc == "FRU",
+      pop$cfr_fru_maternal, pop$cfr_phc_maternal)
+    obj$mort_rate_neo <- ints$am$mort_rate_neo_after
+    obj$mort_rate_neo_after <- ifelse(obj$deliv_loc == "FRU",
+      pop$cfr_fru_neonatal, pop$cfr_phc_neonatal)
+
+    obj$lifesave_mat <- obj$n_pe * obj$mort_rate_mat - obj$n_pe_after * obj$mort_rate_mat_after
+    obj$lifesave_neo <- obj$n_pe * obj$mort_rate_neo - obj$n_pe_after * obj$mort_rate_neo_after
+    obj$pe_reduce <- 0
+
+    # sum(obj$lifesave_mat)
+    # sum(obj$lifesave_neo)
+
+    ints$am_diff_cfl <- obj
+
+    ##
+    ##---------------------------------------------------------
+
+    # pe_int_inputs$on_off[4] <- TRUE
+
+    obj <- get_int_data("am_csect", "am_diff_cfl", ints, base_tab, pe_int_inputs, pop, der)
+    ints$am_csect <- obj
+
+    obj <- get_int_data("calcium", "am_csect", ints, base_tab, pe_int_inputs, pop, der)
+    ints$calcium <- obj
+
+    obj <- get_int_data("selenium", "calcium", ints, base_tab, pe_int_inputs, pop, der)
+    ints$selenium <- obj
+
+    obj <- get_int_data("statins", "selenium", ints, base_tab, pe_int_inputs, pop, der)
+    ints$statins <- obj
+
+    obj <- get_int_data("aspirin", "statins", ints, base_tab, pe_int_inputs, pop, der)
+    ints$aspirin <- obj
+
+    obj <- get_int_data("antihyper", "aspirin", ints, base_tab, pe_int_inputs, pop, der)
+    ints$antihyper <- obj
+
+    obj <- get_int_data("mag_fru", "antihyper", ints, base_tab, pe_int_inputs, pop, der)
+    ints$mag_fru <- obj
+
+    obj <- get_int_data("mag_phc", "mag_fru", ints, base_tab, pe_int_inputs, pop, der)
+    ints$mag_phc <- obj
+
+    obj <- get_int_data("intantihyper", "mag_phc", ints, base_tab, pe_int_inputs, pop, der)
+    ints$intantihyper <- obj
+
+    obj <- get_int_data("drug", "intantihyper", ints, base_tab, pe_int_inputs, pop, der)
+    ints$drug <- obj
+
+    # sum(obj$pe_reduce)
+    # sum(obj$lifesave_mat)
+    # sum(obj$lifesave_neo)
+
+    lapply(names(ints)[-1], function(nm) {
+      x <- ints[[nm]]
+      data_frame(
+        name = nm,
+        pe_reduce = round(sum(x$pe_reduce)),
+        lifesave_mat = round(sum(x$lifesave_mat)),
+        lifesave_neo = round(sum(x$lifesave_neo))
+      )
+    }) %>%
+    bind_rows()
+  })
+
+  output$pe_table <- shiny::renderTable({
+    pe_int_inputs_react()
+  })
+
+  output$pop_table <- shiny::renderTable({
+    data.frame(var = names(pop_react()), val = unname(unlist(pop_react())))
+  })
+
+  output$out_pop <- shiny::renderText({
+    input$pop
+  })
+
+
+  output$ints_table <- shiny::renderTable({
+    ints_react()
   })
 }

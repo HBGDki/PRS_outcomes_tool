@@ -31,38 +31,175 @@
 
   <div id="controls">
 
-    <!-- <h5>Inputs</h5> -->
-
     <ul class="collapsible" id="inputs">
       <li>
         <div class="collapsible-header mutedfocus">
           <span class="settings-icon icon-earth"></span>
-          <strong>Population Assumptions</strong>
+          <strong>Demographics Assumptions</strong>
         </div>
         <div class="collapsible-body">
-          <span>Options will be added...</span>
+          <div class="input-field">
+            <!-- TODO: look into number box? -->
+            <input value="12" id="pop" type="number" class="validate">
+            <label class="slider-label" for="pop">Population</label>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="pe_rate">Pre-eclampsia rate</label>
+            <div id="pe_rate" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="mort_rate_mat">maternal mortality (deaths per 100,000 live births, conditioned PE)</label>
+            <div id="mort_rate_mat" class="shiny-my-slider" data-denom="100000"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="mort_rate_neo">neonatal mortality (deaths per 1,000 live births, conditioned PE)</label>
+            <div id="mort_rate_neo" class="shiny-my-slider" data-denom="1000"></div>
+          </div>
+
+          <div class="slider-field">
+            <label class="slider-label" for="cfr_fru_maternal">FRU maternal case fatality (per 100,000)</label>
+            <div id="cfr_fru_maternal" class="shiny-my-slider" data-denom="100000"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="cfr_phc_maternal">PHC maternal case fatality (per 100,000)</label>
+            <div id="cfr_phc_maternal" class="shiny-my-slider" data-denom="100000"></div>
+          </div>
+
+          <div class="slider-field">
+            <label class="slider-label" for="cfr_fru_neonatal">FRU neonatal case fatality (per 1,000)</label>
+            <div id="cfr_fru_neonatal" class="shiny-my-slider" data-denom="1000"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="cfr_phc_neonatal">PHC neonatal case fatality (per 1,000)</label>
+            <div id="cfr_phc_neonatal" class="shiny-my-slider" data-denom="1000"></div>
+          </div>
+
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header mutedfocus">
+          <span class="settings-icon icon-cog"></span>
+          <strong>Systems Assumptions</strong>
+        </div>
+        <div class="collapsible-body">
+          <div class="slider-field">
+            <label class="slider-label" for="sys_fru_pct">% at FRU (of facility)</label>
+            <div id="sys_fru_pct" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="sys_phc_pct">% at PHC (of facility)</label>
+            <div id="sys_phc_pct" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="sys_home_pct">% at home</label>
+            <div id="sys_home_pct" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="leak_fru_phc">systems leakage FRU -&gt; PHC</label>
+            <div id="leak_fru_phc" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="leak_phc_home">systems leakage PHC -&gt; Home</label>
+            <div id="leak_phc_home" class="shiny-my-slider" data-denom="100"></div>
+          </div>
         </div>
       </li>
       <li>
         <div class="collapsible-header mutedfocus">
           <span class="settings-icon icon-equalizer"></span>
-          <strong>Sensitivity / Specificity</strong>
+          <strong>Risk Stratification TPP Assumptions</strong>
         </div>
         <div class="collapsible-body">
           <div class="slider-field">
-            <label for="sensitivity">Sensitivity</label>
-            <div id="sensitivity" class="shiny-my-slider"></div>
+            <label class="slider-label" for="sensitivity">Sensitivity</label>
+            <div id="sensitivity" class="shiny-my-slider" data-denom="100"></div>
           </div>
           <div class="slider-field">
-            <label for="specificity">Specificity</label>
-            <div id="specificity" class="shiny-my-slider"></div>
+            <label class="slider-label" for="specificity">Specificity</label>
+            <div id="specificity" class="shiny-my-slider" data-denom="100"></div>
           </div>
+
+          <div class="slider-field">
+            <label class="slider-label" for="riskstrat_firstweek">First week for risk stratification</label>
+            <div id="riskstrat_firstweek" class="shiny-my-slider" data-denom="1"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="riskstrat_lastweek">Last week for risk stratification</label>
+            <div id="riskstrat_lastweek" class="shiny-my-slider" data-denom="1"></div>
+          </div>
+
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header mutedfocus">
+          <span class="settings-icon icon-user-check"></span>
+          <strong>ANC Visits Assumptions</strong>
+        </div>
+        <div class="collapsible-body">
+          <div class="slider-field">
+            <label class="slider-label" for="anc_visits1">Percentage who have at least 1 ANC visit</label>
+            <div id="anc_visits1" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="anc_visits4">Percentage who have at least 4 ANC visits</label>
+            <div id="anc_visits4" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header mutedfocus">
+          <span class="settings-icon icon-dots-three-horizontal"></span>
+          <strong>Other Assumptions</strong>
+        </div>
+        <div class="collapsible-body">
+
+          <div class="slider-field">
+            <label class="slider-label" for="pop_ghtn_pct">% of population that has gestational hypertension</label>
+            <div id="pop_ghtn_pct" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="hr_act_w_ghtn_pct">% actually high risk that has GHTN</label>
+            <div id="hr_act_w_ghtn_pct" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="flagintime_pct">% patients flagged at right time</label>
+            <div id="flagintime_pct" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+
         </div>
       </li>
     </ul>
   </div>
-  <div id="output">
-    <div id="table" class="shiny-html-output"></div>
+  <div id="outputs">
+    <div id="out_pop" class="shiny-countup-output big-counter"></div>
+    <div id="#confusion">
+      <div id="conf-bounding">
+        <div id="conf-fp" class="conf-box conf-box-red"></div>
+        <div id="conf-fn" class="conf-box conf-box-red"></div>
+        <div id="conf-tp" class="conf-box conf-box-green"></div>
+        <div id="conf-tn" class="conf-box conf-box-green"></div>
+        <div id="conf-fp-bb" class="conf-bb">
+          <div class="conf-text">100</div>
+        </div>
+        <div id="conf-fn-bb" class="conf-bb">
+          <div class="conf-text">100</div>
+        </div>
+        <div id="conf-tp-bb" class="conf-bb">
+          <div class="conf-text">100</div>
+        </div>
+        <div id="conf-tn-bb" class="conf-bb">
+          <div class="conf-text">100</div>
+        </div>
+        <div id="conf-fp-label" class="conf-label">Flagged as high risk<br/>but truly low risk</div>
+        <div id="conf-tp-label" class="conf-label">Flagged as high risk<br/>and truly high risk</div>
+        <div id="conf-fn-label" class="conf-label">Flagged as low risk<br/>but truly high risk</div>
+        <div id="conf-tn-label" class="conf-label">Flagged as low risk<br/>and truly low risk</div>
+      </div>
+    </div>
+    <div id="pop_table" class="shiny-html-output"></div>
+    <div id="pe_table" class="shiny-html-output"></div>
+    <div id="ints_table" class="shiny-html-output"></div>
   </div>
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="js/countup.min.js"></script>

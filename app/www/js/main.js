@@ -121,6 +121,31 @@ $(document).ready(function(){
     }
   ];
 
+  var pops = {
+    "pop": 25642000,
+    "pe_rate": 0.110204196,
+    "mort_rate_mat": 0.000898843,
+    "mort_rate_neo": 0.008988427,
+    "anc_visits1": 0.742,
+    "anc_visits4": 0.45,
+    "sensitivity": 0.75,
+    "specificity": 0.75,
+    "riskstrat_firstweek": 4,
+    "riskstrat_lastweek": 42,
+    "cfr_fru_maternal": 0.000488501,
+    "cfr_phc_maternal": 0.000977003,
+    "cfr_fru_neonatal": 0.004885015,
+    "cfr_phc_neonatal": 0.009770029,
+    "sys_fru_pct": 0.16,
+    "sys_phc_pct": 0.63,
+    "sys_home_pct": 0.21,
+    "leak_fru_phc": 0.1,
+    "leak_phc_home": 0.1,
+    "pop_ghtn_pct": 0.125,
+    "hr_act_w_ghtn_pct": 0.8,
+    "flagintime_pct": 0.95
+  }
+
   var appl_vals = [
     "Hypertensive (and risk stratified)",
     "Hypertensive only",
@@ -192,23 +217,23 @@ $(document).ready(function(){
         </div>
         <div class="slider-field">
           <label class="slider-label" for="coverage_${d.name}">Coverage (%)</label>
-          <div id="coverage_${d.name}" class="shiny-my-slider"></div>
+          <div id="coverage_${d.name}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
           <label class="slider-label" for="elig_pop_haircut_${d.name}">Eligible Population (%)</label>
-          <div id="elig_pop_haircut_${d.name}" class="shiny-my-slider"></div>
+          <div id="elig_pop_haircut_${d.name}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
           <label class="slider-label" for="eff_reducing_PE_${d.name}">Efficacy (reducing PE) (%)</label>
-          <div id="eff_reducing_PE_${d.name}" class="shiny-my-slider"></div>
+          <div id="eff_reducing_PE_${d.name}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
           <label class="slider-label" for="eff_reducing_mat_deaths_${d.name}">Efficacy (reducing maternal PE deaths) (%)</label>
-          <div id="eff_reducing_mat_deaths_${d.name}" class="shiny-my-slider"></div>
+          <div id="eff_reducing_mat_deaths_${d.name}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
           <label class="slider-label" for="eff_reducing_neo_deaths_${d.name}">Efficacy (reducing neonatal PE deaths) (%)</label>
-          <div id="eff_reducing_neo_deaths_${d.name}" class="shiny-my-slider"></div>
+          <div id="eff_reducing_neo_deaths_${d.name}" class="shiny-my-slider" data-denom="100"></div>
         </div>
       </div>
     </li>
@@ -236,6 +261,16 @@ $(document).ready(function(){
     "eff_reducing_neo_deaths"
   ];
 
+  var pips = {
+    mode: 'positions',
+    values: [0,25,50,75,100],
+    density: 4
+  };
+
+  var format = wNumb({
+    decimals: 0
+  });
+
   ints.forEach(function(d) {
     slider_vars.forEach(function(v) {
       var slider = document.getElementById(`${v}_${d.name}`);
@@ -243,18 +278,9 @@ $(document).ready(function(){
         start: d[v] * 100,
         step: 1,
         orientation: 'horizontal',
-        range: {
-          'min': 0,
-          'max': 100
-        },
-        format: wNumb({
-          decimals: 0
-        }),
-        pips: {
-          mode: 'positions',
-          values: [0,25,50,75,100],
-          density: 4
-        }
+        range: { 'min': 0, 'max': 100 },
+        format: format,
+        pips: pips
       });
       slider.noUiSlider.on('change', function() {
         var el = $(`#${v}_${d.name}`);
@@ -264,69 +290,259 @@ $(document).ready(function(){
     });
   });
 
-  var slider = document.getElementById("specificity");
-   noUiSlider.create(slider, {
-    start: 75, // TODO: change
-    step: 1,
+  $("#pop").val(pops.pop);
+
+  $("#pop").on("change", function(d) {
+    // TODO: validate positive number
+  })
+
+  var sliders = {};
+
+  sliders['pe_rate'] = document.getElementById("pe_rate");
+  noUiSlider.create(sliders['pe_rate'], {
+    start: pops.pe_rate * 100,
+    step: 0.1,
     orientation: 'horizontal',
-    range: {
-      'min': 0,
-      'max': 100
-    },
-    format: wNumb({
-      decimals: 0
-    }),
-    pips: {
-      mode: 'positions',
-      values: [0,25,50,75,100],
-      density: 4
-    }
+    range: { 'min': 0, 'max': 20 },
+    format: format,
+    pips: pips
   });
 
-  var slider = document.getElementById("sensitivity");
-   noUiSlider.create(slider, {
-    start: 75, // TODO: change
+  sliders['mort_rate_mat'] = document.getElementById("mort_rate_mat");
+  noUiSlider.create(sliders['mort_rate_mat'], {
+    start: pops.mort_rate_mat * 100000,
     step: 1,
     orientation: 'horizontal',
-    range: {
-      'min': 0,
-      'max': 100
-    },
-    format: wNumb({
-      decimals: 0
-    }),
-    pips: {
-      mode: 'positions',
-      values: [0,25,50,75,100],
-      density: 4
-    }
+    range: { 'min': 0, 'max': 1000 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['mort_rate_neo'] = document.getElementById("mort_rate_neo");
+  noUiSlider.create(sliders['mort_rate_neo'], {
+    start: pops.mort_rate_neo * 1000,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['cfr_fru_maternal'] = document.getElementById("cfr_fru_maternal");
+  noUiSlider.create(sliders['cfr_fru_maternal'], {
+    start: pops.cfr_fru_maternal * 100000,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 400 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['cfr_phc_maternal'] = document.getElementById("cfr_phc_maternal");
+  noUiSlider.create(sliders['cfr_phc_maternal'], {
+    start: pops.cfr_phc_maternal * 100000,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 400 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['cfr_fru_neonatal'] = document.getElementById("cfr_fru_neonatal");
+  noUiSlider.create(sliders['cfr_fru_neonatal'], {
+    start: pops.cfr_fru_neonatal * 1000,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 40 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['cfr_phc_neonatal'] = document.getElementById("cfr_phc_neonatal");
+  noUiSlider.create(sliders['cfr_phc_neonatal'], {
+    start: pops.cfr_phc_neonatal * 1000,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 40 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['sys_fru_pct'] = document.getElementById("sys_fru_pct");
+  noUiSlider.create(sliders['sys_fru_pct'], {
+    start: pops.sys_fru_pct * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['sys_phc_pct'] = document.getElementById("sys_phc_pct");
+  noUiSlider.create(sliders['sys_phc_pct'], {
+    start: pops.sys_phc_pct * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['sys_home_pct'] = document.getElementById("sys_home_pct");
+  noUiSlider.create(sliders['sys_home_pct'], {
+    start: pops.sys_home_pct * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['leak_fru_phc'] = document.getElementById("leak_fru_phc");
+   noUiSlider.create(sliders['leak_fru_phc'], {
+    start: pops.leak_fru_phc * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['leak_phc_home'] = document.getElementById("leak_phc_home");
+  noUiSlider.create(sliders['leak_phc_home'], {
+    start: pops.leak_phc_home * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['specificity'] = document.getElementById("specificity");
+  noUiSlider.create(sliders['specificity'], {
+    start: pops.specificity * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['sensitivity'] = document.getElementById("sensitivity");
+  noUiSlider.create(sliders['sensitivity'], {
+    start: pops.sensitivity * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  // TODO: don't allow firstweek to be greater than lastweek
+  sliders['riskstrat_firstweek'] = document.getElementById("riskstrat_firstweek");
+  noUiSlider.create(sliders['riskstrat_firstweek'], {
+    start: pops.riskstrat_firstweek,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 42 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['riskstrat_lastweek'] = document.getElementById("riskstrat_lastweek");
+  noUiSlider.create(sliders['riskstrat_lastweek'], {
+    start: pops.riskstrat_lastweek,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 42 },
+    format: format,
+    pips: pips
+  });
+
+  // TODO: don't allow anc_visits4 to be greater than anc_visits1
+  sliders['anc_visits1'] = document.getElementById("anc_visits1");
+  noUiSlider.create(sliders['anc_visits1'], {
+    start: pops.anc_visits1 * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['anc_visits4'] = document.getElementById("anc_visits4");
+  noUiSlider.create(sliders['anc_visits4'], {
+    start: pops.anc_visits4 * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['pop_ghtn_pct'] = document.getElementById("pop_ghtn_pct");
+  noUiSlider.create(sliders['pop_ghtn_pct'], {
+    start: pops.pop_ghtn_pct * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['hr_act_w_ghtn_pct'] = document.getElementById("hr_act_w_ghtn_pct");
+  noUiSlider.create(sliders['hr_act_w_ghtn_pct'], {
+    start: pops.hr_act_w_ghtn_pct * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  sliders['flagintime_pct'] = document.getElementById("flagintime_pct");
+  noUiSlider.create(sliders['flagintime_pct'], {
+    start: pops.flagintime_pct * 100,
+    step: 1,
+    orientation: 'horizontal',
+    range: { 'min': 0, 'max': 100 },
+    format: format,
+    pips: pips
+  });
+
+  Object.keys(sliders).forEach(function(k) {
+    sliders[k].noUiSlider.on('change', function() {
+      var el = $(`#${k}`);
+      el.data('value', sliders[k].noUiSlider.get());
+      el.trigger('change');
+    });
   });
 
   var throttled = false;
 
   // window.resize callback function
   function setDimensions() {
-    $("#controls").height(window.innerHeight);
-    $("#output").height(window.innerHeight);
-    $("#output").width(window.innerWidth - 450);
-   }
+    $("#controls").height(window.innerHeight - 65);
+    $("#outputs").height(window.innerHeight - 65);
+    $("#outputs").width(window.innerWidth - 450);
+  }
 
-   // window.resize event listener
-   window.addEventListener('resize', function() {
-       // only run if we're not throttled
-     if (!throttled) {
-       // actual callback action
-       setDimensions();
-       // we're throttled!
-       throttled = true;
-       // set a timeout to un-throttle
-       setTimeout(function() {
-         throttled = false;
-       }, 250);
-     }
-   });
+  // window.resize event listener
+  window.addEventListener('resize', function() {
+      // only run if we're not throttled
+    if (!throttled) {
+      // actual callback action
+      setDimensions();
+      // we're throttled!
+      throttled = true;
+      // set a timeout to un-throttle
+      setTimeout(function() {
+        throttled = false;
+      }, 250);
+    }
+  });
 
-   setDimensions();
+  setDimensions();
 });
 
 // countup
@@ -342,4 +558,3 @@ $(document).ready(function(){
 // } else {
 //   console.error(demo.error);
 // }
-

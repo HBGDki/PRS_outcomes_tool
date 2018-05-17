@@ -60,7 +60,10 @@ h1,h2,h3,h4,h5,h6 {
   /*border-right: 1px solid #dedede;*/
 }
 
-#output {
+#inputs {
+}
+
+#outputs {
   position: fixed;
   left: 450px;
   padding-left: 15px;
@@ -123,6 +126,10 @@ h1,h2,h3,h4,h5,h6 {
   padding-bottom: 5px;
 }
 
+label {
+  color: #333333 !important;
+}
+
 .noUi-pips-horizontal {
   padding-top: 0px !important;
 }
@@ -148,3 +155,170 @@ h1,h2,h3,h4,h5,h6 {
 .noUi-handle {
   /*left: -7px !important;*/
 }
+
+.counting-up {
+  color: green;
+}
+
+.counting-down {
+  color: red;
+}
+
+.big-counter {
+  font-family: 'DIN-Bold', sans-serif;
+  font-size: 25px;
+}
+
+/*------ confusion matrix -----------*/
+
+#conf-bounding {
+  width: 400px;
+  height: 400px;
+  /*background: #f1f1f1;*/
+  margin: auto;
+  position: relative;
+  /*margin-top: 40px;*/
+  /*margin-bottom: 40px;*/
+  /*box-sizing: border-box;*/
+}
+
+.conf-box {
+  position: absolute;
+  transition: all 1s ease;
+}
+
+.conf-box-green {
+  background: lightgreen;
+}
+
+.conf-box-red {
+  background: red;
+}
+
+#conf-tp {
+  width: 200px;
+  height: 200px;
+  right: 200px;
+  bottom: 200px;
+}
+
+#conf-fp {
+  width: 40px;
+  height: 40px;
+  left: 200px;
+  bottom: 200px;
+}
+
+#conf-fn {
+  width: 20px;
+  height: 20px;
+  right: 200px;
+  top: 200px;
+}
+
+#conf-tn {
+  width: 140px;
+  height: 140px;
+  left: 200px;
+  top: 200px;
+}
+
+#conf-tp-bb {
+  width: 200px;
+  height: 200px;
+  right: 200px;
+  bottom: 200px;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+#conf-fp-bb {
+  width: 200px;
+  height: 200px;
+  left: 200px;
+  bottom: 200px;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+
+#conf-fn-bb {
+  width: 200px;
+  height: 200px;
+  right: 200px;
+  top: 200px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+}
+
+#conf-tn-bb {
+  width: 200px;
+  height: 200px;
+  left: 200px;
+  top: 200px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.conf-bb {
+  position: absolute;
+  line-height: 200px;
+  text-align: center;
+}
+
+.conf-text {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-family: 'DIN-Bold', sans-serif;
+  font-size: 20px;
+  color: #333;
+}
+
+#conf-fp-label {
+  position: absolute;
+  /*bottom: 380px;*/
+  left: 200px;
+  width: 200px;
+  height: 20px;
+  text-align: center;
+}
+
+#conf-tp-label {
+  position: absolute;
+  bottom: 380px;
+  left: 0px;
+  width: 200px;
+  height: 20px;
+  text-align: center;
+}
+
+#conf-fn-label {
+  position: absolute;
+  bottom: 15px;
+  left: 0px;
+  width: 200px;
+  height: 20px;
+  text-align: center;
+}
+
+#conf-tn-label {
+  position: absolute;
+  bottom: 15px;
+  left: 200px;
+  width: 200px;
+  height: 20px;
+  text-align: center;
+}
+
+.conf-label {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 15px;
+  line-height: 16px;
+  color: #555;
+}
+
+/*------ emd confusion matrix -------*/
+
+
+
