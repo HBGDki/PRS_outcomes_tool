@@ -71,6 +71,60 @@ h1,h2,h3,h4,h5,h6 {
   overflow-y: auto;
 }
 
+#info-table {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 450px;
+  height: 800px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 12px;
+}
+
+#info-table td {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 15px;
+}
+
+.info-table-head {
+  padding-left: 3px !important;
+  font-family: 'DIN-Bold', sans-serif;
+}
+
+.info-table-value {
+  font-family: 'DIN-Bold', sans-serif;
+  /*font-family: 'DIN-Medium', sans-serif;*/
+  text-align: right;
+}
+
+#info-more {
+  position: absolute;
+  left: 450px;
+  top: 0px;
+  width: 400px;
+}
+
+#info-extra {
+  position: absolute;
+  top: 800px;
+}
+
+#big-numbers {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.big-number-wrapper {
+  padding-bottom: 15px;
+}
+
+.big-number-label {
+  font-size: 18px;
+  /*font-family: 'DIN-Medium', sans-serif;*/
+}
+
 .collapsible-header {
   font-family: 'DIN-Medium', sans-serif;
   background: #f8f8f8;
@@ -166,7 +220,8 @@ label {
 
 .big-counter {
   font-family: 'DIN-Bold', sans-serif;
-  font-size: 25px;
+  font-size: 35px;
+  line-height: 38px;
 }
 
 /*------ confusion matrix -----------*/

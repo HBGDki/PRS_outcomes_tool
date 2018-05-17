@@ -194,14 +194,23 @@ der$riskstrat_pct <- (anc_cdf[pop$riskstrat_lastweek] - anc_cdf[pop$riskstrat_fi
   pop$anc_visits1 # field:C89
 
 der$hr_tp <- pop$sensitivity * der$n_pe * der$riskstrat_pct # field:E94
-der$lr_tp <- pop$specificity * (pop$pop - der$n_pe) * der$riskstrat_pct # field:E98
-der$hr_fp <- der$riskstrat_pct * (pop$pop - der$n_pe) - der$lr_tp # field:E95
+der$lr_tn <- pop$specificity * (pop$pop - der$n_pe) * der$riskstrat_pct # field:E98
+der$hr_fp <- der$riskstrat_pct * (pop$pop - der$n_pe) - der$lr_tn # field:E95
 der$lr_fn <- der$riskstrat_pct * der$n_pe - der$hr_tp # field: E99
 
 der$hr_flagged <- der$hr_tp + der$hr_fp # field: E93
-der$lr_flagged <- der$lr_tp + der$lr_fn # field: E97
+der$lr_flagged <- der$lr_tn + der$lr_fn # field: E97
 
 der$n_riskstrat <- der$hr_flagged + der$lr_flagged  # field:C90
+
+der$hr_tp_pct <- der$hr_tp / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+der$hr_fp_pct <- der$hr_fp / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+
+der$lr_tn_pct <- der$lr_tn / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+der$lr_fn_pct <- der$lr_fn / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+
+der$hr_flagged_pct <- der$hr_tp_pct + der$hr_fp_pct
+der$lr_flagged_pct <- der$lr_tn_pct + der$lr_fn_pct
 
 der$nostrat_hr <- ((pop$pop - der$n_riskstrat) / pop$pop) * der$n_pe
 der$nostrat_lr <- ((pop$pop - der$n_riskstrat) / pop$pop) * (pop$pop - der$n_pe)
@@ -297,10 +306,10 @@ base_tab$n_patient[13] <- der$lr_fn * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo
 base_tab$n_patient[14] <- der$lr_fn * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo ) * pop$leak_phc_home
 base_tab$n_patient[15] <- der$lr_fn * (1 - pop$hr_act_w_ghtn_pct ) * (1 - pop$leak_phc_home)
 base_tab$n_patient[16] <- der$lr_fn * (1 - pop$hr_act_w_ghtn_pct ) * (pop$leak_phc_home)
-base_tab$n_patient[17] <- der$lr_tp * der$lr_act_w_ghtn_pct * (1 - pop$leak_phc_home)
-base_tab$n_patient[18] <- der$lr_tp * der$lr_act_w_ghtn_pct * (pop$leak_phc_home)
-base_tab$n_patient[19] <- der$lr_tp * (1 - der$lr_act_w_ghtn_pct) * (1 - pop$leak_phc_home)
-base_tab$n_patient[20] <- der$lr_tp * (1 - der$lr_act_w_ghtn_pct) * pop$leak_phc_home
+base_tab$n_patient[17] <- der$lr_tn * der$lr_act_w_ghtn_pct * (1 - pop$leak_phc_home)
+base_tab$n_patient[18] <- der$lr_tn * der$lr_act_w_ghtn_pct * (pop$leak_phc_home)
+base_tab$n_patient[19] <- der$lr_tn * (1 - der$lr_act_w_ghtn_pct) * (1 - pop$leak_phc_home)
+base_tab$n_patient[20] <- der$lr_tn * (1 - der$lr_act_w_ghtn_pct) * pop$leak_phc_home
 base_tab$n_patient[21] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_fru_pct
 base_tab$n_patient[22] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_phc_pct
 base_tab$n_patient[23] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_home_pct
@@ -469,6 +478,6 @@ setdiff(names(input_desc), names(pop))
 
 base_tab_empty <- base_tab
 pe_int_inputs_orig <- pe_int_inputs
-save(base_tab_empty, anc_cdf, pop, pe_int_inputs_orig, file = "app/_data.Rdata")
+# save(base_tab_empty, anc_cdf, pop, pe_int_inputs_orig, file = "app/_data.Rdata")
 
 

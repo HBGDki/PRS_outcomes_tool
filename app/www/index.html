@@ -172,34 +172,330 @@
     </ul>
   </div>
   <div id="outputs">
-    <div id="out_pop" class="shiny-countup-output big-counter"></div>
-    <div id="#confusion">
-      <div id="conf-bounding">
-        <div id="conf-fp" class="conf-box conf-box-red"></div>
-        <div id="conf-fn" class="conf-box conf-box-red"></div>
-        <div id="conf-tp" class="conf-box conf-box-green"></div>
-        <div id="conf-tn" class="conf-box conf-box-green"></div>
-        <div id="conf-fp-bb" class="conf-bb">
-          <div class="conf-text">100</div>
+    <div id="info-table">
+      <table>
+        <tr><td class="info-table-head">Population demographics</td><td></td></tr>
+        <tr>
+          <td>Population</td>
+          <td class="info-table-value">
+            <span id="out_pop" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Pre-eclampsia rate</td>
+          <td class="info-table-value">
+            <span id="out_pe_rate" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td># of patients w pre-eclampsia</td> <!-- der -->
+          <td class="info-table-value">
+            <span id="out_n_pe" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>% maternal mortality rate (per 100,000, cond. PE)</td>
+          <td class="info-table-value">
+            <span id="out_mort_rate_mat" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <!-- <tr>
+          <td># of (maternal) pre-eclampsia deaths</td>
+          <td class="info-table-value">
+          <span id="out_" class="shiny-countup-output">
+          </td>
+        </tr> -->
+        <tr>
+          <td>% neonatal mortality rate (per 1,000 cond. PE)</td>
+          <td class="info-table-value">
+            <span id="out_mort_rate_neo" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <!-- <tr>
+          <td># of (neonatal) pre-eclampsia deaths</td>
+          <td class="info-table-value">
+          <span id="out_" class="shiny-countup-output">
+          </td>
+        </tr> -->
+        <!-- <tr>
+          <td>Patients (at risk)</td>
+          <td class="info-table-value">
+          <span id="out_" class="shiny-countup-output">
+          </td>
+        </tr> -->
+        <tr>
+          <td>Case fatality rate (FRU) - maternal (per 100,000)</td>
+          <td class="info-table-value">
+            <span id="out_cfr_fru_maternal" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Case fatality rate (PHC) - maternal (per 100,000)</td>
+          <td class="info-table-value">
+            <span id="out_cfr_phc_maternal" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Case fatality rate (FRU) - neonatal (per 1,000)</td>
+          <td class="info-table-value">
+            <span id="out_cfr_fru_neonatal" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Case fatality rate (PHC) - neonatal (per 1,000)</td>
+          <td class="info-table-value">
+            <span id="out_cfr_phc_neonatal" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr><td class="info-table-head">Systems</td><td></td></tr>
+        <tr>
+          <td>% at FRU (of facility)</td>
+          <td class="info-table-value">
+            <span id="out_sys_fru_pct" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td>% at PHC (of facility)</td>
+          <td class="info-table-value">
+            <span id="out_sys_phc_pct" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td>% at home</td>
+          <td class="info-table-value">
+            <span id="out_sys_home_pct" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td>FRU -&gt; PHC</td>
+          <td class="info-table-value">
+            <span id="out_leak_fru_phc" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td>PHC -&gt; Home</td>
+          <td class="info-table-value">
+            <span id="out_leak_phc_home" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr><td class="info-table-head">Risk stratification TPP</td><td></td></tr>
+        <tr>
+          <td>Sensitivity</td>
+          <td class="info-table-value">
+            <span id="out_sensitivity" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td>Specificity</td>
+          <td class="info-table-value">
+            <span id="out_specificity" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td>First week for risk stratification</td>
+          <td class="info-table-value">
+            <span id="out_riskstrat_firstweek" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Last week for risk stratification</td>
+          <td class="info-table-value">
+            <span id="out_riskstrat_lastweek" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr><td class="info-table-head">ANC visits</td><td></td></tr>
+        <tr>
+          <td>At least 1</td>
+          <td class="info-table-value">
+            <span id="out_anc_visits1" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr>
+          <td>At least 4</td>
+          <td class="info-table-value">
+            <span id="out_anc_visits4" class="shiny-countup-output"></span>%
+          </td>
+        </tr>
+        <tr><td class="info-table-head">Gestational hypertension</td><td></td></tr>
+        <tr>
+          <td>% of population that has gestational hypertension</td>
+          <td class="info-table-value">
+            <span id="out_" class="shiny-countup-output"></span>
+          </td>
+        </tr>
+        <tr><td class="info-table-head">Risk stratification</td><td></td></tr>
+        <tr>
+          <td>Risk stratified</td>
+          <td class="info-table-value">
+            <span id="out_n_riskstrat" class="shiny-countup-output"></span>
+            (<span id="out_riskstrat_pct" class="shiny-countup-output"></span>%)
+          </td>
+        </tr>
+        <tr>
+          <td>Flagged as high risk</td>
+          <td class="info-table-value">
+            <span id="out_hr_flagged" class="shiny-countup-output"></span>
+            (<span id="out_hr_flagged_pct" class="shiny-countup-output"></span>%)
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;Actually high risk</td>
+          <td class="info-table-value">
+            <span id="out_hr_tp" class="shiny-countup-output"></span>
+            (<span id="out_hr_tp_pct" class="shiny-countup-output"></span>%)
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;False positive</td>
+          <td class="info-table-value">
+            <span id="out_hr_fp" class="shiny-countup-output"></span>
+            (<span id="out_hr_fp_pct" class="shiny-countup-output"></span>%)
+          </td>
+        </tr>
+        <tr>
+          <td>Flagged as low risk</td>
+          <td class="info-table-value">
+            <span id="out_lr_flagged" class="shiny-countup-output"></span>
+            (<span id="out_lr_flagged_pct" class="shiny-countup-output"></span>%)
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;Actually low risk</td>
+          <td class="info-table-value">
+            <span id="out_lr_tn" class="shiny-countup-output"></span>
+           (<span id="out_lr_tn_pct" class="shiny-countup-output"></span>%)
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;False negative</td>
+          <td class="info-table-value">
+            <span id="out_lr_fn" class="shiny-countup-output"></span>
+           (<span id="out_lr_fn_pct" class="shiny-countup-output"></span>%)
+          </td>
+        </tr>
+<!--
+        false negative "lr_fn" ("lr_fn_pct")
+ -->
+
+        <!-- <tr>
+          <td>Breakdown by GHTN and PRU</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% actually high risk that has GHTN</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% early onset that are caught in right period</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% actually high risk that are early onset</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% of low risk that has GHTN</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr><td class="info-table-head">Antenatal monitor settings</td><td></td></tr>
+        <tr>
+          <td>% who get it</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr> -->
+
+
+
+        <!-- <tr>
+          <td>% of deaths before labor</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% of deaths in labor</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% patients flagged at right time</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% deaths before labor avoided</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr>
+        <tr>
+          <td>% deaths during labor avoided</td>
+          <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+        </tr> -->
+        <!-- <tr><td class="info-table-head">Preterm overlap - risk ratios</td><td></td></tr>
+        <tr><td>% of preeclampsia that is preterm</td></tr>
+        <tr><td>FRU</td></tr>
+        <tr><td>PHC</td></tr>
+        <tr><td>Home</td></tr> -->
+      </table>
+    </div>
+    <div id="info-more">
+      <div id="big-numbers">
+        <div class="big-number-wrapper">
+          <span class="big-number-label">Reduction in PE</span><br/>
+          <span id="out_pe_reduce" class="shiny-countup-output big-counter">&nbsp;</span>
         </div>
-        <div id="conf-fn-bb" class="conf-bb">
-          <div class="conf-text">100</div>
+        <div class="big-number-wrapper">
+          <span class="big-number-label">Reduction in maternal deaths</span><br/>
+          <span id="out_lifesave_mat" class="shiny-countup-output big-counter">&nbsp;</span>
         </div>
-        <div id="conf-tp-bb" class="conf-bb">
-          <div class="conf-text">100</div>
+        <div class="big-number-wrapper">
+          <span class="big-number-label">Reduction in neonatal deaths</span><br/>
+          <span id="out_lifesave_neo" class="shiny-countup-output big-counter">&nbsp;</span>
         </div>
-        <div id="conf-tn-bb" class="conf-bb">
-          <div class="conf-text">100</div>
+      </div>
+
+  <!--     <div>
+        <span>Number treated</span>
+        <span id="out_num_treated" class="shiny-countup-output big-counter"></span>
+      </div>
+   -->
+
+      <div id="#confusion">
+        <div id="conf-bounding">
+          <div id="conf-fp" class="conf-box conf-box-red"></div>
+          <div id="conf-fn" class="conf-box conf-box-red"></div>
+          <div id="conf-tp" class="conf-box conf-box-green"></div>
+          <div id="conf-tn" class="conf-box conf-box-green"></div>
+          <div id="conf-fp-bb" class="conf-bb">
+            <div class="conf-text">
+              <span id="out_hr_fp2" class="shiny-countup-output"></span><br/>
+              (<span id="out_hr_fp_pct2" class="shiny-countup-output"></span>%)
+            </div>
+          </div>
+          <div id="conf-fn-bb" class="conf-bb">
+            <div class="conf-text">
+               <span id="out_lr_fn2" class="shiny-countup-output"></span><br/>
+              (<span id="out_lr_fn_pct2" class="shiny-countup-output"></span>%)
+            </div>
+          </div>
+          <div id="conf-tp-bb" class="conf-bb">
+            <div class="conf-text">
+              <span id="out_hr_tp2" class="shiny-countup-output"></span><br/>
+              (<span id="out_hr_tp_pct2" class="shiny-countup-output"></span>%)
+            </div>
+          </div>
+          <div id="conf-tn-bb" class="conf-bb">
+            <div class="conf-text">
+               <span id="out_lr_tn2" class="shiny-countup-output"></span><br/>
+              (<span id="out_lr_tn_pct2" class="shiny-countup-output"></span>%)
+            </div>
+          </div>
+          <div id="conf-fp-label" class="conf-label">Flagged as high risk<br/>but truly low risk</div>
+          <div id="conf-tp-label" class="conf-label">Flagged as high risk<br/>and truly high risk</div>
+          <div id="conf-fn-label" class="conf-label">Flagged as low risk<br/>but truly high risk</div>
+          <div id="conf-tn-label" class="conf-label">Flagged as low risk<br/>and truly low risk</div>
         </div>
-        <div id="conf-fp-label" class="conf-label">Flagged as high risk<br/>but truly low risk</div>
-        <div id="conf-tp-label" class="conf-label">Flagged as high risk<br/>and truly high risk</div>
-        <div id="conf-fn-label" class="conf-label">Flagged as low risk<br/>but truly high risk</div>
-        <div id="conf-tn-label" class="conf-label">Flagged as low risk<br/>and truly low risk</div>
       </div>
     </div>
-    <div id="pop_table" class="shiny-html-output"></div>
-    <div id="pe_table" class="shiny-html-output"></div>
-    <div id="ints_table" class="shiny-html-output"></div>
+    <div id="info-extra">
+      <div id="pop_table" class="shiny-html-output"></div>
+      <div id="pe_table" class="shiny-html-output"></div>
+      <div id="ints_table" class="shiny-html-output"></div>
+    </div>
   </div>
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="js/countup.min.js"></script>

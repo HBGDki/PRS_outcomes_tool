@@ -35,14 +35,23 @@ function(input, output) {
       pop$anc_visits1 # field:C89
 
     der$hr_tp <- pop$sensitivity * der$n_pe * der$riskstrat_pct # field:E94
-    der$lr_tp <- pop$specificity * (pop$pop - der$n_pe) * der$riskstrat_pct # field:E98
-    der$hr_fp <- der$riskstrat_pct * (pop$pop - der$n_pe) - der$lr_tp # field:E95
+    der$lr_tn <- pop$specificity * (pop$pop - der$n_pe) * der$riskstrat_pct # field:E98
+    der$hr_fp <- der$riskstrat_pct * (pop$pop - der$n_pe) - der$lr_tn # field:E95
     der$lr_fn <- der$riskstrat_pct * der$n_pe - der$hr_tp # field: E99
 
     der$hr_flagged <- der$hr_tp + der$hr_fp # field: E93
-    der$lr_flagged <- der$lr_tp + der$lr_fn # field: E97
+    der$lr_flagged <- der$lr_tn + der$lr_fn # field: E97
 
     der$n_riskstrat <- der$hr_flagged + der$lr_flagged  # field:C90
+
+    der$hr_tp_pct <- der$hr_tp / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+    der$hr_fp_pct <- der$hr_fp / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+
+    der$lr_tn_pct <- der$lr_tn / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+    der$lr_fn_pct <- der$lr_fn / (der$hr_tp + der$lr_tn + der$hr_fp + der$lr_fn + der$lr_flagged)
+
+    der$hr_flagged_pct <- der$hr_tp_pct + der$hr_fp_pct
+    der$lr_flagged_pct <- der$lr_tn_pct + der$lr_fn_pct
 
     der$nostrat_hr <- ((pop$pop - der$n_riskstrat) / pop$pop) * der$n_pe
     der$nostrat_lr <- ((pop$pop - der$n_riskstrat) / pop$pop) * (pop$pop - der$n_pe)
@@ -95,10 +104,10 @@ function(input, output) {
     base_tab$n_patient[14] <- der$lr_fn * pop$hr_act_w_ghtn_pct * (1 - der$hr_act_eo ) * pop$leak_phc_home
     base_tab$n_patient[15] <- der$lr_fn * (1 - pop$hr_act_w_ghtn_pct ) * (1 - pop$leak_phc_home)
     base_tab$n_patient[16] <- der$lr_fn * (1 - pop$hr_act_w_ghtn_pct ) * (pop$leak_phc_home)
-    base_tab$n_patient[17] <- der$lr_tp * der$lr_act_w_ghtn_pct * (1 - pop$leak_phc_home)
-    base_tab$n_patient[18] <- der$lr_tp * der$lr_act_w_ghtn_pct * (pop$leak_phc_home)
-    base_tab$n_patient[19] <- der$lr_tp * (1 - der$lr_act_w_ghtn_pct) * (1 - pop$leak_phc_home)
-    base_tab$n_patient[20] <- der$lr_tp * (1 - der$lr_act_w_ghtn_pct) * pop$leak_phc_home
+    base_tab$n_patient[17] <- der$lr_tn * der$lr_act_w_ghtn_pct * (1 - pop$leak_phc_home)
+    base_tab$n_patient[18] <- der$lr_tn * der$lr_act_w_ghtn_pct * (pop$leak_phc_home)
+    base_tab$n_patient[19] <- der$lr_tn * (1 - der$lr_act_w_ghtn_pct) * (1 - pop$leak_phc_home)
+    base_tab$n_patient[20] <- der$lr_tn * (1 - der$lr_act_w_ghtn_pct) * pop$leak_phc_home
     base_tab$n_patient[21] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_fru_pct
     base_tab$n_patient[22] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_phc_pct
     base_tab$n_patient[23] <- der$nostrat_hr * pop$hr_act_w_ghtn_pct * der$hr_act_eo * pop$sys_home_pct
@@ -223,20 +232,215 @@ function(input, output) {
     bind_rows()
   })
 
-  output$pe_table <- shiny::renderTable({
-    pe_int_inputs_react()
-  })
-
-  output$pop_table <- shiny::renderTable({
-    data.frame(var = names(pop_react()), val = unname(unlist(pop_react())))
-  })
-
   output$out_pop <- shiny::renderText({
-    input$pop
+    pop_react()$pop
+  })
+
+  output$out_pe_reduce <- shiny::renderText({
+    pop_react()$pe_reduce
+  })
+
+  output$out_lifesave_mat <- shiny::renderText({
+    pop_react()$lifesave_mat
+  })
+
+  output$out_lifesave_neo <- shiny::renderText({
+    pop_react()$lifesave_neo
+  })
+
+  output$out_pe_rate <- shiny::renderText({
+    pop_react()$pe_rate * 100
+  })
+
+  output$out_n_pe <- shiny::renderText({
+    der_react()$n_pe
+  })
+
+  output$out_mort_rate_mat <- shiny::renderText({
+    pop_react()$mort_rate_mat * 100000
+  })
+
+  output$out_mort_rate_neo <- shiny::renderText({
+    pop_react()$mort_rate_neo * 1000
+  })
+
+  output$out_cfr_fru_maternal <- shiny::renderText({
+    pop_react()$cfr_fru_maternal * 100000
+  })
+
+  output$out_cfr_phc_maternal <- shiny::renderText({
+    pop_react()$cfr_phc_maternal * 100000
+  })
+
+  output$out_cfr_fru_neonatal <- shiny::renderText({
+    pop_react()$cfr_fru_neonatal * 1000
+  })
+
+  output$out_cfr_phc_neonatal <- shiny::renderText({
+    pop_react()$cfr_phc_neonatal * 1000
+  })
+  # })
+  output$out_sys_fru_pct <- shiny::renderText({
+    pop_react()$sys_fru_pct * 100
+  })
+
+  output$out_sys_phc_pct <- shiny::renderText({
+    pop_react()$sys_phc_pct * 100
+  })
+
+  output$out_sys_home_pct <- shiny::renderText({
+    pop_react()$sys_home_pct * 100
+  })
+
+  output$out_leak_fru_phc <- shiny::renderText({
+    pop_react()$leak_fru_phc * 100
+  })
+
+  output$out_leak_phc_home <- shiny::renderText({
+    pop_react()$leak_phc_home * 100
+  })
+
+  output$out_sensitivity <- shiny::renderText({
+    pop_react()$sensitivity * 100
+  })
+
+  output$out_specificity <- shiny::renderText({
+    pop_react()$specificity * 100
+  })
+
+  output$out_anc_visits1 <- shiny::renderText({
+    pop_react()$anc_visits1 * 100
+  })
+
+  output$out_anc_visits4 <- shiny::renderText({
+    pop_react()$anc_visits4 * 100
+  })
+
+  output$out_riskstrat_firstweek <- shiny::renderText({
+    pop_react()$riskstrat_firstweek
+  })
+
+  output$out_riskstrat_lastweek <- shiny::renderText({
+    pop_react()$riskstrat_lastweek
+  })
+
+  output$out_n_riskstrat <- shiny::renderText({
+    der_react()$n_riskstrat
+  })
+
+  output$out_riskstrat_pct <- shiny::renderText({
+    der_react()$riskstrat_pct * 100
+  })
+
+  output$out_hr_flagged <- shiny::renderText({
+    der_react()$hr_flagged
+  })
+
+  output$out_hr_flagged_pct <- shiny::renderText({
+    der_react()$hr_flagged_pct * 100
+  })
+
+  output$out_hr_tp <- shiny::renderText({
+    der_react()$hr_tp
+  })
+
+  output$out_hr_tp_pct <- shiny::renderText({
+    der_react()$hr_tp_pct * 100
+  })
+
+  output$out_hr_fp <- shiny::renderText({
+    der_react()$hr_fp
+  })
+
+  output$out_hr_fp_pct <- shiny::renderText({
+    der_react()$hr_fp_pct * 100
+  })
+
+  output$out_lr_flagged <- shiny::renderText({
+    der_react()$lr_flagged
+  })
+
+  output$out_lr_flagged_pct <- shiny::renderText({
+    der_react()$lr_flagged_pct * 100
+  })
+
+  output$out_lr_tn <- shiny::renderText({
+    der_react()$lr_tn
+  })
+
+  output$out_lr_tn_pct <- shiny::renderText({
+    der_react()$lr_tn_pct * 100
+  })
+
+  output$out_lr_fn <- shiny::renderText({
+    der_react()$lr_fn
+  })
+
+  output$out_lr_fn_pct <- shiny::renderText({
+    der_react()$lr_fn_pct * 100
+  })
+
+
+
+  output$out_hr_tp2 <- shiny::renderText({
+    der_react()$hr_tp
+  })
+
+  output$out_hr_tp_pct2 <- shiny::renderText({
+    der_react()$hr_tp_pct * 100
+  })
+
+  output$out_hr_fp2 <- shiny::renderText({
+    der_react()$hr_fp
+  })
+
+  output$out_hr_fp_pct2 <- shiny::renderText({
+    der_react()$hr_fp_pct * 100
+  })
+
+  output$out_lr_tn2 <- shiny::renderText({
+    der_react()$lr_tn
+  })
+
+  output$out_lr_tn_pct2 <- shiny::renderText({
+    der_react()$lr_tn_pct * 100
+  })
+
+  output$out_lr_fn2 <- shiny::renderText({
+    der_react()$lr_fn
+  })
+
+  output$out_lr_fn_pct2 <- shiny::renderText({
+    der_react()$lr_fn_pct * 100
+  })
+
+
+
+
+
+  output$out_pe_reduce <- shiny::renderText({
+    sum(ints_react()$pe_reduce)
+  })
+
+  output$out_lifesave_mat <- shiny::renderText({
+    sum(ints_react()$lifesave_mat)
+  })
+
+  output$out_lifesave_neo <- shiny::renderText({
+    sum(ints_react()$lifesave_neo)
   })
 
 
   output$ints_table <- shiny::renderTable({
     ints_react()
   })
+
+  # output$pe_table <- shiny::renderTable({
+  #   pe_int_inputs_react()
+  # })
+
+  # output$pop_table <- shiny::renderTable({
+  #   data.frame(var = names(pop_react()), val = unname(unlist(pop_react())))
+  # })
+
 }
