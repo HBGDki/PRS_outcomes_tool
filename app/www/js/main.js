@@ -524,7 +524,8 @@ $(document).ready(function(){
   function setDimensions() {
     $("#controls").height(window.innerHeight - 65);
     $("#outputs").height(window.innerHeight - 65);
-    $("#outputs").width(window.innerWidth - 450);
+    $("#subheader").width(window.innerWidth);
+    // $("#outputs").width(window.innerWidth - 450);
   }
 
   // window.resize event listener
@@ -543,6 +544,9 @@ $(document).ready(function(){
   });
 
   setDimensions();
+
+  $('.modal').modal();
+  $('.tooltipped').tooltip();
 });
 
 // countup

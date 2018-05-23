@@ -50,12 +50,36 @@ h1,h2,h3,h4,h5,h6 {
   padding-left:20px;
 }
 
+.scenario-input-field {
+  margin-top: 40px;
+  max-width: 375px;
+}
+
+.scenario-inputs {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 375px;
+}
+
+#subheader {
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  height: 40px;
+  background-color: rgb(112, 182, 188);
+  color: white;
+  z-index: 10;
+  font-family: 'DIN-Medium', sans-serif;
+  line-height: 40px;
+  font-size: 17px;
+}
+
 #controls {
   position: fixed;
   left: 0;
-  padding-left: 15px;
-  top: 60px;
-  width: 450px;
+  /*padding-left: 15px;*/
+  top: 82px;
+  width: 360px;
   overflow-y: auto;
   /*border-right: 1px solid #dedede;*/
 }
@@ -63,26 +87,85 @@ h1,h2,h3,h4,h5,h6 {
 #inputs {
 }
 
-#outputs {
-  position: fixed;
-  left: 450px;
-  padding-left: 15px;
-  top: 60px;
-  overflow-y: auto;
-}
-
-#info-table {
+#controls-header {
   position: absolute;
   left: 0px;
   top: 0px;
-  width: 450px;
-  height: 800px;
+  width: 360px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255, 0.25);
+}
+
+#outputs-header {
+  position: absolute;
+  left: 360px;
+  top: 0px;
+  width: 430px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255, 0.25);
+  display: inline-block;
+}
+
+#more-scenarios {
+  position: absolute;
+  left: 790px;
+  top: 0px;
+  width: 160px;
+  display: inline-flex;
+  background-color: white;
+  color: #777;
+}
+
+.header-icon {
+  line-height: 40px;
+}
+
+.header-close-icon {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  font-size: 20px;
+  color:  rgba(255,255,255,0.6);
+  cursor: pointer;
+}
+
+.btn-floating.btn-smaller i {
+  line-height: 27px;
+}
+
+.btn-floating.btn-smaller {
+  width: 27px;
+  height: 27px;
+  position: relative;
+  top: 6px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+#outputs {
+  position: fixed;
+  left: 360px;
+  width: 430px;
   padding-left: 15px;
   padding-right: 15px;
+  top: 82px;
+  padding-top: 15px;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+}
+
+.info-table {
+  /*position: absolute;
+  left: 0px;
+  top: 0px;*/
+  /*width: 450px;*/
+  /*height: 800px;*/
+  /*padding-left: 15px;*/
+  /*padding-right: 15px;*/
   font-size: 12px;
 }
 
-#info-table td {
+.info-table td {
   padding-top: 0px;
   padding-bottom: 0px;
   padding-left: 15px;
@@ -99,30 +182,29 @@ h1,h2,h3,h4,h5,h6 {
   text-align: right;
 }
 
-#info-more {
-  position: absolute;
-  left: 450px;
-  top: 0px;
-  width: 400px;
+.info-extra {
+  /*position: absolute;
+  top: 800px;*/
 }
 
-#info-extra {
-  position: absolute;
-  top: 800px;
-}
-
-#big-numbers {
+.big-numbers {
   padding-bottom: 20px;
   text-align: center;
 }
 
 .big-number-wrapper {
-  padding-bottom: 15px;
+  padding-bottom: 0px;
 }
 
 .big-number-label {
   font-size: 18px;
   /*font-family: 'DIN-Medium', sans-serif;*/
+}
+
+.info-icon {
+  font-size: 15px;
+  color: gray;
+  cursor: default;
 }
 
 .collapsible-header {
@@ -220,21 +302,115 @@ label {
 
 .big-counter {
   font-family: 'DIN-Bold', sans-serif;
-  font-size: 35px;
-  line-height: 38px;
+  font-size: 25px;
+  line-height: 28px;
 }
+
+.big-counter-secondary {
+  font-family: 'DIN-Medium', sans-serif;
+}
+
+.numbers-down-arrow {
+  line-height: 10px;
+  color: gray;
+}
+
+.vpad1 {
+  height: 1px;
+}
+
+.vpad {
+  height: 15px;
+}
+
+.section-header {
+  font-family: 'DIN-Bold', sans-serif;
+  font-size: 25px;
+  padding-top: 15px;
+}
+
+/*------ risk stratification matrix -----------*/
+
+.rs-box {
+  width: 400px;
+  border: 1px solid black;
+}
+
+.rs-header {
+  font-family: 'DIN-Medium', sans-serif;
+  line-height: 25px;
+  text-align: center;
+  background: black;
+  color: white;
+}
+
+.rs-bar-bounding {
+  width: 400px;
+  height: 50px;
+  position: relative;
+}
+
+.rs-bounding {
+  text-align: center;
+}
+
+.rs-num {
+  font-family: 'DIN-Medium', sans-serif;
+}
+
+.rs-bounding-left {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 200px;
+  height: 50px;
+}
+
+.rs-bounding-right {
+  position: absolute;
+  left: 200px;
+  top: 0px;
+  width: 200px;
+  height: 50px;
+}
+
+.rs-bar-left {
+  position: absolute;
+  right: 200px;
+  top: 0px;
+  width: 120px;
+  height: 50px;
+}
+
+.rs-bar-right {
+  position: absolute;
+  top: 0px;
+  left: 200px;
+  width: 50px;
+  height: 50px;
+}
+
+.rs-green {
+  background: lightgreen;
+}
+
+.rs-red {
+  background: red;
+}
+
+/*------ end risk stratification matrix -------*/
+
+
+
+
 
 /*------ confusion matrix -----------*/
 
-#conf-bounding {
+/*#conf-bounding {
   width: 400px;
   height: 400px;
-  /*background: #f1f1f1;*/
   margin: auto;
   position: relative;
-  /*margin-top: 40px;*/
-  /*margin-bottom: 40px;*/
-  /*box-sizing: border-box;*/
 }
 
 .conf-box {
@@ -331,7 +507,6 @@ label {
 
 #conf-fp-label {
   position: absolute;
-  /*bottom: 380px;*/
   left: 200px;
   width: 200px;
   height: 20px;
@@ -371,9 +546,6 @@ label {
   font-size: 15px;
   line-height: 16px;
   color: #555;
-}
+}*/
 
-/*------ emd confusion matrix -------*/
-
-
-
+/*------ end confusion matrix -------*/
