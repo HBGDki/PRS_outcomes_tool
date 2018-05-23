@@ -1,4 +1,10 @@
-$(document).ready(function(){
+$(document).ready(function() {
+
+  var int0 = {
+    "int": "Antenatal monitoring + diff CFL",
+    "name": "int_am_diff_cfl",
+    "on_off": true
+  }
 
   var ints = [
     {
@@ -528,6 +534,12 @@ $(document).ready(function(){
       el.trigger('change');
     });
   });
+
+  // initialize the one different intervention (int_am)
+  if (int0.on_off === true) {
+    $("#indicator-int_am_diff_cfl").addClass("on");
+    $("#on_off_int_am_diff_cfl").attr("checked", true);
+  }
 
   var throttled = false;
 

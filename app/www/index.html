@@ -227,6 +227,37 @@
 
         </div>
       </li>
+      <li>
+        <div class="collapsible-header mutedfocus">
+          <div class="active-indicator">
+            <div
+              class="active-indicator-child"
+              id="indicator-int_am_diff_cfl"
+            >
+            </div>
+          </div>
+          <span class="settings-icon icon-aid-kit"></span>
+          <strong>Antenatal monitoring + diff CFL</strong>
+          <div class="int-color-box entry-0"></div>
+        </div>
+        <div class="collapsible-body">
+          <div class="switch-wrapper">
+            <div class="switch">
+              <label>
+                Off
+                <input
+                  type="checkbox"
+                  class="int_check shiny-material-switch"
+                  id="on_off_int_am_diff_cfl"
+                  data-int="int_am_diff_cfl"
+                >
+                <span class="lever"></span>
+                On
+              </label>
+            </div>
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
   <div id="outputs" class="shiny-prs-data-output">
@@ -263,7 +294,7 @@
             <div id="rs-tp" class="rs-bar-left rs-green"></div>
             <div id="rs-fn" class="rs-bar-right rs-red"></div>
             <div class="rs-bounding rs-bounding-left">
-              flagged as high risk<br/>
+              flagged high risk (sensitivity)<br/>
               <span class="rs-num counter" id="out-hrtp"></span>
               (<span class="rs-num counter" id="out-hrtp-pct"></span>%)
             </div>
@@ -290,7 +321,7 @@
               (<span class="rs-num counter" id="out-hrfp-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
-              flagged as low risk<br/>
+              flagged low risk (specificity)<br/>
               <span class="rs-num counter" id="out-lrtn"></span>
               (<span class="rs-num counter" id="out-lrtn-pct"></span>%)
             </div>

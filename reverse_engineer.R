@@ -273,7 +273,7 @@ base_tab <- tibble::tribble(
 )
 
 pe_int_inputs <- readr::read_csv('int,name,on_off,applied_to,location_of_care,coverage,elig_pop_haircut,eff_reducing_PE,eff_reducing_mat_deaths,eff_reducing_neo_deaths
-Antenatal monitoring + diff CFL,int_am,TRUE,,,,,,,
+Antenatal monitoring + diff CFL,int_am_diff_cfl,TRUE,,,,,,,
 Antenatal monitoring + early C-section,int_am_csect,TRUE,All risk stratified,FRU only,1,1,0,0.29374,0.29374
 Calcium,int_calcium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.33,0.33,0.33
 Selenium for PE,int_selenium,FALSE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.72,0.72,0.72
@@ -435,7 +435,7 @@ bind_rows()
 
 # pe_int_inputs$name
 
-jsonlite::toJSON(pe_int_inputs[-1,], pretty = TRUE)
+jsonlite::toJSON(pe_int_inputs[-1, ], pretty = TRUE)
 
 jsonlite::toJSON(pop, pretty = TRUE, auto_unbox = TRUE, digits = NA)
 

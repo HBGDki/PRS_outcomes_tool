@@ -5,6 +5,8 @@ function(input, output) {
 
   pe_int_inputs_react <- reactive({
     res <- pe_int_inputs_orig
+    if (!is.null(input$on_off_int_am_diff_cfl))
+      res[1, "on_off"] <- input$on_off_int_am_diff_cfl
     for (i in 2:nrow(res)) {
       for (vr in names(res[-c(1, 2)])) {
         nm <- paste0(vr, "_", res$name[i])
@@ -40,7 +42,12 @@ function(input, output) {
   })
 
   output$outputs <- reactive({
+    pe_int_inputs <- pe_int_inputs_react()
     ints <- ints_react()
+    # manually handle if am_diff_cfl is turned off
+    if (pe_int_inputs[1, "on_off"] == FALSE) {
+      ints[1, 2:4] <- 0
+    }
     ints_tot <- lapply(ints[, c("pe_reduce", "lifesave_mat", "lifesave_neo")], sum)
 
     list(
