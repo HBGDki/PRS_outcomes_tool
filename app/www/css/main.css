@@ -326,7 +326,7 @@ label {
 .section-header {
   font-family: 'DIN-Bold', sans-serif;
   font-size: 25px;
-  padding-top: 15px;
+  /*padding-top: 15px;*/
 }
 
 /*------ risk stratification matrix -----------*/
@@ -346,7 +346,7 @@ label {
 
 .rs-bar-bounding {
   width: 400px;
-  height: 50px;
+  height: 45px;
   position: relative;
 }
 
@@ -363,7 +363,7 @@ label {
   left: 0px;
   top: 0px;
   width: 200px;
-  height: 50px;
+  height: 45px;
 }
 
 .rs-bounding-right {
@@ -371,34 +371,116 @@ label {
   left: 200px;
   top: 0px;
   width: 200px;
-  height: 50px;
+  height: 45px;
 }
 
 .rs-bar-left {
   position: absolute;
   right: 200px;
   top: 0px;
-  width: 120px;
-  height: 50px;
+  width: 0px;
+  height: 45px;
+  transition: all ease 1.5s;
 }
 
 .rs-bar-right {
   position: absolute;
   top: 0px;
   left: 200px;
-  width: 50px;
-  height: 50px;
+  width: 0px;
+  height: 45px;
+  transition: all ease 1.5s;
 }
 
 .rs-green {
-  background: lightgreen;
+  background: #98DF8A;
 }
 
 .rs-red {
-  background: red;
+  background: #FF9896;
 }
 
 /*------ end risk stratification matrix -------*/
+
+
+
+/*------ bar chart -----------*/
+
+.bar-wrapper {
+  position: relative;
+  width: 400px;
+  height: 30px;
+}
+
+.barchart {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 300px;
+  height: 30px;
+}
+
+.bar-counter {
+  position: absolute;
+  top: 0px;
+  left: 300px;
+  width: 100px;
+  text-align: right;
+}
+
+.bar-entry {
+  height: 30px;
+  float:left;
+  transition: all ease 1.5s;
+}
+
+.entry-0 {
+  background: lightgray;
+}
+
+.entry-1 {
+  background: #AEC7E8;
+}
+
+.entry-2 {
+  background: #FFBB78;
+}
+
+.entry-3 {
+  background: #98DF8A;
+}
+
+.entry-4 {
+  background: #FF9896;
+}
+
+.entry-5 {
+  background: #C5B0D5;
+}
+
+.entry-6 {
+  background: #C49C94;
+}
+
+.entry-7 {
+  background: #F7B6D2;
+}
+
+.entry-8 {
+  background: #C7C7C7;
+}
+
+.entry-9 {
+  background: #DBDB8D;
+}
+
+.entry-10 {
+  background: #9EDAE5;
+}
+
+
+/*------ end bar chart -------*/
+
 
 
 

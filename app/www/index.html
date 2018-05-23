@@ -32,7 +32,7 @@
   <div id="add-scenario-modal" class="modal">
     <div class="modal-content">
       <h4>Add a New Scenario</h4>
-      <p>A bunch of text</p>
+      <p>This feature has not yet been implemented, but as envisioned, a new scenario will be created in this window by providing a name and selecting a base scenario for initial settings. Once created, this scenario will appear alongside the other scenarios created and the assumptions / intervention input controls will be attached to it.</p>
       <div class="scenario-inputs">
         <div class="input-field scenario-input-field">
           <input placeholder="My Scenario" id="scenario-name" type="text" class="validate">
@@ -59,7 +59,7 @@
       Assumptions and Interventions
     </div>
     <div id="outputs-header"><!-- contenteditable="true"> -->
-      <i class="material-icons header-close-icon tooltipped" data-position="bottom" data-tooltip="Remove this scenario">close</i>
+      <i class="material-icons header-close-icon tooltipped" data-position="bottom" data-tooltip="Remove this scenario (not yet implemented)">close</i>
       Baseline Scenario
     </div>
     <div id="more-scenarios">
@@ -246,10 +246,14 @@
             <div id="rs-tp" class="rs-bar-left rs-green"></div>
             <div id="rs-fn" class="rs-bar-right rs-red"></div>
             <div class="rs-bounding rs-bounding-left">
-              flagged as high risk<br/><span class="rs-num" id="out-hrtp"></span>
+              flagged as high risk<br/>
+              <span class="rs-num" id="out-hrtp"></span>
+              (<span class="rs-num" id="out-hrtp-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
-              flagged as low risk<br/><span class="rs-num" id="out-lrfn"></span>
+              flagged as low risk<br/>
+              <span class="rs-num" id="out-lrfn"></span>
+              (<span class="rs-num" id="out-lrfn-pct"></span>%)
             </div>
           </div>
         </div>
@@ -264,10 +268,14 @@
             <div id="rs-fp" class="rs-bar-left rs-red"></div>
             <div id="rs-tn" class="rs-bar-right rs-green"></div>
             <div class="rs-bounding rs-bounding-left">
-              flagged as high risk<br/><span class="rs-num" id="out-hrfp"></span>
+              flagged as high risk<br/>
+              <span class="rs-num" id="out-hrfp"></span>
+              (<span class="rs-num" id="out-hrfp-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
-              flagged as low risk<br/><span class="rs-num" id="out-lrtn"></span>
+              flagged as low risk<br/>
+              <span class="rs-num" id="out-lrtn"></span>
+              (<span class="rs-num" id="out-lrtn-pct"></span>%)
             </div>
           </div>
         </div>
@@ -276,16 +284,20 @@
 
         <div class="rs-box">
           <div class="rs-header">
-            **Flagged High Risk (<span id="out-fhr"></span>)**
+            Flagged High Risk (<span id="out-fhr"></span>)
           </div>
           <div class="rs-bar-bounding">
             <div id="rs-tp2" class="rs-bar-left rs-green"></div>
             <div id="rs-fp2" class="rs-bar-right rs-red"></div>
             <div class="rs-bounding rs-bounding-left">
-              actually high risk<br/><span class="rs-num" id="out-hrtp2"></span>
+              actually high risk<br/>
+              <span class="rs-num" id="out-hrtp2"></span>
+              (<span class="rs-num" id="out-hrtp2-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
-              actually low risk<br/><span class="rs-num" id="out-hrfp2"></span>
+              actually low risk<br/>
+              <span class="rs-num" id="out-hrfp2"></span>
+              (<span class="rs-num" id="out-hrfp2-pct"></span>%)
             </div>
           </div>
         </div>
@@ -300,10 +312,14 @@
             <div id="rs-fn2" class="rs-bar-left rs-red"></div>
             <div id="rs-tn2" class="rs-bar-right rs-green"></div>
             <div class="rs-bounding rs-bounding-left">
-              actually high risk<br/><span class="rs-num" id="out-lrfn2"></span>
+              actually high risk<br/>
+              <span class="rs-num" id="out-lrfn2"></span>
+              (<span class="rs-num" id="out-lrfn2-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
-              actually low risk<br/><span class="rs-num" id="out-lrtn2"></span>
+              actually low risk<br/>
+              <span class="rs-num" id="out-lrtn2"></span>
+              (<span class="rs-num" id="out-lrtn2-pct"></span>%)
             </div>
           </div>
         </div>
@@ -314,8 +330,67 @@
           <span id="out-tot-hr" class="big-counter">&nbsp;</span>
         </div> -->
 
+        <div class="numbers-down-arrow"><i class="material-icons">arrow_downward</i></div>
+
         <div class="section-header">Interventions</div>
 
+        <div class="interventions">
+          <h6>Reduction in Pre-Eclampsia</h6>
+          <div class="bar-wrapper">
+            <div class="barchart">
+              <div class="bar-entry entry-0" id="pe_reduce-entry-0"></div>
+              <div class="bar-entry entry-1" id="pe_reduce-entry-1"></div>
+              <div class="bar-entry entry-2" id="pe_reduce-entry-2"></div>
+              <div class="bar-entry entry-3" id="pe_reduce-entry-3"></div>
+              <div class="bar-entry entry-4" id="pe_reduce-entry-4"></div>
+              <div class="bar-entry entry-5" id="pe_reduce-entry-5"></div>
+              <div class="bar-entry entry-6" id="pe_reduce-entry-6"></div>
+              <div class="bar-entry entry-7" id="pe_reduce-entry-7"></div>
+              <div class="bar-entry entry-8" id="pe_reduce-entry-8"></div>
+              <div class="bar-entry entry-9" id="pe_reduce-entry-9"></div>
+              <div class="bar-entry entry-10" id="pe_reduce-entry-10"></div>
+            </div>
+            <div class="bar-counter big-counter" id="out_pe_reduce"></div>
+          </div>
+
+          <h6>Reduction in maternal deaths</h6>
+          <div class="bar-wrapper">
+            <div class="barchart">
+              <div class="bar-entry entry-0" id="lifesave_mat-entry-0"></div>
+              <div class="bar-entry entry-1" id="lifesave_mat-entry-1"></div>
+              <div class="bar-entry entry-2" id="lifesave_mat-entry-2"></div>
+              <div class="bar-entry entry-3" id="lifesave_mat-entry-3"></div>
+              <div class="bar-entry entry-4" id="lifesave_mat-entry-4"></div>
+              <div class="bar-entry entry-5" id="lifesave_mat-entry-5"></div>
+              <div class="bar-entry entry-6" id="lifesave_mat-entry-6"></div>
+              <div class="bar-entry entry-7" id="lifesave_mat-entry-7"></div>
+              <div class="bar-entry entry-8" id="lifesave_mat-entry-8"></div>
+              <div class="bar-entry entry-9" id="lifesave_mat-entry-9"></div>
+              <div class="bar-entry entry-10" id="lifesave_mat-entry-10"></div>
+            </div>
+            <div class="bar-counter big-counter" id="out_lifesave_mat"></div>
+          </div>
+
+          <h6>Reduction in neonatal deaths</h6>
+          <div class="bar-wrapper">
+            <div class="barchart">
+              <div class="bar-entry entry-0" id="lifesave_neo-entry-0"></div>
+              <div class="bar-entry entry-1" id="lifesave_neo-entry-1"></div>
+              <div class="bar-entry entry-2" id="lifesave_neo-entry-2"></div>
+              <div class="bar-entry entry-3" id="lifesave_neo-entry-3"></div>
+              <div class="bar-entry entry-4" id="lifesave_neo-entry-4"></div>
+              <div class="bar-entry entry-5" id="lifesave_neo-entry-5"></div>
+              <div class="bar-entry entry-6" id="lifesave_neo-entry-6"></div>
+              <div class="bar-entry entry-7" id="lifesave_neo-entry-7"></div>
+              <div class="bar-entry entry-8" id="lifesave_neo-entry-8"></div>
+              <div class="bar-entry entry-9" id="lifesave_neo-entry-9"></div>
+              <div class="bar-entry entry-10" id="lifesave_neo-entry-10"></div>
+            </div>
+            <div class="bar-counter big-counter" id="out_lifesave_neo"></div>
+          </div>
+        </div>
+
+        <div class="numbers-down-arrow"><i class="material-icons">arrow_downward</i></div>
 
         <div class="section-header">Details</div>
 

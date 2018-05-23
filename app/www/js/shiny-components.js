@@ -39,7 +39,9 @@ $.extend(prsDataOutputBinding, {
       if (isNaN(prev)) {
         prev = 0;
       } else {
-        if (prev < next) {
+        if (prev === next) {
+          //
+        } else if (prev < next) {
           el.addClass("counting-up");
         } else {
           el.addClass("counting-down");
@@ -107,15 +109,17 @@ $.extend(prsDataOutputBinding, {
     makeCountUp("out-hr", data.der.hr_tp + data.der.lr_fn);
     makeCountUp("out-hrtp", data.der.hr_tp);
     makeCountUp("out-lrfn", data.der.lr_fn);
-
-    makeCountUp("out-lr", data.der.hr_fp + data.der.lr_tn);
-    makeCountUp("out-hrfp", data.der.hr_fp);
-    makeCountUp("out-lrtn", data.der.lr_tn);
-
+    makeCountUp("out-hrtp-pct", 100 * data.der.hr_tp / (data.der.hr_tp + data.der.lr_fn));
+    makeCountUp("out-lrfn-pct", 100 * data.der.lr_fn / (data.der.hr_tp + data.der.lr_fn));
     var mx = Math.max(data.der.hr_tp, data.der.lr_fn);
     $("#rs-tp").width(200 * data.der.hr_tp / mx);
     $("#rs-fn").width(200 * data.der.lr_fn / mx);
 
+    makeCountUp("out-lr", data.der.hr_fp + data.der.lr_tn);
+    makeCountUp("out-hrfp", data.der.hr_fp);
+    makeCountUp("out-lrtn", data.der.lr_tn);
+    makeCountUp("out-hrfp-pct", 100 * data.der.hr_fp / (data.der.hr_fp + data.der.lr_tn));
+    makeCountUp("out-lrtn-pct", 100 * data.der.lr_tn / (data.der.hr_fp + data.der.lr_tn));
     mx = Math.max(data.der.hr_fp, data.der.lr_tn);
     $("#rs-fp").width(200 * data.der.hr_fp / mx);
     $("#rs-tn").width(200 * data.der.lr_tn / mx);
@@ -123,6 +127,8 @@ $.extend(prsDataOutputBinding, {
     makeCountUp("out-fhr", data.der.hr_tp + data.der.hr_fp);
     makeCountUp("out-hrtp2", data.der.hr_tp);
     makeCountUp("out-hrfp2", data.der.hr_fp);
+    makeCountUp("out-hrtp2-pct", 100 * data.der.hr_tp / (data.der.hr_tp + data.der.hr_fp));
+    makeCountUp("out-hrfp2-pct", 100 * data.der.hr_fp / (data.der.hr_tp + data.der.hr_fp));
     var mx = Math.max(data.der.hr_tp, data.der.hr_fp);
     $("#rs-tp2").width(200 * data.der.hr_tp / mx);
     $("#rs-fp2").width(200 * data.der.hr_fp / mx);
@@ -130,6 +136,8 @@ $.extend(prsDataOutputBinding, {
     makeCountUp("out-flr", data.der.lr_fn + data.der.lr_tn);
     makeCountUp("out-lrfn2", data.der.lr_fn);
     makeCountUp("out-lrtn2", data.der.lr_tn);
+    makeCountUp("out-lrfn2-pct", 100 * data.der.lr_fn / (data.der.lr_fn + data.der.lr_tn));
+    makeCountUp("out-lrtn2-pct", 100 * data.der.lr_tn / (data.der.lr_fn + data.der.lr_tn));
     mx = Math.max(data.der.lr_fn, data.der.lr_tn);
     $("#rs-fn2").width(200 * data.der.lr_fn / mx);
     $("#rs-tn2").width(200 * data.der.lr_tn / mx);
@@ -139,6 +147,20 @@ $.extend(prsDataOutputBinding, {
     makeCountUp("out_pe_reduce", data.ints_tot.pe_reduce);
     makeCountUp("out_lifesave_mat", data.ints_tot.lifesave_mat);
     makeCountUp("out_lifesave_neo", data.ints_tot.lifesave_neo);
+
+    /*----------------------*/
+
+    data.ints.pe_reduce.map(function(d, i) {
+      $("#pe_reduce-entry-" + i).width(300 * (d / data.ints_tot.pe_reduce));
+    });
+
+    data.ints.lifesave_mat.map(function(d, i) {
+      $("#lifesave_mat-entry-" + i).width(300 * (d / data.ints_tot.lifesave_mat));
+    });
+
+    data.ints.lifesave_neo.map(function(d, i) {
+      $("#lifesave_neo-entry-" + i).width(300 * (d / data.ints_tot.lifesave_neo));
+    });
 
     // scales::show_col(ggthemes::tableau_color_pal('tableau10light')(10))
     // jsonlite::toJSON(ggthemes::tableau_color_pal('tableau10light')(10))
