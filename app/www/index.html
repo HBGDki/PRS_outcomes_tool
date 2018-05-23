@@ -24,7 +24,7 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper header-pad grey darken-4">
-        <span class="header-text">Pregnancy Risk Stratification Outcome Evaluation (work in progress)</span>
+        <span class="header-text">Pregnancy Risk Stratification Outcome Evaluation (alpha)</span>
         <div class="right">
           <a class="modal-trigger" data-target="about-modal">
             <i class="material-icons nav-icon">info_outline</i>
@@ -38,7 +38,7 @@
     <div class="modal-content">
       <h4>Notice</h4>
       <p>
-        This model upon which this application is based was prepared by The Boston Consulting Group ("BCG") for BMGF. The relationships in this model should not be relied upon by any other parties than BMGF. BCG is not responsible for results due to changes made in the analysis or input data by BMGF or any other party. The results of this model DO NOT CONSTITUTE A VALUATION.
+        The model upon which this application is based was prepared by The Boston Consulting Group ("BCG") for BMGF. The relationships in this model should not be relied upon by any other parties than BMGF. BCG is not responsible for results due to changes made in the analysis or input data by BMGF or any other party. The results of this model DO NOT CONSTITUTE A VALUATION.
       </p>
     </div>
     <div class="modal-footer">
@@ -106,11 +106,11 @@
             <div id="pe_rate" class="shiny-my-slider" data-denom="100"></div>
           </div>
           <div class="slider-field">
-            <label class="slider-label" for="mort_rate_mat">maternal mortality (deaths per 100,000 live births, conditioned PE)</label>
+            <label class="slider-label" for="mort_rate_mat">maternal mort. (deaths per 100,000 live births, cond. PE)</label>
             <div id="mort_rate_mat" class="shiny-my-slider" data-denom="100000"></div>
           </div>
           <div class="slider-field">
-            <label class="slider-label" for="mort_rate_neo">neonatal mortality (deaths per 1,000 live births, conditioned PE)</label>
+            <label class="slider-label" for="mort_rate_neo">neonatal mort. (deaths per 1,000 live births, cond. PE)</label>
             <div id="mort_rate_neo" class="shiny-my-slider" data-denom="1000"></div>
           </div>
 
@@ -235,20 +235,20 @@
       <div class="big-numbers">
         <div class="big-number-wrapper">
           <span class="big-number-label">Population: </span>
-          <span id="out_pop_big" class="big-counter">&nbsp;</span>
+          <span id="out_pop_big" class="counter big-counter">&nbsp;</span>
         </div>
 
         <div class="numbers-down-arrow"><i class="material-icons">arrow_downward</i></div>
 
         <div class="big-number-wrapper">
           <span class="big-number-label">
-            <span><i id="rs-num-info" class="material-icons info-icon tippy" data-tippy-placement="bottom" title="Those who seek care in the right time. Based on an India-specific distribution of ANC visit times and based on first week of risk stratification of x, last week of risk stratification of y and z% of population having at least one visit.">info_outline</i></span>
+            <span><i id="rs-num-info" class="material-icons info-icon tippy" data-tippy-placement="bottom" title="">info_outline</i></span>
             Risk stratified:
           </span>
           <span class="big-counter">
-            <span id="out-rs-big"></span>
+            <span class="counter" id="out-rs-big"></span>
             <span class="big-counter-secondary">
-              (<span id="out-rs-pct-big"></span>%)
+              (<span class="counter" id="out-rs-pct-big"></span>%)
             </span>
           </span>
         </div>
@@ -257,20 +257,20 @@
 
         <div class="rs-box">
           <div class="rs-header">
-            Actually High Risk (<span id="out-hr"></span>)
+            Actually High Risk (<span class="counter" id="out-hr"></span>)
           </div>
           <div class="rs-bar-bounding">
             <div id="rs-tp" class="rs-bar-left rs-green"></div>
             <div id="rs-fn" class="rs-bar-right rs-red"></div>
             <div class="rs-bounding rs-bounding-left">
               flagged as high risk<br/>
-              <span class="rs-num" id="out-hrtp"></span>
-              (<span class="rs-num" id="out-hrtp-pct"></span>%)
+              <span class="rs-num counter" id="out-hrtp"></span>
+              (<span class="rs-num counter" id="out-hrtp-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
               flagged as low risk<br/>
-              <span class="rs-num" id="out-lrfn"></span>
-              (<span class="rs-num" id="out-lrfn-pct"></span>%)
+              <span class="rs-num counter" id="out-lrfn"></span>
+              (<span class="rs-num counter" id="out-lrfn-pct"></span>%)
             </div>
           </div>
         </div>
@@ -279,20 +279,20 @@
 
         <div class="rs-box">
           <div class="rs-header">
-            Actually Low Risk (<span id="out-lr"></span>)
+            Actually Low Risk (<span class="counter" id="out-lr"></span>)
           </div>
           <div class="rs-bar-bounding">
             <div id="rs-fp" class="rs-bar-left rs-red"></div>
             <div id="rs-tn" class="rs-bar-right rs-green"></div>
             <div class="rs-bounding rs-bounding-left">
               flagged as high risk<br/>
-              <span class="rs-num" id="out-hrfp"></span>
-              (<span class="rs-num" id="out-hrfp-pct"></span>%)
+              <span class="rs-num counter" id="out-hrfp"></span>
+              (<span class="rs-num counter" id="out-hrfp-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
               flagged as low risk<br/>
-              <span class="rs-num" id="out-lrtn"></span>
-              (<span class="rs-num" id="out-lrtn-pct"></span>%)
+              <span class="rs-num counter" id="out-lrtn"></span>
+              (<span class="rs-num counter" id="out-lrtn-pct"></span>%)
             </div>
           </div>
         </div>
@@ -301,20 +301,20 @@
 
         <div class="rs-box">
           <div class="rs-header">
-            Flagged High Risk (<span id="out-fhr"></span>)
+            Flagged High Risk (<span class="counter" id="out-fhr"></span>)
           </div>
           <div class="rs-bar-bounding">
             <div id="rs-tp2" class="rs-bar-left rs-green"></div>
             <div id="rs-fp2" class="rs-bar-right rs-red"></div>
             <div class="rs-bounding rs-bounding-left">
-              actually high risk<br/>
-              <span class="rs-num" id="out-hrtp2"></span>
-              (<span class="rs-num" id="out-hrtp2-pct"></span>%)
+              actually high risk (PPV)<br/>
+              <span class="rs-num counter" id="out-hrtp2"></span>
+              (<span class="rs-num counter" id="out-hrtp2-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
               actually low risk<br/>
-              <span class="rs-num" id="out-hrfp2"></span>
-              (<span class="rs-num" id="out-hrfp2-pct"></span>%)
+              <span class="rs-num counter" id="out-hrfp2"></span>
+              (<span class="rs-num counter" id="out-hrfp2-pct"></span>%)
             </div>
           </div>
         </div>
@@ -323,20 +323,20 @@
 
         <div class="rs-box">
           <div class="rs-header">
-            Flagged Low Risk (<span id="out-flr"></span>)
+            Flagged Low Risk (<span class="counter" id="out-flr"></span>)
           </div>
           <div class="rs-bar-bounding">
             <div id="rs-fn2" class="rs-bar-left rs-red"></div>
             <div id="rs-tn2" class="rs-bar-right rs-green"></div>
             <div class="rs-bounding rs-bounding-left">
               actually high risk<br/>
-              <span class="rs-num" id="out-lrfn2"></span>
-              (<span class="rs-num" id="out-lrfn2-pct"></span>%)
+              <span class="rs-num counter" id="out-lrfn2"></span>
+              (<span class="rs-num counter" id="out-lrfn2-pct"></span>%)
             </div>
             <div class="rs-bounding rs-bounding-right">
-              actually low risk<br/>
-              <span class="rs-num" id="out-lrtn2"></span>
-              (<span class="rs-num" id="out-lrtn2-pct"></span>%)
+              actually low risk (NPV)<br/>
+              <span class="rs-num counter" id="out-lrtn2"></span>
+              (<span class="rs-num counter" id="out-lrtn2-pct"></span>%)
             </div>
           </div>
         </div>
@@ -367,7 +367,7 @@
               <div class="bar-entry entry-9 tippy" id="pe_reduce-entry-9"></div>
               <div class="bar-entry entry-10 tippy" id="pe_reduce-entry-10"></div>
             </div>
-            <div class="bar-counter big-counter" id="out_pe_reduce"></div>
+            <div><span class="bar-counter counter big-counter" id="out_pe_reduce"></span></div>
           </div>
 
           <h6 class="int-header">Reduction in maternal deaths</h6>
@@ -385,7 +385,7 @@
               <div class="bar-entry entry-9 tippy" id="lifesave_mat-entry-9"></div>
               <div class="bar-entry entry-10 tippy" id="lifesave_mat-entry-10"></div>
             </div>
-            <div class="bar-counter big-counter" id="out_lifesave_mat"></div>
+            <div><span class="bar-counter counter big-counter" id="out_lifesave_mat"></span></div>
           </div>
 
           <h6 class="int-header">Reduction in neonatal deaths</h6>
@@ -403,7 +403,7 @@
               <div class="bar-entry entry-9 tippy" id="lifesave_neo-entry-9"></div>
               <div class="bar-entry entry-10 tippy" id="lifesave_neo-entry-10"></div>
             </div>
-            <div class="bar-counter big-counter" id="out_lifesave_neo"></div>
+            <div class="bar-counter counter big-counter" id="out_lifesave_neo"></div>
           </div>
         </div>
 
@@ -433,149 +433,149 @@
           <tr>
             <td>Population</td>
             <td class="info-table-value">
-              <span id="out_pop" class="shiny-countup-output"></span>
+              <span id="out_pop" class="counter"></span>
             </td>
           </tr>
           <tr>
             <td>Pre-eclampsia rate</td>
             <td class="info-table-value">
-              <span id="out_pe_rate" class="shiny-countup-output"></span>%
+              <span id="out_pe_rate" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td># of patients w pre-eclampsia</td> <!-- der -->
             <td class="info-table-value">
-              <span id="out_n_pe" class="shiny-countup-output"></span>
+              <span id="out_n_pe" class="counter"></span>
             </td>
           </tr>
           <tr>
             <td>% maternal mortality rate (per 100,000, cond. PE)</td>
             <td class="info-table-value">
-              <span id="out_mort_rate_mat" class="shiny-countup-output"></span>
+              <span id="out_mort_rate_mat" class="counter"></span>
             </td>
           </tr>
           <!-- <tr>
             <td># of (maternal) pre-eclampsia deaths</td>
             <td class="info-table-value">
-            <span id="out_" class="shiny-countup-output">
+            <span id="out_" class="counter">
             </td>
           </tr> -->
           <tr>
             <td>% neonatal mortality rate (per 1,000 cond. PE)</td>
             <td class="info-table-value">
-              <span id="out_mort_rate_neo" class="shiny-countup-output"></span>
+              <span id="out_mort_rate_neo" class="counter"></span>
             </td>
           </tr>
           <!-- <tr>
             <td># of (neonatal) pre-eclampsia deaths</td>
             <td class="info-table-value">
-            <span id="out_" class="shiny-countup-output">
+            <span id="out_" class="counter">
             </td>
           </tr> -->
           <!-- <tr>
             <td>Patients (at risk)</td>
             <td class="info-table-value">
-            <span id="out_" class="shiny-countup-output">
+            <span id="out_" class="counter">
             </td>
           </tr> -->
           <tr>
             <td>Case fatality rate (FRU) - maternal (per 100,000)</td>
             <td class="info-table-value">
-              <span id="out_cfr_fru_maternal" class="shiny-countup-output"></span>
+              <span id="out_cfr_fru_maternal" class="counter"></span>
             </td>
           </tr>
           <tr>
             <td>Case fatality rate (PHC) - maternal (per 100,000)</td>
             <td class="info-table-value">
-              <span id="out_cfr_phc_maternal" class="shiny-countup-output"></span>
+              <span id="out_cfr_phc_maternal" class="counter"></span>
             </td>
           </tr>
           <tr>
             <td>Case fatality rate (FRU) - neonatal (per 1,000)</td>
             <td class="info-table-value">
-              <span id="out_cfr_fru_neonatal" class="shiny-countup-output"></span>
+              <span id="out_cfr_fru_neonatal" class="counter"></span>
             </td>
           </tr>
           <tr>
             <td>Case fatality rate (PHC) - neonatal (per 1,000)</td>
             <td class="info-table-value">
-              <span id="out_cfr_phc_neonatal" class="shiny-countup-output"></span>
+              <span id="out_cfr_phc_neonatal" class="counter"></span>
             </td>
           </tr>
           <tr><td class="info-table-head">Systems</td><td></td></tr>
           <tr>
             <td>% at FRU (of facility)</td>
             <td class="info-table-value">
-              <span id="out_sys_fru_pct" class="shiny-countup-output"></span>%
+              <span id="out_sys_fru_pct" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td>% at PHC (of facility)</td>
             <td class="info-table-value">
-              <span id="out_sys_phc_pct" class="shiny-countup-output"></span>%
+              <span id="out_sys_phc_pct" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td>% at home</td>
             <td class="info-table-value">
-              <span id="out_sys_home_pct" class="shiny-countup-output"></span>%
+              <span id="out_sys_home_pct" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td>FRU -&gt; PHC</td>
             <td class="info-table-value">
-              <span id="out_leak_fru_phc" class="shiny-countup-output"></span>%
+              <span id="out_leak_fru_phc" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td>PHC -&gt; Home</td>
             <td class="info-table-value">
-              <span id="out_leak_phc_home" class="shiny-countup-output"></span>%
+              <span id="out_leak_phc_home" class="counter"></span>%
             </td>
           </tr>
           <tr><td class="info-table-head">Risk stratification TPP</td><td></td></tr>
           <tr>
             <td>Sensitivity</td>
             <td class="info-table-value">
-              <span id="out_sensitivity" class="shiny-countup-output"></span>%
+              <span id="out_sensitivity" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td>Specificity</td>
             <td class="info-table-value">
-              <span id="out_specificity" class="shiny-countup-output"></span>%
+              <span id="out_specificity" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td>First week for risk stratification</td>
             <td class="info-table-value">
-              <span id="out_riskstrat_firstweek" class="shiny-countup-output"></span>
+              <span id="out_riskstrat_firstweek" class="counter"></span>
             </td>
           </tr>
           <tr>
             <td>Last week for risk stratification</td>
             <td class="info-table-value">
-              <span id="out_riskstrat_lastweek" class="shiny-countup-output"></span>
+              <span id="out_riskstrat_lastweek" class="counter"></span>
             </td>
           </tr>
           <tr><td class="info-table-head">ANC visits</td><td></td></tr>
           <tr>
             <td>At least 1</td>
             <td class="info-table-value">
-              <span id="out_anc_visits1" class="shiny-countup-output"></span>%
+              <span id="out_anc_visits1" class="counter"></span>%
             </td>
           </tr>
           <tr>
             <td>At least 4</td>
             <td class="info-table-value">
-              <span id="out_anc_visits4" class="shiny-countup-output"></span>%
+              <span id="out_anc_visits4" class="counter"></span>%
             </td>
           </tr>
           <!-- <tr><td class="info-table-head">Gestational hypertension</td><td></td></tr>
           <tr>
             <td>% of population that has gestational hypertension</td>
             <td class="info-table-value">
-              <span id="out_" class="shiny-countup-output"></span>
+              <span id="out_" class="counter"></span>
             </td>
           </tr> -->
   <!--
@@ -584,51 +584,51 @@
 
           <!-- <tr>
             <td>Breakdown by GHTN and PRU</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% actually high risk that has GHTN</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% early onset that are caught in right period</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% actually high risk that are early onset</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% of low risk that has GHTN</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr><td class="info-table-head">Antenatal monitor settings</td><td></td></tr>
           <tr>
             <td>% who get it</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr> -->
 
 
 
           <!-- <tr>
             <td>% of deaths before labor</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% of deaths in labor</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% patients flagged at right time</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% deaths before labor avoided</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr>
           <tr>
             <td>% deaths during labor avoided</td>
-            <td class="info-table-value"><span id="out_" class="shiny-countup-output"></td>
+            <td class="info-table-value"><span id="out_" class="counter"></td>
           </tr> -->
           <!-- <tr><td class="info-table-head">Preterm overlap - risk ratios</td><td></td></tr>
           <tr><td>% of preeclampsia that is preterm</td></tr>

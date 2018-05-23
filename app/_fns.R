@@ -42,7 +42,7 @@ get_site_of_care <- function(deliv_loc, val, locs_of_care) {
       ifelse(deliv_loc == "Home",
         val %in% c("Home only", "FRU, PHC, and Home"),
         ifelse(deliv_loc == "Any",
-          locs_of_care[val],
+          locs_of_care[[val]],
           NA
         )
       )
@@ -144,7 +144,7 @@ get_der <- function(pop, anc_cdf) {
   der$nostrat_hr <- ((pop$pop - der$n_riskstrat) / pop$pop) * der$n_pe
   der$nostrat_lr <- ((pop$pop - der$n_riskstrat) / pop$pop) * (pop$pop - der$n_pe)
 
-  der$locs_of_care <- c(
+  der$locs_of_care <- list(
     "FRU only" = pop$sys_fru_pct,
     "PHC only" = pop$sys_phc_pct,
     "Home only" = pop$sys_home_pct,

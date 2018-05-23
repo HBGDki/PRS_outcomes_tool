@@ -320,6 +320,10 @@ label {
   color: red;
 }
 
+.counter {
+  transition: all ease-out 0.5s;
+}
+
 .big-counter {
   font-family: 'DIN-Bold', sans-serif;
   font-size: 25px;
@@ -438,7 +442,7 @@ label {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 300px;
+  width: 320px; /* make it larger so it doesn't wrap */
   height: 30px;
 }
 

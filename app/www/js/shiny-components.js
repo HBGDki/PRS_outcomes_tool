@@ -37,6 +37,8 @@ $.extend(mySliderBinding, {
 
 Shiny.inputBindings.register(mySliderBinding);
 
+var myTimer;
+
 var prsDataOutputBinding = new Shiny.OutputBinding();
 $.extend(prsDataOutputBinding, {
   find: function(scope) {
@@ -44,6 +46,8 @@ $.extend(prsDataOutputBinding, {
   },
   renderValue: function(el, data) {
     var makeCountUp = function(id, data) {
+      clearTimeout(myTimer);
+
       var options = {
         useEasing: true,
         useGrouping: true,
@@ -53,31 +57,34 @@ $.extend(prsDataOutputBinding, {
 
       var next = parseFloat(data);
       var el = $("#" + id);
+      el.removeClass("counting-up"); // to deal with previous counter still running
+      el.removeClass("counting-down"); // to deal with previous counter still running
       var prev = parseFloat(el.data("value"));
       if (isNaN(prev)) {
         prev = 0;
       } else {
-        if (prev === next) {
-          //
-        } else if (prev < next) {
+        if (prev < next) {
           el.addClass("counting-up");
-        } else {
+        } else if (prev > next) {
           el.addClass("counting-down");
         }
       }
       var obj = new CountUp(id, prev, next, 0, 1.0, options);
       obj.start(function() {
-        el.removeClass("counting-up", 1000, "easeInBack");
-        el.removeClass("counting-down", 1000, "easeInBack");
+        myTimer = setTimeout(function() {
+          el.removeClass("counting-up");
+          el.removeClass("counting-down");
+        }, 500);
       });
       el.data("value", next);
-      el.html(data);
+      // el.html(data);
+    }
+
+    if (data.pop === undefined || data.der === undefined || data.ints === undefined || data.ints_tot === undefined) {
+      return;
     }
 
     makeCountUp("out_pop", data.pop.pop);
-    makeCountUp("out_pe_reduce", data.pop.pe_reduce);
-    makeCountUp("out_lifesave_mat", data.pop.lifesave_mat);
-    makeCountUp("out_lifesave_neo", data.pop.lifesave_neo);
     makeCountUp("out_pe_rate", data.pop.pe_rate * 100);
     makeCountUp("out_n_pe", data.der.n_pe);
     makeCountUp("out_mort_rate_mat", data.pop.mort_rate_mat * 100000);
@@ -171,19 +178,19 @@ $.extend(prsDataOutputBinding, {
     data.ints.pe_reduce.map(function(d, i) {
       var el = $("#pe_reduce-entry-" + i);
       el.width(300 * (d / data.ints_tot.pe_reduce));
-      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(100 * d / data.ints_tot.pe_reduce)}%)`);
+      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.pe_reduce) / 10}%)`);
     });
 
     data.ints.lifesave_mat.map(function(d, i) {
       var el = $("#lifesave_mat-entry-" + i);
       el.width(300 * (d / data.ints_tot.lifesave_mat));
-      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(100 * d / data.ints_tot.lifesave_mat)}%)`);
+      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.lifesave_mat) / 10}%)`);
     });
 
     data.ints.lifesave_neo.map(function(d, i) {
       var el = $("#lifesave_neo-entry-" + i);
       el.width(300 * (d / data.ints_tot.lifesave_neo));
-      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(100 * d / data.ints_tot.lifesave_neo)}%)`);
+      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.lifesave_neo) / 10}%)`);
     });
 
     // scales::show_col(ggthemes::tableau_color_pal('tableau10light')(10))
@@ -193,7 +200,7 @@ $.extend(prsDataOutputBinding, {
 
      $("#rs-num-info").attr("title", txt);
 
-    console.log(data)
+    // console.log(data)
   }
 });
 Shiny.outputBindings.register(prsDataOutputBinding);
