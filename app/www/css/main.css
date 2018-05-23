@@ -148,6 +148,7 @@ h1,h2,h3,h4,h5,h6 {
   width: 430px;
   padding-left: 15px;
   padding-right: 15px;
+  padding-bottom: 100px;
   top: 82px;
   padding-top: 15px;
   overflow-y: auto;
@@ -229,6 +230,18 @@ h1,h2,h3,h4,h5,h6 {
 
 .active-indicator-child.on {
   background: #84c7c1;
+}
+
+.int-color-box {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 335px;
+  margin-top: 5px;
+}
+
+.int-header {
+  text-align: left;
 }
 
 .settings-icon {
@@ -348,6 +361,8 @@ label {
   width: 400px;
   height: 45px;
   position: relative;
+  overflow: visible;
+  white-space: nowrap;
 }
 
 .rs-bounding {
@@ -435,7 +450,7 @@ label {
 }
 
 .entry-0 {
-  background: lightgray;
+  background: #eee;
 }
 
 .entry-1 {

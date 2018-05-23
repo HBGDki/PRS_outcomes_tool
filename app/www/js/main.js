@@ -11,7 +11,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 1,
       "eff_reducing_PE": 0,
       "eff_reducing_mat_deaths": 0.2937,
-      "eff_reducing_neo_deaths": 0.2937
+      "eff_reducing_neo_deaths": 0.2937,
+      "entry": 1
     },
     {
       "int": "Calcium",
@@ -23,7 +24,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 0.6661,
       "eff_reducing_PE": 0.33,
       "eff_reducing_mat_deaths": 0.33,
-      "eff_reducing_neo_deaths": 0.33
+      "eff_reducing_neo_deaths": 0.33,
+      "entry": 2
     },
     {
       "int": "Selenium for PE",
@@ -35,7 +37,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 0.6661,
       "eff_reducing_PE": 0.72,
       "eff_reducing_mat_deaths": 0.72,
-      "eff_reducing_neo_deaths": 0.72
+      "eff_reducing_neo_deaths": 0.72,
+      "entry": 3
     },
     {
       "int": "Statins",
@@ -47,7 +50,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 0.4944,
       "eff_reducing_PE": 0.03,
       "eff_reducing_mat_deaths": 0.03,
-      "eff_reducing_neo_deaths": 0.03
+      "eff_reducing_neo_deaths": 0.03,
+      "entry": 4
     },
     {
       "int": "Aspirin",
@@ -59,7 +63,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 0.4944,
       "eff_reducing_PE": 0.2929,
       "eff_reducing_mat_deaths": 0.2929,
-      "eff_reducing_neo_deaths": 0.2929
+      "eff_reducing_neo_deaths": 0.2929,
+      "entry": 5
     },
     {
       "int": "Antihypertensives",
@@ -71,7 +76,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 1,
       "eff_reducing_PE": 0,
       "eff_reducing_mat_deaths": 0.1,
-      "eff_reducing_neo_deaths": 0.1
+      "eff_reducing_neo_deaths": 0.1,
+      "entry": 6
     },
     {
       "int": "Incremental magnesium roll-out - FRU",
@@ -82,7 +88,8 @@ $(document).ready(function(){
       "coverage": 0.5,
       "elig_pop_haircut": 0.64,
       "eff_reducing_PE": 0,
-      "eff_reducing_mat_deaths": 0.46
+      "eff_reducing_mat_deaths": 0.46,
+      "entry": 7
     },
     {
       "int": "Incremental magnesium roll-out - PHC",
@@ -93,7 +100,8 @@ $(document).ready(function(){
       "coverage": 0.5,
       "elig_pop_haircut": 1,
       "eff_reducing_PE": 0,
-      "eff_reducing_mat_deaths": 0.46
+      "eff_reducing_mat_deaths": 0.46,
+      "entry": 8
     },
     {
       "int": "Intrapartum antihypertensives",
@@ -105,7 +113,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 1,
       "eff_reducing_PE": 0,
       "eff_reducing_mat_deaths": 0.015,
-      "eff_reducing_neo_deaths": 0.015
+      "eff_reducing_neo_deaths": 0.015,
+      "entry": 9
     },
     {
       "int": "Novel drug",
@@ -117,7 +126,8 @@ $(document).ready(function(){
       "elig_pop_haircut": 1,
       "eff_reducing_PE": 0.5,
       "eff_reducing_mat_deaths": 0.5,
-      "eff_reducing_neo_deaths": 0.5
+      "eff_reducing_neo_deaths": 0.5,
+      "entry": 10
     }
   ];
 
@@ -164,7 +174,7 @@ $(document).ready(function(){
   ];
 
   var html = '';
-  $.each(ints, function(k, d){
+  $.each(ints, function(k, d) {
     html += `
     <li>
       <div class="collapsible-header mutedfocus">
@@ -177,6 +187,7 @@ $(document).ready(function(){
         </div>
         <span class="settings-icon icon-aid-kit"></span>
         <strong>${d.int}</strong>
+        <div class="int-color-box entry-${d.entry}"></div>
       </div>
       <div class="collapsible-body">
         <div class="switch-wrapper">
@@ -522,8 +533,8 @@ $(document).ready(function(){
 
   // window.resize callback function
   function setDimensions() {
-    $("#controls").height(window.innerHeight - 65);
-    $("#outputs").height(window.innerHeight - 65);
+    $("#controls").height(window.innerHeight - 83);
+    $("#outputs").height(window.innerHeight - 105);
     $("#subheader").width(window.innerWidth);
     // $("#outputs").width(window.innerWidth - 450);
   }
@@ -546,7 +557,16 @@ $(document).ready(function(){
   setDimensions();
 
   $('.modal').modal();
-  $('.tooltipped').tooltip();
+  // $('.tooltipped').tooltip();
+  tippy(".tippy", {
+    delay: 10,
+    arrow: true,
+    arrowType: 'round',
+    size: 'large',
+    duration: 200,
+    animation: 'scale',
+    dynamicTitle: true
+  });
 });
 
 // countup

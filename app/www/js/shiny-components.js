@@ -1,3 +1,21 @@
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+var int_lookup = {
+  "am_diff_cfl": "Antenatal monitoring + diff CFL",
+  "am_csect": "Antenatal monitoring + early C-section",
+  "calcium": "Calcium",
+  "selenium": "Selenium for PE",
+  "statins": "Statins",
+  "aspirin": "Aspirin",
+  "antihyper": "Antihypertensives",
+  "mag_fru": "Incremental magnesium roll-out - FRU",
+  "mag_phc": "Incremental magnesium roll-out - PHC",
+  "intantihyper": "Intrapartum antihypertensives",
+  "drug": "Novel drug",
+};
+
 var mySliderBinding = new Shiny.InputBinding();
 $.extend(mySliderBinding, {
   find: function(scope) {
@@ -151,32 +169,29 @@ $.extend(prsDataOutputBinding, {
     /*----------------------*/
 
     data.ints.pe_reduce.map(function(d, i) {
-      $("#pe_reduce-entry-" + i).width(300 * (d / data.ints_tot.pe_reduce));
+      var el = $("#pe_reduce-entry-" + i);
+      el.width(300 * (d / data.ints_tot.pe_reduce));
+      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(100 * d / data.ints_tot.pe_reduce)}%)`);
     });
 
     data.ints.lifesave_mat.map(function(d, i) {
-      $("#lifesave_mat-entry-" + i).width(300 * (d / data.ints_tot.lifesave_mat));
+      var el = $("#lifesave_mat-entry-" + i);
+      el.width(300 * (d / data.ints_tot.lifesave_mat));
+      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(100 * d / data.ints_tot.lifesave_mat)}%)`);
     });
 
     data.ints.lifesave_neo.map(function(d, i) {
-      $("#lifesave_neo-entry-" + i).width(300 * (d / data.ints_tot.lifesave_neo));
+      var el = $("#lifesave_neo-entry-" + i);
+      el.width(300 * (d / data.ints_tot.lifesave_neo));
+      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(100 * d / data.ints_tot.lifesave_neo)}%)`);
     });
 
     // scales::show_col(ggthemes::tableau_color_pal('tableau10light')(10))
     // jsonlite::toJSON(ggthemes::tableau_color_pal('tableau10light')(10))
-    var colors = {
-      "a" : "#AEC7E8",
-      "b" : "#FFBB78",
-      "c" : "#98DF8A",
-      "d" : "#FF9896",
-      "e" : "#C5B0D5",
-      "f" : "#C49C94",
-      "g" : "#F7B6D2",
-      "h" : "#C7C7C7",
-      "i" : "#DBDB8D",
-      "j" : "#9EDAE5"
-    }
 
+     var txt = `Those who seek care in the right time. Based on an India-specific distribution of ANC visit times and based on first week of risk stratification of ${data.pop.riskstrat_firstweek}, last week of risk stratification of ${data.pop.riskstrat_lastweek} and ${Math.round(data.pop.anc_visits1 * 100)}% of the population having at least one visit.`
+
+     $("#rs-num-info").attr("title", txt);
 
     console.log(data)
   }
