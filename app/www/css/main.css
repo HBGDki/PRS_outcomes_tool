@@ -10,6 +10,11 @@
 }
 */
 
+::-webkit-scrollbar {
+    width: 12px;
+    display: none;
+}
+
 @font-face {
   font-family: 'DIN-Regular';
   src:
