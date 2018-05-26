@@ -242,6 +242,32 @@ h1,h2,h3,h4,h5,h6 {
   border-bottom: 1px solid #ddd;
 }
 
+.ints-control-header-container {
+  border-bottom: 1px solid #ddd;
+}
+
+.ints-control-header {
+  padding-top: 8px;
+  font-family: 'DIN-Bold', sans-serif;
+  font-size:13px;
+  padding-left: 7px;
+  display: inline-block;
+}
+
+.ints-all-on-off {
+  float: right;
+  display: inline-block;
+  line-height: 15px;
+  font-size: 12px;
+  background: #aaa;
+  color: white;
+  margin-top: 12px;
+  padding-left: 4px;
+  padding-right: 4px;
+  cursor: pointer;
+  border-right: 1px solid white;
+}
+
 .mutedfocus:focus { outline: 1px solid lightgray; }
 
 .active-indicator {
@@ -393,7 +419,7 @@ label {
   margin-bottom: -18px;
 }
 
-.rs-detail-buttons span {
+.fake-href {
   color: rgb(3, 155, 229);
   /*text-decoration: underline;*/
   cursor: pointer;
@@ -497,6 +523,7 @@ label {
 }
 
 .bar-counter {
+  white-space: nowrap;
   position: absolute;
   top: 0px;
   left: 280px;

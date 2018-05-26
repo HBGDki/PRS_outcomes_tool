@@ -6,7 +6,8 @@ $(document).ready(function() {
   //   "on_off": true
   // }
 
-  var ints = [
+  // feasible
+  var ints_fe = [
     {
       "int": "Antenatal monitoring + early C-section",
       "name": "int_am_csect",
@@ -34,6 +35,36 @@ $(document).ready(function() {
       "entry": 2
     },
     {
+      "int": "Aspirin",
+      "name": "int_aspirin",
+      "on_off": true,
+      "applied_to": "All risk stratified",
+      "location_of_care": "FRU, PHC, and Home",
+      "coverage": 0.5,
+      "elig_pop_haircut": 0.4944,
+      "eff_reducing_PE": 0.2929,
+      "eff_reducing_mat_deaths": 0.2929,
+      "eff_reducing_neo_deaths": 0.2929,
+      "entry": 5
+    },
+    {
+      "int": "Antihypertensives",
+      "name": "int_antihyper",
+      "on_off": true,
+      "applied_to": "Hypertensive (and risk stratified)",
+      "location_of_care": "FRU and PHC",
+      "coverage": 0.5,
+      "elig_pop_haircut": 1,
+      "eff_reducing_PE": 0,
+      "eff_reducing_mat_deaths": 0.1,
+      "eff_reducing_neo_deaths": 0.1,
+      "entry": 6
+    }
+  ];
+
+  // future
+  var ints_fu = [
+    {
       "int": "Selenium for PE",
       "name": "int_selenium",
       "on_off": false,
@@ -59,32 +90,7 @@ $(document).ready(function() {
       "eff_reducing_neo_deaths": 0.03,
       "entry": 4
     },
-    {
-      "int": "Aspirin",
-      "name": "int_aspirin",
-      "on_off": true,
-      "applied_to": "All risk stratified",
-      "location_of_care": "FRU, PHC, and Home",
-      "coverage": 0.5,
-      "elig_pop_haircut": 0.4944,
-      "eff_reducing_PE": 0.2929,
-      "eff_reducing_mat_deaths": 0.2929,
-      "eff_reducing_neo_deaths": 0.2929,
-      "entry": 5
-    },
-    {
-      "int": "Antihypertensives",
-      "name": "int_antihyper",
-      "on_off": true,
-      "applied_to": "Hypertensive (and risk stratified)",
-      "location_of_care": "FRU and PHC",
-      "coverage": 0.5,
-      "elig_pop_haircut": 1,
-      "eff_reducing_PE": 0,
-      "eff_reducing_mat_deaths": 0.1,
-      "eff_reducing_neo_deaths": 0.1,
-      "entry": 6
-    },
+
     {
       "int": "Incremental magnesium roll-out - FRU",
       "name": "int_mag_fru",
@@ -256,8 +262,27 @@ $(document).ready(function() {
     `
   }
 
-  var html = '';
-  $.each(ints, function(k, d) {
+  var html = `
+    <div class="ints-control-header-container">
+      <div class="ints-control-header">Feasible Standard of Care</div>
+      <div id="fe-all-off" class="ints-all-on-off">all on</div>
+      <div id="fe-all-on" class="ints-all-on-off">all off</div>
+    </div>
+  `;
+
+  $.each(ints_fe, function(k, d) {
+    makeIntsControls(k, d)
+  });
+  $("#inputs").append(html);
+
+  var html = `
+    <div class="ints-control-header-container">
+      <div class="ints-control-header">Future Standard of Care</div>
+      <div id="fu-all-off" class="ints-all-on-off">all on</div>
+      <div id="fu-all-on" class="ints-all-on-off">all off</div>
+    </div>
+  `;
+  $.each(ints_fu, function(k, d) {
     makeIntsControls(k, d)
   });
   $("#inputs").append(html);
@@ -311,7 +336,11 @@ $(document).ready(function() {
     });
   }
 
-  ints.forEach(function(d) {
+  ints_fe.forEach(function(d) {
+    makeIntsSliders(d);
+  });
+
+  ints_fu.forEach(function(d) {
     makeIntsSliders(d);
   });
 
@@ -557,6 +586,44 @@ $(document).ready(function() {
   $("#rs-less-detail-button").on("click", function() {
     $("#rs-less-detail").removeClass("hidden");
     $("#rs-more-detail").addClass("hidden");
+  });
+
+  $("#fe-all-off").on("click", function() {
+    ints_fe.forEach(function(d) {
+      var el = $("#on_off_" + d.name);
+      if (!el.is(':checked')) {
+        el.click();
+      }
+    });
+  });
+
+  $("#fu-all-off").on("click", function() {
+    ints_fu.forEach(function(d) {
+      var el = $("#on_off_" + d.name);
+      if (!el.is(':checked')) {
+        el.click();
+      }
+    });
+  });
+
+  $("#fe-all-on").on("click", function() {
+    // on_off_int_am_csect
+    ints_fe.forEach(function(d) {
+      var el = $("#on_off_" + d.name);
+      if (el.is(':checked')) {
+        el.click();
+      }
+    });
+  });
+
+  $("#fu-all-on").on("click", function() {
+    // on_off_int_am_csect
+    ints_fu.forEach(function(d) {
+      var el = $("#on_off_" + d.name);
+      if (el.is(':checked')) {
+        el.click();
+      }
+    });
   });
 
   var throttled = false;
