@@ -33,6 +33,14 @@
     url('../fonts/din-ot/DINOT-Bold.otf') format('opentype');
 }
 
+.semibold {
+  font-family: 'DIN-Medium', sans-serif;
+}
+
+.regular {
+  font-family: 'DIN-Regular', sans-serif;
+}
+
 body {
   font-family: 'DIN-Regular', sans-serif;
 }
@@ -49,6 +57,10 @@ h1,h2,h3,h4,h5,h6 {
 .header-text {
   font-family: 'DIN-Bold', sans-serif;
   font-size: 1.5em;
+}
+
+.header-version {
+  font-size: 0.75em;
 }
 
 .header-pad {
@@ -225,6 +237,11 @@ h1,h2,h3,h4,h5,h6 {
   background: #f8f8f8;
 }
 
+.input-spacer {
+  height: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
 .mutedfocus:focus { outline: 1px solid lightgray; }
 
 .active-indicator {
@@ -254,6 +271,13 @@ h1,h2,h3,h4,h5,h6 {
 
 .int-header {
   text-align: left;
+  font-size: 1.15rem;
+  line-height: 110%;
+  margin: .7666666667rem 0 .46rem 0;
+}
+
+.int-header-smalltext {
+  font-size: 12px;
 }
 
 .settings-icon {
@@ -339,6 +363,12 @@ label {
   font-family: 'DIN-Medium', sans-serif;
 }
 
+.med-counter {
+  font-family: 'DIN-Bold', sans-serif;
+  font-size: 20px;
+  line-height: 25px;
+}
+
 .numbers-down-arrow {
   line-height: 10px;
   color: gray;
@@ -356,6 +386,21 @@ label {
   font-family: 'DIN-Bold', sans-serif;
   font-size: 25px;
   /*padding-top: 15px;*/
+}
+
+.rs-detail-buttons {
+  text-align: right;
+  margin-bottom: -18px;
+}
+
+.rs-detail-buttons span {
+  color: rgb(3, 155, 229);
+  /*text-decoration: underline;*/
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 /*------ risk stratification matrix -----------*/
@@ -440,27 +485,28 @@ label {
 .bar-wrapper {
   position: relative;
   width: 400px;
-  height: 30px;
+  height: 25px;
 }
 
 .barchart {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 320px; /* make it larger so it doesn't wrap */
-  height: 30px;
+  width: 300px; /* make it larger so it doesn't wrap */
+  height: 25px;
 }
 
 .bar-counter {
   position: absolute;
   top: 0px;
-  left: 300px;
-  width: 100px;
+  left: 280px;
+  width: 120px;
   text-align: right;
 }
 
 .bar-entry {
-  height: 30px;
+  height: 25px;
+  width: 0px;
   float:left;
   transition: all ease 1.5s;
 }
@@ -519,93 +565,93 @@ label {
 
 /*------ confusion matrix -----------*/
 
-/*#conf-bounding {
-  width: 400px;
-  height: 400px;
+#conf-bounding {
+  width: 300px;
+  height: 300px;
   margin: auto;
   position: relative;
 }
 
 .conf-box {
   position: absolute;
-  transition: all 1s ease;
+  transition: all 1.5s ease;
 }
 
 .conf-box-green {
-  background: lightgreen;
+  background: #98DF8A;
 }
 
 .conf-box-red {
-  background: red;
+  background: #FF9896;
 }
 
 #conf-tp {
-  width: 200px;
-  height: 200px;
-  right: 200px;
-  bottom: 200px;
+  width: 0px;
+  height: 0px;
+  right: 150px;
+  bottom: 150px;
 }
 
 #conf-fp {
-  width: 40px;
-  height: 40px;
-  left: 200px;
-  bottom: 200px;
+  width: 0px;
+  height: 0px;
+  left: 150px;
+  bottom: 150px;
 }
 
 #conf-fn {
-  width: 20px;
-  height: 20px;
-  right: 200px;
-  top: 200px;
+  width: 0px;
+  height: 0px;
+  right: 150px;
+  top: 150px;
 }
 
 #conf-tn {
-  width: 140px;
-  height: 140px;
-  left: 200px;
-  top: 200px;
+  width: 0px;
+  height: 0px;
+  left: 150px;
+  top: 150px;
 }
 
 #conf-tp-bb {
-  width: 200px;
-  height: 200px;
-  right: 200px;
-  bottom: 200px;
+  width: 150px;
+  height: 150px;
+  right: 150px;
+  bottom: 150px;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
 }
 
 #conf-fp-bb {
-  width: 200px;
-  height: 200px;
-  left: 200px;
-  bottom: 200px;
+  width: 150px;
+  height: 150px;
+  left: 150px;
+  bottom: 150px;
   border-bottom: 1px solid black;
   border-left: 1px solid black;
 }
 
 #conf-fn-bb {
-  width: 200px;
-  height: 200px;
-  right: 200px;
-  top: 200px;
+  width: 150px;
+  height: 150px;
+  right: 150px;
+  top: 150px;
   border-top: 1px solid black;
   border-right: 1px solid black;
 }
 
 #conf-tn-bb {
-  width: 200px;
-  height: 200px;
-  left: 200px;
-  top: 200px;
+  width: 150px;
+  height: 150px;
+  left: 150px;
+  top: 150px;
   border-top: 1px solid black;
   border-left: 1px solid black;
 }
 
 .conf-bb {
   position: absolute;
-  line-height: 200px;
+  line-height: 150px;
   text-align: center;
 }
 
@@ -620,17 +666,17 @@ label {
 
 #conf-fp-label {
   position: absolute;
-  left: 200px;
-  width: 200px;
+  left: 150px;
+  width: 150px;
   height: 20px;
   text-align: center;
 }
 
 #conf-tp-label {
   position: absolute;
-  bottom: 380px;
+  bottom: 280px;
   left: 0px;
-  width: 200px;
+  width: 150px;
   height: 20px;
   text-align: center;
 }
@@ -639,7 +685,7 @@ label {
   position: absolute;
   bottom: 15px;
   left: 0px;
-  width: 200px;
+  width: 150px;
   height: 20px;
   text-align: center;
 }
@@ -647,8 +693,8 @@ label {
 #conf-tn-label {
   position: absolute;
   bottom: 15px;
-  left: 200px;
-  width: 200px;
+  left: 150px;
+  width: 150px;
   height: 20px;
   text-align: center;
 }
@@ -659,6 +705,6 @@ label {
   font-size: 15px;
   line-height: 16px;
   color: #555;
-}*/
+}
 
 /*------ end confusion matrix -------*/

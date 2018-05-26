@@ -1,10 +1,10 @@
 $(document).ready(function() {
 
-  var int0 = {
-    "int": "Antenatal monitoring + diff CFL",
-    "name": "int_am_diff_cfl",
-    "on_off": true
-  }
+  // var int0 = {
+  //   "int": "Antenatal monitoring + diff CFL",
+  //   "name": "int_am_diff_cfl",
+  //   "on_off": true
+  // }
 
   var ints = [
     {
@@ -179,8 +179,7 @@ $(document).ready(function() {
     "FRU, PHC, and Home"
   ];
 
-  var html = '';
-  $.each(ints, function(k, d) {
+  var makeIntsControls = function(k, d) {
     html += `
     <li>
       <div class="collapsible-header mutedfocus">
@@ -255,6 +254,11 @@ $(document).ready(function() {
       </div>
     </li>
     `
+  }
+
+  var html = '';
+  $.each(ints, function(k, d) {
+    makeIntsControls(k, d)
   });
   $("#inputs").append(html);
 
@@ -288,7 +292,7 @@ $(document).ready(function() {
     decimals: 0
   });
 
-  ints.forEach(function(d) {
+  var makeIntsSliders = function(d) {
     slider_vars.forEach(function(v) {
       var slider = document.getElementById(`${v}_${d.name}`);
        noUiSlider.create(slider, {
@@ -305,6 +309,10 @@ $(document).ready(function() {
         el.trigger('change');
       });
     });
+  }
+
+  ints.forEach(function(d) {
+    makeIntsSliders(d);
   });
 
   $("#pop").val(pops.pop);
@@ -535,11 +543,21 @@ $(document).ready(function() {
     });
   });
 
-  // initialize the one different intervention (int_am)
-  if (int0.on_off === true) {
-    $("#indicator-int_am_diff_cfl").addClass("on");
-    $("#on_off_int_am_diff_cfl").attr("checked", true);
-  }
+  // // initialize the one different intervention (int_am)
+  // if (int0.on_off === true) {
+  //   $("#indicator-int_am_diff_cfl").addClass("on");
+  //   $("#on_off_int_am_diff_cfl").attr("checked", true);
+  // }
+
+  $("#rs-more-detail-button").on("click", function() {
+    $("#rs-more-detail").removeClass("hidden");
+    $("#rs-less-detail").addClass("hidden");
+  });
+
+  $("#rs-less-detail-button").on("click", function() {
+    $("#rs-less-detail").removeClass("hidden");
+    $("#rs-more-detail").addClass("hidden");
+  });
 
   var throttled = false;
 

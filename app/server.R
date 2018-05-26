@@ -42,13 +42,14 @@ function(input, output) {
   })
 
   output$outputs <- reactive({
-    pe_int_inputs <- pe_int_inputs_react()
     ints <- ints_react()
-    # manually handle if am_diff_cfl is turned off
-    if (pe_int_inputs[1, "on_off"] == FALSE) {
-      ints[1, 2:4] <- 0
-    }
-    ints_tot <- lapply(ints[, c("pe_reduce", "lifesave_mat", "lifesave_neo")], sum)
+    # # manually handle if am_diff_cfl is turned off
+    # pe_int_inputs <- pe_int_inputs_react()
+    # if (pe_int_inputs[1, "on_off"] == FALSE) {
+    #   ints[1, 2:4] <- 0
+    # }
+    ints_tot <- lapply(ints[,
+      c("pe_reduce", "lifesave_mat", "lifesave_neo", "n_patient")], sum)
 
     list(
       pop = pop_react(),
@@ -71,10 +72,3 @@ function(input, output) {
   # })
 
 }
-
-# 4154980 + 514608 + 1543825 + 12464941
-# 12464941 / (4154980 + 12464941)
-# (514608 + 1543825) / 2825856
-
-# 4154980 + 1543825
-

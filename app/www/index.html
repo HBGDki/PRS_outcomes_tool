@@ -24,7 +24,7 @@
   <div class="navbar-fixed">
     <nav>
       <div class="nav-wrapper header-pad grey darken-4">
-        <span class="header-text">Pregnancy Risk Stratification Outcome Evaluation (alpha)</span>
+        <span class="header-text">Pregnancy Risk Stratification Outcome Evaluation <span class="regular header-version">(alpha)</span></span>
         <div class="right">
           <a class="modal-trigger" data-target="about-modal">
             <i class="material-icons nav-icon">info_outline</i>
@@ -164,32 +164,6 @@
       </li>
       <li>
         <div class="collapsible-header mutedfocus">
-          <span class="settings-icon icon-equalizer"></span>
-          <strong>Risk Stratification TPP</strong>
-        </div>
-        <div class="collapsible-body">
-          <div class="slider-field">
-            <label class="slider-label" for="sensitivity">Sensitivity</label>
-            <div id="sensitivity" class="shiny-my-slider" data-denom="100"></div>
-          </div>
-          <div class="slider-field">
-            <label class="slider-label" for="specificity">Specificity</label>
-            <div id="specificity" class="shiny-my-slider" data-denom="100"></div>
-          </div>
-
-          <div class="slider-field">
-            <label class="slider-label" for="riskstrat_firstweek">First week for risk stratification</label>
-            <div id="riskstrat_firstweek" class="shiny-my-slider" data-denom="1"></div>
-          </div>
-          <div class="slider-field">
-            <label class="slider-label" for="riskstrat_lastweek">Last week for risk stratification</label>
-            <div id="riskstrat_lastweek" class="shiny-my-slider" data-denom="1"></div>
-          </div>
-
-        </div>
-      </li>
-      <li>
-        <div class="collapsible-header mutedfocus">
           <span class="settings-icon icon-user-check"></span>
           <strong>ANC Visits</strong>
         </div>
@@ -227,7 +201,34 @@
 
         </div>
       </li>
+      <li class="input-spacer"></li>
       <li>
+        <div class="collapsible-header mutedfocus">
+          <span class="settings-icon icon-equalizer"></span>
+          <strong>Risk Stratification TPP</strong>
+        </div>
+        <div class="collapsible-body">
+          <div class="slider-field">
+            <label class="slider-label" for="sensitivity">Sensitivity</label>
+            <div id="sensitivity" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="specificity">Specificity</label>
+            <div id="specificity" class="shiny-my-slider" data-denom="100"></div>
+          </div>
+
+          <div class="slider-field">
+            <label class="slider-label" for="riskstrat_firstweek">First week for risk stratification</label>
+            <div id="riskstrat_firstweek" class="shiny-my-slider" data-denom="1"></div>
+          </div>
+          <div class="slider-field">
+            <label class="slider-label" for="riskstrat_lastweek">Last week for risk stratification</label>
+            <div id="riskstrat_lastweek" class="shiny-my-slider" data-denom="1"></div>
+          </div>
+        </div>
+      </li>
+      <li class="input-spacer"></li>
+      <!-- <li>
         <div class="collapsible-header mutedfocus">
           <div class="active-indicator">
             <div
@@ -257,7 +258,7 @@
             </div>
           </div>
         </div>
-      </li>
+      </li> -->
     </ul>
   </div>
   <div id="outputs" class="shiny-prs-data-output">
@@ -286,91 +287,137 @@
 
         <div class="numbers-down-arrow"><i class="material-icons">arrow_downward</i></div>
 
-        <div class="rs-box">
-          <div class="rs-header">
-            Actually High Risk (<span class="counter" id="out-hr"></span>)
+        <div id="rs-less-detail">
+          <div id="conf-bounding">
+            <div id="conf-fp" class="conf-box conf-box-red"></div>
+            <div id="conf-fn" class="conf-box conf-box-red"></div>
+            <div id="conf-tp" class="conf-box conf-box-green"></div>
+            <div id="conf-tn" class="conf-box conf-box-green"></div>
+            <div id="conf-fp-bb" class="conf-bb">
+              <div class="conf-text">
+                <span id="out_hr_fp2" class="shiny-countup-output"></span><br/>
+                (<span id="out_hr_fp_pct2" class="shiny-countup-output"></span>%)
+              </div>
+            </div>
+            <div id="conf-fn-bb" class="conf-bb">
+              <div class="conf-text">
+                 <span id="out_lr_fn2" class="shiny-countup-output"></span><br/>
+                (<span id="out_lr_fn_pct2" class="shiny-countup-output"></span>%)
+              </div>
+            </div>
+            <div id="conf-tp-bb" class="conf-bb">
+              <div class="conf-text">
+                <span id="out_hr_tp2" class="shiny-countup-output"></span><br/>
+                (<span id="out_hr_tp_pct2" class="shiny-countup-output"></span>%)
+              </div>
+            </div>
+            <div id="conf-tn-bb" class="conf-bb">
+              <div class="conf-text">
+                 <span id="out_lr_tn2" class="shiny-countup-output"></span><br/>
+                (<span id="out_lr_tn_pct2" class="shiny-countup-output"></span>%)
+              </div>
+            </div>
+            <div id="conf-fp-label" class="conf-label">Flagged high risk<br/>but truly low risk</div>
+            <div id="conf-tp-label" class="conf-label">Flagged high risk<br/>and truly high risk</div>
+            <div id="conf-fn-label" class="conf-label">Flagged low risk<br/>but truly high risk</div>
+            <div id="conf-tn-label" class="conf-label">Flagged low risk<br/>and truly low risk</div>
           </div>
-          <div class="rs-bar-bounding">
-            <div id="rs-tp" class="rs-bar-left rs-green"></div>
-            <div id="rs-fn" class="rs-bar-right rs-red"></div>
-            <div class="rs-bounding rs-bounding-left">
-              flagged high risk (sensitivity)<br/>
-              <span class="rs-num counter" id="out-hrtp"></span>
-              (<span class="rs-num counter" id="out-hrtp-pct"></span>%)
-            </div>
-            <div class="rs-bounding rs-bounding-right">
-              flagged as low risk<br/>
-              <span class="rs-num counter" id="out-lrfn"></span>
-              (<span class="rs-num counter" id="out-lrfn-pct"></span>%)
-            </div>
-          </div>
-        </div>
-
-        <div class="vpad1"></div>
-
-        <div class="rs-box">
-          <div class="rs-header">
-            Actually Low Risk (<span class="counter" id="out-lr"></span>)
-          </div>
-          <div class="rs-bar-bounding">
-            <div id="rs-fp" class="rs-bar-left rs-red"></div>
-            <div id="rs-tn" class="rs-bar-right rs-green"></div>
-            <div class="rs-bounding rs-bounding-left">
-              flagged as high risk<br/>
-              <span class="rs-num counter" id="out-hrfp"></span>
-              (<span class="rs-num counter" id="out-hrfp-pct"></span>%)
-            </div>
-            <div class="rs-bounding rs-bounding-right">
-              flagged low risk (specificity)<br/>
-              <span class="rs-num counter" id="out-lrtn"></span>
-              (<span class="rs-num counter" id="out-lrtn-pct"></span>%)
-            </div>
+          <div class="rs-detail-buttons">
+            <span id="rs-more-detail-button">More detail</span>
           </div>
         </div>
 
-        <div class="vpad"></div>
-
-        <div class="rs-box">
-          <div class="rs-header">
-            Flagged High Risk (<span class="counter" id="out-fhr"></span>)
+        <div id="rs-more-detail" class="hidden">
+          <div class="rs-box">
+            <div class="rs-header">
+              Actually High Risk (<span class="counter" id="out-hr"></span>)
+            </div>
+            <div class="rs-bar-bounding">
+              <div id="rs-tp" class="rs-bar-left rs-green"></div>
+              <div id="rs-fn" class="rs-bar-right rs-red"></div>
+              <div class="rs-bounding rs-bounding-left">
+                flagged high risk (sensitivity)<br/>
+                <span class="rs-num counter" id="out-hrtp"></span>
+                (<span class="rs-num counter" id="out-hrtp-pct"></span>%)
+              </div>
+              <div class="rs-bounding rs-bounding-right">
+                flagged as low risk<br/>
+                <span class="rs-num counter" id="out-lrfn"></span>
+                (<span class="rs-num counter" id="out-lrfn-pct"></span>%)
+              </div>
+            </div>
           </div>
-          <div class="rs-bar-bounding">
-            <div id="rs-tp2" class="rs-bar-left rs-green"></div>
-            <div id="rs-fp2" class="rs-bar-right rs-red"></div>
-            <div class="rs-bounding rs-bounding-left">
-              actually high risk (PPV)<br/>
-              <span class="rs-num counter" id="out-hrtp2"></span>
-              (<span class="rs-num counter" id="out-hrtp2-pct"></span>%)
+
+          <div class="vpad1"></div>
+
+          <div class="rs-box">
+            <div class="rs-header">
+              Actually Low Risk (<span class="counter" id="out-lr"></span>)
             </div>
-            <div class="rs-bounding rs-bounding-right">
-              actually low risk<br/>
-              <span class="rs-num counter" id="out-hrfp2"></span>
-              (<span class="rs-num counter" id="out-hrfp2-pct"></span>%)
+            <div class="rs-bar-bounding">
+              <div id="rs-fp" class="rs-bar-left rs-red"></div>
+              <div id="rs-tn" class="rs-bar-right rs-green"></div>
+              <div class="rs-bounding rs-bounding-left">
+                flagged as high risk<br/>
+                <span class="rs-num counter" id="out-hrfp"></span>
+                (<span class="rs-num counter" id="out-hrfp-pct"></span>%)
+              </div>
+              <div class="rs-bounding rs-bounding-right">
+                flagged low risk (specificity)<br/>
+                <span class="rs-num counter" id="out-lrtn"></span>
+                (<span class="rs-num counter" id="out-lrtn-pct"></span>%)
+              </div>
             </div>
+          </div>
+
+          <div class="vpad"></div>
+
+          <div class="rs-box">
+            <div class="rs-header">
+              Flagged High Risk (<span class="counter" id="out-fhr"></span>)
+            </div>
+            <div class="rs-bar-bounding">
+              <div id="rs-tp2" class="rs-bar-left rs-green"></div>
+              <div id="rs-fp2" class="rs-bar-right rs-red"></div>
+              <div class="rs-bounding rs-bounding-left">
+                actually high risk (PPV)<br/>
+                <span class="rs-num counter" id="out-hrtp2"></span>
+                (<span class="rs-num counter" id="out-hrtp2-pct"></span>%)
+              </div>
+              <div class="rs-bounding rs-bounding-right">
+                actually low risk<br/>
+                <span class="rs-num counter" id="out-hrfp2"></span>
+                (<span class="rs-num counter" id="out-hrfp2-pct"></span>%)
+              </div>
+            </div>
+          </div>
+
+          <div class="vpad1"></div>
+
+          <div class="rs-box">
+            <div class="rs-header">
+              Flagged Low Risk (<span class="counter" id="out-flr"></span>)
+            </div>
+            <div class="rs-bar-bounding">
+              <div id="rs-fn2" class="rs-bar-left rs-red"></div>
+              <div id="rs-tn2" class="rs-bar-right rs-green"></div>
+              <div class="rs-bounding rs-bounding-left">
+                actually high risk<br/>
+                <span class="rs-num counter" id="out-lrfn2"></span>
+                (<span class="rs-num counter" id="out-lrfn2-pct"></span>%)
+              </div>
+              <div class="rs-bounding rs-bounding-right">
+                actually low risk (NPV)<br/>
+                <span class="rs-num counter" id="out-lrtn2"></span>
+                (<span class="rs-num counter" id="out-lrtn2-pct"></span>%)
+              </div>
+            </div>
+          </div>
+          <div class="rs-detail-buttons">
+            <span id="rs-less-detail-button">Less detail</span>
           </div>
         </div>
 
-        <div class="vpad1"></div>
-
-        <div class="rs-box">
-          <div class="rs-header">
-            Flagged Low Risk (<span class="counter" id="out-flr"></span>)
-          </div>
-          <div class="rs-bar-bounding">
-            <div id="rs-fn2" class="rs-bar-left rs-red"></div>
-            <div id="rs-tn2" class="rs-bar-right rs-green"></div>
-            <div class="rs-bounding rs-bounding-left">
-              actually high risk<br/>
-              <span class="rs-num counter" id="out-lrfn2"></span>
-              (<span class="rs-num counter" id="out-lrfn2-pct"></span>%)
-            </div>
-            <div class="rs-bounding rs-bounding-right">
-              actually low risk (NPV)<br/>
-              <span class="rs-num counter" id="out-lrtn2"></span>
-              (<span class="rs-num counter" id="out-lrtn2-pct"></span>%)
-            </div>
-          </div>
-        </div>
 
         <!-- <div class="numbers-down-arrow"><i class="material-icons">arrow_downward</i></div>
         <div class="big-number-wrapper">
@@ -383,7 +430,10 @@
         <div class="section-header">Interventions</div>
 
         <div class="interventions">
-          <h6 class="int-header">Reduction in Pre-Eclampsia</h6>
+          <div class="int-header">
+            <span class="semibold">Reduction in Pre-Eclampsia</span>
+            <span class="int-header-smalltext">(pre-int cases: <span class="counter" id="out_pe_reduce_denom"></span>)</span>
+          </div>
           <div class="bar-wrapper">
             <div class="barchart">
               <div class="bar-entry entry-0 tippy" id="pe_reduce-entry-0"></div>
@@ -398,10 +448,16 @@
               <div class="bar-entry entry-9 tippy" id="pe_reduce-entry-9"></div>
               <div class="bar-entry entry-10 tippy" id="pe_reduce-entry-10"></div>
             </div>
-            <div><span class="bar-counter counter big-counter" id="out_pe_reduce"></span></div>
+            <div class="bar-counter">
+              <span class="counter med-counter" id="out_pe_reduce"></span>
+              (<span class="counter med-counter" id="out_pe_reduce_pct"></span>%)
+            </div>
           </div>
 
-          <h6 class="int-header">Reduction in maternal deaths</h6>
+          <div class="int-header">
+            <span class="semibold">Reduction in maternal deaths</span>
+            <span class="int-header-smalltext">(pre-int cases: <span class="counter" id="out_lifesave_mat_denom"></span>)</span>
+          </div>
           <div class="bar-wrapper">
             <div class="barchart">
               <div class="bar-entry entry-0 tippy" id="lifesave_mat-entry-0"></div>
@@ -416,10 +472,16 @@
               <div class="bar-entry entry-9 tippy" id="lifesave_mat-entry-9"></div>
               <div class="bar-entry entry-10 tippy" id="lifesave_mat-entry-10"></div>
             </div>
-            <div><span class="bar-counter counter big-counter" id="out_lifesave_mat"></span></div>
+            <div class="bar-counter">
+              <span class="counter med-counter" id="out_lifesave_mat"></span>
+              (<span class="counter med-counter" id="out_lifesave_mat_pct"></span>%)
+            </div>
           </div>
 
-          <h6 class="int-header">Reduction in neonatal deaths</h6>
+          <div class="int-header">
+            <span class="semibold">Reduction in neonatal deaths</span>
+            <span class="int-header-smalltext">(pre-int cases: <span class="counter" id="out_lifesave_neo_denom"></span>)</span>
+          </div>
           <div class="bar-wrapper">
             <div class="barchart">
               <div class="bar-entry entry-0 tippy" id="lifesave_neo-entry-0"></div>
@@ -434,7 +496,30 @@
               <div class="bar-entry entry-9 tippy" id="lifesave_neo-entry-9"></div>
               <div class="bar-entry entry-10 tippy" id="lifesave_neo-entry-10"></div>
             </div>
-            <div class="bar-counter counter big-counter" id="out_lifesave_neo"></div>
+            <div class="bar-counter">
+              <span class="counter med-counter" id="out_lifesave_neo"></span>
+              (<span class="counter med-counter" id="out_lifesave_neo_pct"></span>%)
+            </div>
+          </div>
+
+          <h6 class="int-header">Number treated</h6>
+          <div class="bar-wrapper">
+            <div class="barchart">
+              <div class="bar-entry entry-0 tippy" id="n_treated-entry-0"></div>
+              <div class="bar-entry entry-1 tippy" id="n_treated-entry-1"></div>
+              <div class="bar-entry entry-2 tippy" id="n_treated-entry-2"></div>
+              <div class="bar-entry entry-3 tippy" id="n_treated-entry-3"></div>
+              <div class="bar-entry entry-4 tippy" id="n_treated-entry-4"></div>
+              <div class="bar-entry entry-5 tippy" id="n_treated-entry-5"></div>
+              <div class="bar-entry entry-6 tippy" id="n_treated-entry-6"></div>
+              <div class="bar-entry entry-7 tippy" id="n_treated-entry-7"></div>
+              <div class="bar-entry entry-8 tippy" id="n_treated-entry-8"></div>
+              <div class="bar-entry entry-9 tippy" id="n_treated-entry-9"></div>
+              <div class="bar-entry entry-10 tippy" id="n_treated-entry-10"></div>
+            </div>
+            <div class="bar-counter">
+              <span class="counter med-counter" id="out_n_treated"></span>
+            </div>
           </div>
         </div>
 

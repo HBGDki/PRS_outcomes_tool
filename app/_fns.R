@@ -261,6 +261,11 @@ get_ints <- function(pop, der, pe_int_inputs, base_tab) {
   # sum(obj$lifesave_mat)
   # sum(obj$lifesave_neo)
 
+  # this is a hack to get final n_patient count right for this intervention
+  # (since it's a special case)
+  obj$n_patient2 <- 0
+  obj$n_patient2[1] <- der$n_riskstrat
+
   ints$am_diff_cfl <- obj
 
   ##
@@ -308,7 +313,8 @@ get_ints <- function(pop, der, pe_int_inputs, base_tab) {
       name = nm,
       pe_reduce = round(sum(x$pe_reduce)),
       lifesave_mat = round(sum(x$lifesave_mat)),
-      lifesave_neo = round(sum(x$lifesave_neo))
+      lifesave_neo = round(sum(x$lifesave_neo)),
+      n_patient = round(sum(x$n_patient2))
     )
   }) %>%
   dplyr::bind_rows()

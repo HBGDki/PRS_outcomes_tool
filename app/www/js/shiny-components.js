@@ -3,7 +3,7 @@ const numberWithCommas = (x) => {
 }
 
 var int_lookup = {
-  "am_diff_cfl": "Antenatal monitoring + diff CFL",
+  "am_diff_cfl": "Baseline from using this tool", // "Antenatal monitoring + diff CFL",
   "am_csect": "Antenatal monitoring + early C-section",
   "calcium": "Calcium",
   "selenium": "Selenium for PE",
@@ -118,18 +118,46 @@ $.extend(prsDataOutputBinding, {
     makeCountUp("out_lr_tn_pct", data.der.lr_tn_pct * 100);
     makeCountUp("out_lr_fn", data.der.lr_fn);
     makeCountUp("out_lr_fn_pct", data.der.lr_fn_pct * 100);
-    makeCountUp("out_hr_tp2", data.der.hr_tp);
-    makeCountUp("out_hr_tp_pct2", data.der.hr_tp_pct * 100);
-    makeCountUp("out_hr_fp2", data.der.hr_fp);
-    makeCountUp("out_hr_fp_pct2", data.der.hr_fp_pct * 100);
-    makeCountUp("out_lr_tn2", data.der.lr_tn);
-    makeCountUp("out_lr_tn_pct2", data.der.lr_tn_pct * 100);
-    makeCountUp("out_lr_fn2", data.der.lr_fn);
-    makeCountUp("out_lr_fn_pct2", data.der.lr_fn_pct * 100);
 
     makeCountUp("out_pop_big", data.pop.pop);
     makeCountUp("out-rs-big", data.der.n_riskstrat);
     makeCountUp("out-rs-pct-big", data.der.riskstrat_pct * 100);
+
+
+    var confu_vals = [data.der.hr_fp, data.der.lr_fn, data.der.hr_tp, data.der.lr_tn];
+    var confu_max = Math.max(...confu_vals)
+
+    // // try to resize the quadrants to get more resolution...
+    // var idx = confu_vals.indexOf(Math.max(...confu_vals));
+
+    // var maxdim = 400 * confu_vals[idx] / confu_max;
+    // var qw, qh;
+    // if ([1, 3].indexOf(idx) > -1) {
+    //   qw = Math.max(125, 400 - maxdim);
+    // } else {
+    //   qw = Math.min(400 - 125, maxdim);
+    // }
+    // if ([2, 3].indexOf(idx) > -1) {
+    //   qh = Math.max(125, 400 - maxdim);
+    // } else {
+    //   qh = Math.min(400 - 125, maxdim);
+    // }
+
+    $("#conf-fp").width(150 * data.der.hr_fp / confu_max).height(150 * data.der.hr_fp / confu_max);
+    $("#conf-fn").width(150 * data.der.lr_fn / confu_max).height(150 * data.der.lr_fn / confu_max);
+    $("#conf-tp").width(150 * data.der.hr_tp / confu_max).height(150 * data.der.hr_tp / confu_max);
+    $("#conf-tn").width(150 * data.der.lr_tn / confu_max).height(150 * data.der.lr_tn / confu_max);
+
+    var confu_tot = data.der.hr_fp + data.der.lr_fn + data.der.hr_tp + data.der.lr_tn;
+    makeCountUp("out_hr_tp2", data.der.hr_tp);
+    makeCountUp("out_hr_tp_pct2", 100 * data.der.hr_tp / confu_tot);
+    makeCountUp("out_hr_fp2", data.der.hr_fp);
+    makeCountUp("out_hr_fp_pct2", 100 * data.der.hr_fp / confu_tot);
+    makeCountUp("out_lr_tn2", data.der.lr_tn);
+    makeCountUp("out_lr_tn_pct2", 100 * data.der.lr_tn / confu_tot);
+    makeCountUp("out_lr_fn2", data.der.lr_fn);
+    makeCountUp("out_lr_fn_pct2", 100 * data.der.lr_fn / confu_tot);
+
 
     makeCountUp("out-hr", data.der.hr_tp + data.der.lr_fn);
     makeCountUp("out-hrtp", data.der.hr_tp);
@@ -172,25 +200,44 @@ $.extend(prsDataOutputBinding, {
     makeCountUp("out_pe_reduce", data.ints_tot.pe_reduce);
     makeCountUp("out_lifesave_mat", data.ints_tot.lifesave_mat);
     makeCountUp("out_lifesave_neo", data.ints_tot.lifesave_neo);
+    makeCountUp("out_n_treated", data.ints_tot.n_patient);
+
+    var pe_denom = data.pop.pop * data.pop.pe_rate;
+    var mat_denom = data.pop.pop * data.pop.mort_rate_mat;
+    var neo_denom = data.pop.pop * data.pop.mort_rate_neo;
+
+    makeCountUp("out_pe_reduce_denom", pe_denom);
+    makeCountUp("out_lifesave_mat_denom", mat_denom);
+    makeCountUp("out_lifesave_neo_denom", neo_denom);
+
+    makeCountUp("out_pe_reduce_pct", 100 * data.ints_tot.pe_reduce / pe_denom);
+    makeCountUp("out_lifesave_mat_pct", 100 * data.ints_tot.lifesave_mat / mat_denom);
+    makeCountUp("out_lifesave_neo_pct", 100 * data.ints_tot.lifesave_neo / neo_denom);
 
     /*----------------------*/
 
     data.ints.pe_reduce.map(function(d, i) {
       var el = $("#pe_reduce-entry-" + i);
-      el.width(300 * (d / data.ints_tot.pe_reduce));
+      el.width(280 * (d / data.ints_tot.pe_reduce));
       el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.pe_reduce) / 10}%)`);
     });
 
     data.ints.lifesave_mat.map(function(d, i) {
       var el = $("#lifesave_mat-entry-" + i);
-      el.width(300 * (d / data.ints_tot.lifesave_mat));
+      el.width(280 * (d / data.ints_tot.lifesave_mat));
       el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.lifesave_mat) / 10}%)`);
     });
 
     data.ints.lifesave_neo.map(function(d, i) {
       var el = $("#lifesave_neo-entry-" + i);
-      el.width(300 * (d / data.ints_tot.lifesave_neo));
+      el.width(280 * (d / data.ints_tot.lifesave_neo));
       el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.lifesave_neo) / 10}%)`);
+    });
+
+    data.ints.n_patient.map(function(d, i) {
+      var el = $("#n_treated-entry-" + i);
+      el.width(280 * (d / data.ints_tot.n_patient));
+      el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.n_patient) / 10}%)`);
     });
 
     // scales::show_col(ggthemes::tableau_color_pal('tableau10light')(10))
