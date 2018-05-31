@@ -3,13 +3,11 @@ load("_data.Rdata")
 
 function(input, output) {
 
-  pe_int_inputs_react <- reactive({
-    res <- pe_int_inputs_orig
-    if (!is.null(input$on_off_int_am_diff_cfl))
-      res[1, "on_off"] <- input$on_off_int_am_diff_cfl
+  pe_int_inputs_react_sc1 <- reactive({
+    res <- pe_int_inputs_orig[[1]]
     for (i in 2:nrow(res)) {
       for (vr in names(res[-c(1, 2)])) {
-        nm <- paste0(vr, "_", res$name[i])
+        nm <- paste0(vr, "_", res$name[i], "_sc1")
         if (!is.null(input[[nm]]))
           res[i, vr] <- input[[nm]]
       }
@@ -17,10 +15,66 @@ function(input, output) {
     res
   })
 
-  pop_react <- reactive({
+  pop_react_sc1 <- reactive({
     res <- list()
     for (nm in names(pop)) {
-      if (!is.null(input[[nm]]))
+      nm2 <- paste0(nm, "_sc1")
+      if (!is.null(input[[nm2]]) && !is.na(input[[nm2]])) {
+        res[[nm]] <- input[[nm2]]
+      }
+      if (is.null(res[[nm]]))
+        res[[nm]] <- pop[[nm]]
+    }
+    res
+  })
+
+  der_react_sc1 <- reactive({
+    get_der(pop_react_sc1(), anc_cdf)
+  })
+
+  ints_react_sc1 <- reactive({
+    get_ints(
+      pop_react_sc1(),
+      der_react_sc1(),
+      pe_int_inputs_react_sc1(),
+      base_tab_empty
+    )
+  })
+
+  output$output_sc1 <- reactive({
+    ints <- ints_react_sc1()
+
+    ints_tot <- lapply(ints[,
+      c("pe_reduce", "lifesave_mat", "lifesave_neo", "n_patient")], sum)
+
+    list(
+      idx = 1,
+      pop = pop_react_sc1(),
+      der = der_react_sc1(),
+      ints = ints,
+      ints_tot = ints_tot
+    )
+  })
+
+  ##
+  ##---------------------------------------------------------
+
+  pe_int_inputs_react_sc2 <- reactive({
+    res <- pe_int_inputs_orig[[2]]
+    for (i in 2:nrow(res)) {
+      for (vr in names(res[-c(1, 2)])) {
+        nm <- paste0(vr, "_", res$name[i], "_sc2")
+        if (!is.null(input[[nm]]))
+          res[i, vr] <- input[[nm]]
+      }
+    }
+    res
+  })
+
+  pop_react_sc2 <- reactive({
+    res <- list()
+    for (nm in names(pop)) {
+      nm2 <- paste0(nm, "_sc2")
         res[[nm]] <- input[[nm]]
       if (is.null(res[[nm]]))
         res[[nm]] <- pop[[nm]]
@@ -28,43 +82,96 @@ function(input, output) {
     res
   })
 
-  der_react <- reactive({
-    get_der(pop_react(), anc_cdf)
+  der_react_sc2 <- reactive({
+    get_der(pop_react_sc2(), anc_cdf)
   })
 
-  ints_react <- reactive({
+  ints_react_sc2 <- reactive({
     get_ints(
-      pop_react(),
-      der_react(),
-      pe_int_inputs_react(),
+      pop_react_sc2(),
+      der_react_sc2(),
+      pe_int_inputs_react_sc2(),
       base_tab_empty
     )
   })
 
-  output$outputs <- reactive({
-    ints <- ints_react()
-    # # manually handle if am_diff_cfl is turned off
-    # pe_int_inputs <- pe_int_inputs_react()
-    # if (pe_int_inputs[1, "on_off"] == FALSE) {
-    #   ints[1, 2:4] <- 0
-    # }
+  output$output_sc2 <- reactive({
+    ints <- ints_react_sc2()
+
     ints_tot <- lapply(ints[,
       c("pe_reduce", "lifesave_mat", "lifesave_neo", "n_patient")], sum)
 
     list(
-      pop = pop_react(),
-      der = der_react(),
+      idx = 2,
+      pop = pop_react_sc2(),
+      der = der_react_sc2(),
       ints = ints,
       ints_tot = ints_tot
     )
   })
+
+  ##
+  ##---------------------------------------------------------
+
+  pe_int_inputs_react_sc3 <- reactive({
+    res <- pe_int_inputs_orig[[3]]
+    for (i in 2:nrow(res)) {
+      for (vr in names(res[-c(1, 2)])) {
+        nm <- paste0(vr, "_", res$name[i], "_sc3")
+        if (!is.null(input[[nm]]))
+          res[i, vr] <- input[[nm]]
+      }
+    }
+    res
+  })
+
+  pop_react_sc3 <- reactive({
+    res <- list()
+    for (nm in names(pop)) {
+      nm2 <- paste0(nm, "_sc3")
+        res[[nm]] <- input[[nm]]
+      if (is.null(res[[nm]]))
+        res[[nm]] <- pop[[nm]]
+    }
+    res
+  })
+
+  der_react_sc3 <- reactive({
+    get_der(pop_react_sc3(), anc_cdf)
+  })
+
+  ints_react_sc3 <- reactive({
+    get_ints(
+      pop_react_sc3(),
+      der_react_sc3(),
+      pe_int_inputs_react_sc3(),
+      base_tab_empty
+    )
+  })
+
+  output$output_sc3 <- reactive({
+    ints <- ints_react_sc3()
+
+    ints_tot <- lapply(ints[,
+      c("pe_reduce", "lifesave_mat", "lifesave_neo", "n_patient")], sum)
+
+    list(
+      idx = 3,
+      pop = pop_react_sc3(),
+      der = der_react_sc3(),
+      ints = ints,
+      ints_tot = ints_tot
+    )
+  })
+
+
 
   # output$ints_table <- shiny::renderTable({
   #   ints_react()
   # })
 
   # output$pe_table <- shiny::renderTable({
-  #   pe_int_inputs_react()
+  #   pe_int_inputs_react_sc1()
   # })
 
   # output$pop_table <- shiny::renderTable({

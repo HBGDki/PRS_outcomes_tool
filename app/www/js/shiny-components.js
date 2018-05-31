@@ -84,44 +84,46 @@ $.extend(prsDataOutputBinding, {
       return;
     }
 
-    makeCountUp("out_pop", data.pop.pop);
-    makeCountUp("out_pe_rate", data.pop.pe_rate * 100);
-    makeCountUp("out_n_pe", data.der.n_pe);
-    makeCountUp("out_mort_rate_mat", data.pop.mort_rate_mat * 100000);
-    makeCountUp("out_mort_rate_neo", data.pop.mort_rate_neo * 1000);
-    makeCountUp("out_cfr_fru_maternal", data.pop.cfr_fru_maternal * 100000);
-    makeCountUp("out_cfr_phc_maternal", data.pop.cfr_phc_maternal * 100000);
-    makeCountUp("out_cfr_fru_neonatal", data.pop.cfr_fru_neonatal * 1000);
-    makeCountUp("out_cfr_phc_neonatal", data.pop.cfr_phc_neonatal * 1000);
-    makeCountUp("out_sys_fru_pct", data.pop.sys_fru_pct * 100);
-    makeCountUp("out_sys_phc_pct", data.pop.sys_phc_pct * 100);
-    makeCountUp("out_sys_home_pct", data.pop.sys_home_pct * 100);
-    makeCountUp("out_leak_fru_phc", data.pop.leak_fru_phc * 100);
-    makeCountUp("out_leak_phc_home", data.pop.leak_phc_home * 100);
-    makeCountUp("out_sensitivity", data.pop.sensitivity * 100);
-    makeCountUp("out_specificity", data.pop.specificity * 100);
-    makeCountUp("out_anc_visits1", data.pop.anc_visits1 * 100);
-    makeCountUp("out_anc_visits4", data.pop.anc_visits4 * 100);
-    makeCountUp("out_riskstrat_firstweek", data.pop.riskstrat_firstweek);
-    makeCountUp("out_riskstrat_lastweek", data.pop.riskstrat_lastweek);
-    makeCountUp("out_n_riskstrat", data.der.n_riskstrat);
-    makeCountUp("out_riskstrat_pct", data.der.riskstrat_pct * 100);
-    makeCountUp("out_hr_flagged", data.der.hr_flagged);
-    makeCountUp("out_hr_flagged_pct", data.der.hr_flagged_pct * 100);
-    makeCountUp("out_hr_tp", data.der.hr_tp);
-    makeCountUp("out_hr_tp_pct", data.der.hr_tp_pct * 100);
-    makeCountUp("out_hr_fp", data.der.hr_fp);
-    makeCountUp("out_hr_fp_pct", data.der.hr_fp_pct * 100);
-    makeCountUp("out_lr_flagged", data.der.lr_flagged);
-    makeCountUp("out_lr_flagged_pct", data.der.lr_flagged_pct * 100);
-    makeCountUp("out_lr_tn", data.der.lr_tn);
-    makeCountUp("out_lr_tn_pct", data.der.lr_tn_pct * 100);
-    makeCountUp("out_lr_fn", data.der.lr_fn);
-    makeCountUp("out_lr_fn_pct", data.der.lr_fn_pct * 100);
+    var sfx = `_sc${data.idx}`;
 
-    makeCountUp("out_pop_big", data.pop.pop);
-    makeCountUp("out-rs-big", data.der.n_riskstrat);
-    makeCountUp("out-rs-pct-big", data.der.riskstrat_pct * 100);
+    makeCountUp(`out_pop${sfx}`, data.pop.pop);
+    makeCountUp(`out_pe_rate${sfx}`, data.pop.pe_rate * 100);
+    makeCountUp(`out_n_pe${sfx}`, data.der.n_pe);
+    makeCountUp(`out_mort_rate_mat${sfx}`, data.pop.mort_rate_mat * 100000);
+    makeCountUp(`out_mort_rate_neo${sfx}`, data.pop.mort_rate_neo * 1000);
+    makeCountUp(`out_cfr_fru_maternal${sfx}`, data.pop.cfr_fru_maternal * 100000);
+    makeCountUp(`out_cfr_phc_maternal${sfx}`, data.pop.cfr_phc_maternal * 100000);
+    makeCountUp(`out_cfr_fru_neonatal${sfx}`, data.pop.cfr_fru_neonatal * 1000);
+    makeCountUp(`out_cfr_phc_neonatal${sfx}`, data.pop.cfr_phc_neonatal * 1000);
+    makeCountUp(`out_sys_fru_pct${sfx}`, data.pop.sys_fru_pct * 100);
+    makeCountUp(`out_sys_phc_pct${sfx}`, data.pop.sys_phc_pct * 100);
+    makeCountUp(`out_sys_home_pct${sfx}`, data.pop.sys_home_pct * 100);
+    makeCountUp(`out_leak_fru_phc${sfx}`, data.pop.leak_fru_phc * 100);
+    makeCountUp(`out_leak_phc_home${sfx}`, data.pop.leak_phc_home * 100);
+    makeCountUp(`out_sensitivity${sfx}`, data.pop.sensitivity * 100);
+    makeCountUp(`out_specificity${sfx}`, data.pop.specificity * 100);
+    makeCountUp(`out_anc_visits1${sfx}`, data.pop.anc_visits1 * 100);
+    makeCountUp(`out_anc_visits4${sfx}`, data.pop.anc_visits4 * 100);
+    makeCountUp(`out_riskstrat_firstweek${sfx}`, data.pop.riskstrat_firstweek);
+    makeCountUp(`out_riskstrat_lastweek${sfx}`, data.pop.riskstrat_lastweek);
+    makeCountUp(`out_n_riskstrat${sfx}`, data.der.n_riskstrat);
+    makeCountUp(`out_riskstrat_pct${sfx}`, data.der.riskstrat_pct * 100);
+    makeCountUp(`out_hr_flagged${sfx}`, data.der.hr_flagged);
+    makeCountUp(`out_hr_flagged_pct${sfx}`, data.der.hr_flagged_pct * 100);
+    makeCountUp(`out_hr_tp${sfx}`, data.der.hr_tp);
+    makeCountUp(`out_hr_tp_pct${sfx}`, data.der.hr_tp_pct * 100);
+    makeCountUp(`out_hr_fp${sfx}`, data.der.hr_fp);
+    makeCountUp(`out_hr_fp_pct${sfx}`, data.der.hr_fp_pct * 100);
+    makeCountUp(`out_lr_flagged${sfx}`, data.der.lr_flagged);
+    makeCountUp(`out_lr_flagged_pct${sfx}`, data.der.lr_flagged_pct * 100);
+    makeCountUp(`out_lr_tn${sfx}`, data.der.lr_tn);
+    makeCountUp(`out_lr_tn_pct${sfx}`, data.der.lr_tn_pct * 100);
+    makeCountUp(`out_lr_fn${sfx}`, data.der.lr_fn);
+    makeCountUp(`out_lr_fn_pct${sfx}`, data.der.lr_fn_pct * 100);
+
+    makeCountUp(`out_pop_big${sfx}`, data.pop.pop);
+    makeCountUp(`out-rs-big${sfx}`, data.der.n_riskstrat);
+    makeCountUp(`out-rs-pct-big${sfx}`, data.der.riskstrat_pct * 100);
 
 
     var confu_vals = [data.der.hr_fp, data.der.lr_fn, data.der.hr_tp, data.der.lr_tn];
@@ -143,99 +145,99 @@ $.extend(prsDataOutputBinding, {
     //   qh = Math.min(400 - 125, maxdim);
     // }
 
-    $("#conf-fp").width(150 * data.der.hr_fp / confu_max).height(150 * data.der.hr_fp / confu_max);
-    $("#conf-fn").width(150 * data.der.lr_fn / confu_max).height(150 * data.der.lr_fn / confu_max);
-    $("#conf-tp").width(150 * data.der.hr_tp / confu_max).height(150 * data.der.hr_tp / confu_max);
-    $("#conf-tn").width(150 * data.der.lr_tn / confu_max).height(150 * data.der.lr_tn / confu_max);
+    $(`#conf-fp${sfx}`).width(150 * data.der.hr_fp / confu_max).height(150 * data.der.hr_fp / confu_max);
+    $(`#conf-fn${sfx}`).width(150 * data.der.lr_fn / confu_max).height(150 * data.der.lr_fn / confu_max);
+    $(`#conf-tp${sfx}`).width(150 * data.der.hr_tp / confu_max).height(150 * data.der.hr_tp / confu_max);
+    $(`#conf-tn${sfx}`).width(150 * data.der.lr_tn / confu_max).height(150 * data.der.lr_tn / confu_max);
 
     var confu_tot = data.der.hr_fp + data.der.lr_fn + data.der.hr_tp + data.der.lr_tn;
-    makeCountUp("out_hr_tp2", data.der.hr_tp);
-    makeCountUp("out_hr_tp_pct2", 100 * data.der.hr_tp / confu_tot);
-    makeCountUp("out_hr_fp2", data.der.hr_fp);
-    makeCountUp("out_hr_fp_pct2", 100 * data.der.hr_fp / confu_tot);
-    makeCountUp("out_lr_tn2", data.der.lr_tn);
-    makeCountUp("out_lr_tn_pct2", 100 * data.der.lr_tn / confu_tot);
-    makeCountUp("out_lr_fn2", data.der.lr_fn);
-    makeCountUp("out_lr_fn_pct2", 100 * data.der.lr_fn / confu_tot);
+    makeCountUp(`out_hr_tp2${sfx}`, data.der.hr_tp);
+    makeCountUp(`out_hr_tp_pct2${sfx}`, 100 * data.der.hr_tp / confu_tot);
+    makeCountUp(`out_hr_fp2${sfx}`, data.der.hr_fp);
+    makeCountUp(`out_hr_fp_pct2${sfx}`, 100 * data.der.hr_fp / confu_tot);
+    makeCountUp(`out_lr_tn2${sfx}`, data.der.lr_tn);
+    makeCountUp(`out_lr_tn_pct2${sfx}`, 100 * data.der.lr_tn / confu_tot);
+    makeCountUp(`out_lr_fn2${sfx}`, data.der.lr_fn);
+    makeCountUp(`out_lr_fn_pct2${sfx}`, 100 * data.der.lr_fn / confu_tot);
 
 
-    makeCountUp("out-hr", data.der.hr_tp + data.der.lr_fn);
-    makeCountUp("out-hrtp", data.der.hr_tp);
-    makeCountUp("out-lrfn", data.der.lr_fn);
-    makeCountUp("out-hrtp-pct", 100 * data.der.hr_tp / (data.der.hr_tp + data.der.lr_fn));
-    makeCountUp("out-lrfn-pct", 100 * data.der.lr_fn / (data.der.hr_tp + data.der.lr_fn));
+    makeCountUp(`out-hr${sfx}`, data.der.hr_tp + data.der.lr_fn);
+    makeCountUp(`out-hrtp${sfx}`, data.der.hr_tp);
+    makeCountUp(`out-lrfn${sfx}`, data.der.lr_fn);
+    makeCountUp(`out-hrtp-pct${sfx}`, 100 * data.der.hr_tp / (data.der.hr_tp + data.der.lr_fn));
+    makeCountUp(`out-lrfn-pct${sfx}`, 100 * data.der.lr_fn / (data.der.hr_tp + data.der.lr_fn));
     var mx = Math.max(data.der.hr_tp, data.der.lr_fn);
-    $("#rs-tp").width(200 * data.der.hr_tp / mx);
-    $("#rs-fn").width(200 * data.der.lr_fn / mx);
+    $(`#rs-tp${sfx}`).width(200 * data.der.hr_tp / mx);
+    $(`#rs-fn${sfx}`).width(200 * data.der.lr_fn / mx);
 
-    makeCountUp("out-lr", data.der.hr_fp + data.der.lr_tn);
-    makeCountUp("out-hrfp", data.der.hr_fp);
-    makeCountUp("out-lrtn", data.der.lr_tn);
-    makeCountUp("out-hrfp-pct", 100 * data.der.hr_fp / (data.der.hr_fp + data.der.lr_tn));
-    makeCountUp("out-lrtn-pct", 100 * data.der.lr_tn / (data.der.hr_fp + data.der.lr_tn));
+    makeCountUp(`out-lr${sfx}`, data.der.hr_fp + data.der.lr_tn);
+    makeCountUp(`out-hrfp${sfx}`, data.der.hr_fp);
+    makeCountUp(`out-lrtn${sfx}`, data.der.lr_tn);
+    makeCountUp(`out-hrfp-pct${sfx}`, 100 * data.der.hr_fp / (data.der.hr_fp + data.der.lr_tn));
+    makeCountUp(`out-lrtn-pct${sfx}`, 100 * data.der.lr_tn / (data.der.hr_fp + data.der.lr_tn));
     mx = Math.max(data.der.hr_fp, data.der.lr_tn);
-    $("#rs-fp").width(200 * data.der.hr_fp / mx);
-    $("#rs-tn").width(200 * data.der.lr_tn / mx);
+    $(`#rs-fp${sfx}`).width(200 * data.der.hr_fp / mx);
+    $(`#rs-tn${sfx}`).width(200 * data.der.lr_tn / mx);
 
-    makeCountUp("out-fhr", data.der.hr_tp + data.der.hr_fp);
-    makeCountUp("out-hrtp2", data.der.hr_tp);
-    makeCountUp("out-hrfp2", data.der.hr_fp);
-    makeCountUp("out-hrtp2-pct", 100 * data.der.hr_tp / (data.der.hr_tp + data.der.hr_fp));
-    makeCountUp("out-hrfp2-pct", 100 * data.der.hr_fp / (data.der.hr_tp + data.der.hr_fp));
+    makeCountUp(`out-fhr${sfx}`, data.der.hr_tp + data.der.hr_fp);
+    makeCountUp(`out-hrtp2${sfx}`, data.der.hr_tp);
+    makeCountUp(`out-hrfp2${sfx}`, data.der.hr_fp);
+    makeCountUp(`out-hrtp2-pct${sfx}`, 100 * data.der.hr_tp / (data.der.hr_tp + data.der.hr_fp));
+    makeCountUp(`out-hrfp2-pct${sfx}`, 100 * data.der.hr_fp / (data.der.hr_tp + data.der.hr_fp));
     var mx = Math.max(data.der.hr_tp, data.der.hr_fp);
-    $("#rs-tp2").width(200 * data.der.hr_tp / mx);
-    $("#rs-fp2").width(200 * data.der.hr_fp / mx);
+    $(`#rs-tp2${sfx}`).width(200 * data.der.hr_tp / mx);
+    $(`#rs-fp2${sfx}`).width(200 * data.der.hr_fp / mx);
 
-    makeCountUp("out-flr", data.der.lr_fn + data.der.lr_tn);
-    makeCountUp("out-lrfn2", data.der.lr_fn);
-    makeCountUp("out-lrtn2", data.der.lr_tn);
-    makeCountUp("out-lrfn2-pct", 100 * data.der.lr_fn / (data.der.lr_fn + data.der.lr_tn));
-    makeCountUp("out-lrtn2-pct", 100 * data.der.lr_tn / (data.der.lr_fn + data.der.lr_tn));
+    makeCountUp(`out-flr${sfx}`, data.der.lr_fn + data.der.lr_tn);
+    makeCountUp(`out-lrfn2${sfx}`, data.der.lr_fn);
+    makeCountUp(`out-lrtn2${sfx}`, data.der.lr_tn);
+    makeCountUp(`out-lrfn2-pct${sfx}`, 100 * data.der.lr_fn / (data.der.lr_fn + data.der.lr_tn));
+    makeCountUp(`out-lrtn2-pct${sfx}`, 100 * data.der.lr_tn / (data.der.lr_fn + data.der.lr_tn));
     mx = Math.max(data.der.lr_fn, data.der.lr_tn);
-    $("#rs-fn2").width(200 * data.der.lr_fn / mx);
-    $("#rs-tn2").width(200 * data.der.lr_tn / mx);
+    $(`#rs-fn2${sfx}`).width(200 * data.der.lr_fn / mx);
+    $(`#rs-tn2${sfx}`).width(200 * data.der.lr_tn / mx);
 
-    makeCountUp("out-tot-hr", data.der.hr_tp + data.der.hr_fp);
+    makeCountUp(`out-tot-hr${sfx}`, data.der.hr_tp + data.der.hr_fp);
 
-    makeCountUp("out_pe_reduce", data.ints_tot.pe_reduce);
-    makeCountUp("out_lifesave_mat", data.ints_tot.lifesave_mat);
-    makeCountUp("out_lifesave_neo", data.ints_tot.lifesave_neo);
-    makeCountUp("out_n_treated", data.ints_tot.n_patient);
+    makeCountUp(`out_pe_reduce${sfx}`, data.ints_tot.pe_reduce);
+    makeCountUp(`out_lifesave_mat${sfx}`, data.ints_tot.lifesave_mat);
+    makeCountUp(`out_lifesave_neo${sfx}`, data.ints_tot.lifesave_neo);
+    makeCountUp(`out_n_treated${sfx}`, data.ints_tot.n_patient);
 
     var pe_denom = data.pop.pop * data.pop.pe_rate;
     var mat_denom = data.pop.pop * data.pop.mort_rate_mat;
     var neo_denom = data.pop.pop * data.pop.mort_rate_neo;
 
-    makeCountUp("out_pe_reduce_denom", pe_denom);
-    makeCountUp("out_lifesave_mat_denom", mat_denom);
-    makeCountUp("out_lifesave_neo_denom", neo_denom);
+    makeCountUp(`out_pe_reduce_denom${sfx}`, pe_denom);
+    makeCountUp(`out_lifesave_mat_denom${sfx}`, mat_denom);
+    makeCountUp(`out_lifesave_neo_denom${sfx}`, neo_denom);
 
-    makeCountUp("out_pe_reduce_pct", 100 * data.ints_tot.pe_reduce / pe_denom);
-    makeCountUp("out_lifesave_mat_pct", 100 * data.ints_tot.lifesave_mat / mat_denom);
-    makeCountUp("out_lifesave_neo_pct", 100 * data.ints_tot.lifesave_neo / neo_denom);
+    makeCountUp(`out_pe_reduce_pct${sfx}`, 100 * data.ints_tot.pe_reduce / pe_denom);
+    makeCountUp(`out_lifesave_mat_pct${sfx}`, 100 * data.ints_tot.lifesave_mat / mat_denom);
+    makeCountUp(`out_lifesave_neo_pct${sfx}`, 100 * data.ints_tot.lifesave_neo / neo_denom);
 
     /*----------------------*/
 
     data.ints.pe_reduce.map(function(d, i) {
-      var el = $("#pe_reduce-entry-" + i);
+      var el = $(`#pe_reduce-entry-${i}${sfx}`);
       el.width(280 * (d / data.ints_tot.pe_reduce));
       el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.pe_reduce) / 10}%)`);
     });
 
     data.ints.lifesave_mat.map(function(d, i) {
-      var el = $("#lifesave_mat-entry-" + i);
+      var el = $(`#lifesave_mat-entry-${i}${sfx}`);
       el.width(280 * (d / data.ints_tot.lifesave_mat));
       el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.lifesave_mat) / 10}%)`);
     });
 
     data.ints.lifesave_neo.map(function(d, i) {
-      var el = $("#lifesave_neo-entry-" + i);
+      var el = $(`#lifesave_neo-entry-${i}${sfx}`);
       el.width(280 * (d / data.ints_tot.lifesave_neo));
       el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.lifesave_neo) / 10}%)`);
     });
 
     data.ints.n_patient.map(function(d, i) {
-      var el = $("#n_treated-entry-" + i);
+      var el = $(`#n_treated-entry-${i}${sfx}`);
       el.width(280 * (d / data.ints_tot.n_patient));
       el.attr("title", `${int_lookup[data.ints.name[i]]}: ${numberWithCommas(d)} (${Math.round(1000 * d / data.ints_tot.n_patient) / 10}%)`);
     });

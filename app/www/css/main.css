@@ -85,17 +85,21 @@ h1,h2,h3,h4,h5,h6 {
   max-width: 375px;
 }
 
-#subheader {
-  position: fixed;
-  top: 50px;
-  left: 0px;
-  height: 40px;
+.subheader {
   background-color: rgb(112, 182, 188);
   color: white;
   z-index: 10;
   font-family: 'DIN-Medium', sans-serif;
   line-height: 40px;
   font-size: 17px;
+}
+
+#subheader {
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  height: 40px;
+  width: 360px;
 }
 
 #controls {
@@ -105,6 +109,7 @@ h1,h2,h3,h4,h5,h6 {
   top: 82px;
   width: 360px;
   overflow-y: auto;
+  z-index: 9999;
   /*border-right: 1px solid #dedede;*/
 }
 
@@ -118,26 +123,6 @@ h1,h2,h3,h4,h5,h6 {
   width: 360px;
   text-align: center;
   border-right: 1px solid rgba(255,255,255, 0.25);
-}
-
-#outputs-header {
-  position: absolute;
-  left: 360px;
-  top: 0px;
-  width: 430px;
-  text-align: center;
-  border-right: 1px solid rgba(255,255,255, 0.25);
-  display: inline-block;
-}
-
-#more-scenarios {
-  position: absolute;
-  left: 790px;
-  top: 0px;
-  width: 160px;
-  display: inline-flex;
-  background-color: white;
-  color: #777;
 }
 
 .header-icon {
@@ -169,14 +154,64 @@ h1,h2,h3,h4,h5,h6 {
 #outputs {
   position: fixed;
   left: 360px;
+  top: 50px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.output {
+  position: absolute;
+  top: 40px;
   width: 430px;
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 100px;
-  top: 82px;
   padding-top: 15px;
   overflow-y: auto;
   border-right: 1px solid #ddd;
+}
+
+#output_sc1 {
+  left: 0px;
+}
+
+#output_sc2 {
+  left: 430px;
+}
+
+#output_sc3 {
+  left: 860px;
+}
+
+.output-header {
+  position: absolute;
+  top: 0px;
+  width: 430px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255, 0.25);
+  display: inline-block;
+}
+
+#output-header-sc1 {
+  left: 0px;
+}
+
+#output-header-sc2 {
+  left: 430px;
+}
+
+#output-header-sc3 {
+  left: 860px;
+}
+
+#more-scenarios {
+  position: absolute;
+  left: 1290px;
+  top: 0px;
+  width: 160px;
+  display: inline-flex;
+  background-color: white;
+  color: #777;
 }
 
 .info-table {
@@ -240,10 +275,12 @@ h1,h2,h3,h4,h5,h6 {
 .input-spacer {
   height: 8px;
   border-bottom: 1px solid #ddd;
+  background: white;
 }
 
 .ints-control-header-container {
   border-bottom: 1px solid #ddd;
+  background: white;
 }
 
 .ints-control-header {
@@ -311,6 +348,18 @@ h1,h2,h3,h4,h5,h6 {
   padding-right: 8px;
   padding-left: 2px;
   padding-top: 2px;
+  font-size: 15px;
+  color: #999;
+}
+
+.settings-icon2 {
+  line-height: -1;
+  padding-right: 8px;
+  /*padding-left: 2px;*/
+  padding-top: 2px;
+  font-size: 19px !important;
+  width: 25px !important;
+  margin-right: 0px !important;
   color: #999;
 }
 
@@ -612,35 +661,35 @@ label {
   background: #FF9896;
 }
 
-#conf-tp {
+.conf-tp {
   width: 0px;
   height: 0px;
   right: 150px;
   bottom: 150px;
 }
 
-#conf-fp {
+.conf-fp {
   width: 0px;
   height: 0px;
   left: 150px;
   bottom: 150px;
 }
 
-#conf-fn {
+.conf-fn {
   width: 0px;
   height: 0px;
   right: 150px;
   top: 150px;
 }
 
-#conf-tn {
+.conf-tn {
   width: 0px;
   height: 0px;
   left: 150px;
   top: 150px;
 }
 
-#conf-tp-bb {
+.conf-tp-bb {
   width: 150px;
   height: 150px;
   right: 150px;
@@ -649,7 +698,7 @@ label {
   border-right: 1px solid black;
 }
 
-#conf-fp-bb {
+.conf-fp-bb {
   width: 150px;
   height: 150px;
   left: 150px;
@@ -658,7 +707,7 @@ label {
   border-left: 1px solid black;
 }
 
-#conf-fn-bb {
+.conf-fn-bb {
   width: 150px;
   height: 150px;
   right: 150px;
@@ -667,7 +716,7 @@ label {
   border-right: 1px solid black;
 }
 
-#conf-tn-bb {
+.conf-tn-bb {
   width: 150px;
   height: 150px;
   left: 150px;
@@ -691,7 +740,7 @@ label {
   color: #333;
 }
 
-#conf-fp-label {
+.conf-fp-label {
   position: absolute;
   left: 150px;
   width: 150px;
@@ -699,7 +748,7 @@ label {
   text-align: center;
 }
 
-#conf-tp-label {
+.conf-tp-label {
   position: absolute;
   bottom: 280px;
   left: 0px;
@@ -708,7 +757,7 @@ label {
   text-align: center;
 }
 
-#conf-fn-label {
+.conf-fn-label {
   position: absolute;
   bottom: 15px;
   left: 0px;
@@ -717,7 +766,7 @@ label {
   text-align: center;
 }
 
-#conf-tn-label {
+.conf-tn-label {
   position: absolute;
   bottom: 15px;
   left: 150px;

@@ -477,7 +477,7 @@ setdiff(names(pop), names(input_desc))
 setdiff(names(input_desc), names(pop))
 
 base_tab_empty <- base_tab
-pe_int_inputs_orig <- pe_int_inputs
+pe_int_inputs_orig <- list(pe_int_inputs, pe_int_inputs, pe_int_inputs)
 # save(base_tab_empty, anc_cdf, pop, pe_int_inputs_orig, file = "app/_data.Rdata")
 
 
