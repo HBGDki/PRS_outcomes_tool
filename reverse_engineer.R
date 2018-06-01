@@ -435,10 +435,6 @@ bind_rows()
 
 # pe_int_inputs$name
 
-jsonlite::toJSON(pe_int_inputs[-1, ], pretty = TRUE)
-
-jsonlite::toJSON(pop, pretty = TRUE, auto_unbox = TRUE, digits = NA)
-
 input_desc <- list(
   # Demographics
   "pop" = "Population",
@@ -477,7 +473,43 @@ setdiff(names(pop), names(input_desc))
 setdiff(names(input_desc), names(pop))
 
 base_tab_empty <- base_tab
-pe_int_inputs_orig <- list(pe_int_inputs, pe_int_inputs, pe_int_inputs)
-# save(base_tab_empty, anc_cdf, pop, pe_int_inputs_orig, file = "app/_data.Rdata")
 
+int_fe <- c("int_am_csect", "int_calcium", "int_aspirin", "int_antihyper")
+int_fu <- c("int_selenium", "int_statins", "int_mag_fru", "int_mag_phc", "int_intantihyper", "int_drug")
+
+pe_int_inputs$entry <- seq_len(nrow(pe_int_inputs)) - 1
+pe_int_inputs2 <- pe_int_inputs
+pe_int_inputs2$on_off[pe_int_inputs$name %in% int_fe] <- TRUE
+pe_int_inputs2$on_off[pe_int_inputs$name %in% int_fu] <- FALSE
+
+pe_int_inputs3 <- pe_int_inputs
+pe_int_inputs3$on_off <- FALSE
+
+pe_int_inputs_orig <- list(pe_int_inputs, pe_int_inputs2, pe_int_inputs3)
+pop_orig <- list(pop, pop, pop)
+
+# save(base_tab_empty, anc_cdf, pop_orig, pe_int_inputs_orig, file = "app/_data.Rdata")
+
+sc <- list(
+  list(
+    name = "India Baseline",
+    ints_fe = filter(pe_int_inputs_orig[[1]], name %in% int_fe),
+    ints_fu = filter(pe_int_inputs_orig[[1]], name %in% int_fu),
+    pops = pop_orig[[1]]
+  ),
+  list(
+    name = "India Feasible Only",
+    ints_fe = filter(pe_int_inputs_orig[[2]], name %in% int_fe),
+    ints_fu = filter(pe_int_inputs_orig[[2]], name %in% int_fu),
+    pops = pop_orig[[1]]
+  ),
+  list(
+    name = "India No Interventions",
+    ints_fe = filter(pe_int_inputs_orig[[3]], name %in% int_fe),
+    ints_fu = filter(pe_int_inputs_orig[[3]], name %in% int_fu),
+    pops = pop_orig[[1]]
+  )
+)
+
+jsonlite::toJSON(sc, pretty = TRUE, auto_unbox = TRUE, digits = NA)
 

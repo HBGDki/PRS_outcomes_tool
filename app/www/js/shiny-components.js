@@ -22,6 +22,8 @@ $.extend(mySliderBinding, {
     return $(scope).find(".shiny-my-slider");
   },
   getValue: function(el) {
+    // console.log($(el).attr('id'))
+    // console.log($(el).data('value'))
     var denom = parseFloat($(el).data('denom'))
     return parseFloat($(el).data('value')) / denom;
   },
@@ -245,14 +247,26 @@ $.extend(prsDataOutputBinding, {
     // scales::show_col(ggthemes::tableau_color_pal('tableau10light')(10))
     // jsonlite::toJSON(ggthemes::tableau_color_pal('tableau10light')(10))
 
-     var txt = `Those who seek care in the right time. Based on an India-specific distribution of ANC visit times and based on first week of risk stratification of ${data.pop.riskstrat_firstweek}, last week of risk stratification of ${data.pop.riskstrat_lastweek} and ${Math.round(data.pop.anc_visits1 * 100)}% of the population having at least one visit.`
+     var txt = `Those who seek care in the right time. Based on an India-specific distribution of ANC visit times and based on first week of risk stratification at ${data.pop.riskstrat_firstweek} weeks, last week of risk stratification at ${data.pop.riskstrat_lastweek} weeks and ${Math.round(data.pop.anc_visits1 * 100)}% of the population having at least one visit.`
 
-     $("#rs-num-info").attr("title", txt);
+     $(`#rs-num-info${sfx}`).attr("title", txt);
 
     // console.log(data)
   }
 });
 Shiny.outputBindings.register(prsDataOutputBinding);
+
+
+// var activeScenarioBinding = new Shiny.OutputBinding();
+// $.extend(activeScenarioBinding, {
+//   find: function(scope) {
+//     return $(scope).find('.shiny-active-scenario');
+//   },
+//   renderValue: function(el, data) {
+//   }
+// });
+// Shiny.outputBindings.register(activeScenarioBinding);
+
 
 // var countUpOutputBinding = new Shiny.OutputBinding();
 // $.extend(countUpOutputBinding, {

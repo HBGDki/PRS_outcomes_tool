@@ -94,6 +94,10 @@ h1,h2,h3,h4,h5,h6 {
   font-size: 17px;
 }
 
+.subheader.inactive {
+  background-color: #ccc;
+}
+
 #subheader {
   position: fixed;
   top: 50px;
@@ -109,7 +113,7 @@ h1,h2,h3,h4,h5,h6 {
   top: 82px;
   width: 360px;
   overflow-y: auto;
-  z-index: 9999;
+  /*z-index: 9999;*/
   /*border-right: 1px solid #dedede;*/
 }
 
@@ -122,7 +126,7 @@ h1,h2,h3,h4,h5,h6 {
   top: 0px;
   width: 360px;
   text-align: center;
-  border-right: 1px solid rgba(255,255,255, 0.25);
+  /*border-right: 1px solid rgba(255,255,255, 0.25);*/
 }
 
 .header-icon {
@@ -190,6 +194,25 @@ h1,h2,h3,h4,h5,h6 {
   text-align: center;
   border-right: 1px solid rgba(255,255,255, 0.25);
   display: inline-block;
+  cursor: pointer;
+  /*margin-top: 5px;*/
+}
+
+.output-header-top {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 430px;
+  height: 5px;
+  background: rgb(112, 182, 188);
+}
+
+.output-header-background {
+  background-color: rgb(112, 182, 188);
+  position: absolute;
+  top: 0px;
+  height: 5px;
+  width: 430px;
 }
 
 #output-header-sc1 {
@@ -206,12 +229,15 @@ h1,h2,h3,h4,h5,h6 {
 
 #more-scenarios {
   position: absolute;
-  left: 1290px;
+  left: 430px;
   top: 0px;
   width: 160px;
   display: inline-flex;
   background-color: white;
   color: #777;
+  font-family: 'DIN-Medium', sans-serif;
+  line-height: 40px;
+  font-size: 17px;
 }
 
 .info-table {
@@ -334,7 +360,7 @@ h1,h2,h3,h4,h5,h6 {
 
 .int-header {
   text-align: left;
-  font-size: 1.15rem;
+  font-size: 1rem;
   line-height: 110%;
   margin: .7666666667rem 0 .46rem 0;
 }

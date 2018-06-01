@@ -17,13 +17,13 @@ function(input, output) {
 
   pop_react_sc1 <- reactive({
     res <- list()
-    for (nm in names(pop)) {
+    for (nm in names(pop_orig[[1]])) {
       nm2 <- paste0(nm, "_sc1")
       if (!is.null(input[[nm2]]) && !is.na(input[[nm2]])) {
         res[[nm]] <- input[[nm2]]
       }
       if (is.null(res[[nm]]))
-        res[[nm]] <- pop[[nm]]
+        res[[nm]] <- pop_orig[[1]][[nm]]
     }
     res
   })
@@ -73,11 +73,13 @@ function(input, output) {
 
   pop_react_sc2 <- reactive({
     res <- list()
-    for (nm in names(pop)) {
+    for (nm in names(pop_orig[[2]])) {
       nm2 <- paste0(nm, "_sc2")
-        res[[nm]] <- input[[nm]]
+      if (!is.null(input[[nm2]]) && !is.na(input[[nm2]])) {
+        res[[nm]] <- input[[nm2]]
+      }
       if (is.null(res[[nm]]))
-        res[[nm]] <- pop[[nm]]
+        res[[nm]] <- pop_orig[[2]][[nm]]
     }
     res
   })
@@ -127,11 +129,13 @@ function(input, output) {
 
   pop_react_sc3 <- reactive({
     res <- list()
-    for (nm in names(pop)) {
+    for (nm in names(pop_orig[[3]])) {
       nm2 <- paste0(nm, "_sc3")
-        res[[nm]] <- input[[nm]]
+      if (!is.null(input[[nm2]]) && !is.na(input[[nm2]])) {
+        res[[nm]] <- input[[nm2]]
+      }
       if (is.null(res[[nm]]))
-        res[[nm]] <- pop[[nm]]
+        res[[nm]] <- pop_orig[[3]][[nm]]
     }
     res
   })
@@ -164,6 +168,9 @@ function(input, output) {
     )
   })
 
+  # output$active_scenario <- reactive({
+  #   input$actscen
+  # })
 
 
   # output$ints_table <- shiny::renderTable({

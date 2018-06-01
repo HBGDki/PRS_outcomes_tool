@@ -8,7 +8,7 @@ $(document).ready(function() {
 
   var scenarios = [
     {
-      "name": "India",
+      "name": "India Baseline",
       "ints_fe": [
         {
           "int": "Antenatal monitoring + early C-section",
@@ -19,8 +19,8 @@ $(document).ready(function() {
           "coverage": 1,
           "elig_pop_haircut": 1,
           "eff_reducing_PE": 0,
-          "eff_reducing_mat_deaths": 0.2937,
-          "eff_reducing_neo_deaths": 0.2937,
+          "eff_reducing_mat_deaths": 0.29374,
+          "eff_reducing_neo_deaths": 0.29374,
           "entry": 1
         },
         {
@@ -30,7 +30,7 @@ $(document).ready(function() {
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.6661,
+          "elig_pop_haircut": 0.666134086,
           "eff_reducing_PE": 0.33,
           "eff_reducing_mat_deaths": 0.33,
           "eff_reducing_neo_deaths": 0.33,
@@ -43,10 +43,10 @@ $(document).ready(function() {
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.4944,
-          "eff_reducing_PE": 0.2929,
-          "eff_reducing_mat_deaths": 0.2929,
-          "eff_reducing_neo_deaths": 0.2929,
+          "elig_pop_haircut": 0.49436655,
+          "eff_reducing_PE": 0.292922754,
+          "eff_reducing_mat_deaths": 0.292922754,
+          "eff_reducing_neo_deaths": 0.292922754,
           "entry": 5
         },
         {
@@ -71,7 +71,7 @@ $(document).ready(function() {
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.6661,
+          "elig_pop_haircut": 0.666134086,
           "eff_reducing_PE": 0.72,
           "eff_reducing_mat_deaths": 0.72,
           "eff_reducing_neo_deaths": 0.72,
@@ -84,7 +84,7 @@ $(document).ready(function() {
           "applied_to": "Risk stratified & flagged high risk",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.4944,
+          "elig_pop_haircut": 0.49436655,
           "eff_reducing_PE": 0.03,
           "eff_reducing_mat_deaths": 0.03,
           "eff_reducing_neo_deaths": 0.03,
@@ -165,11 +165,326 @@ $(document).ready(function() {
         "hr_act_w_ghtn_pct": 0.8,
         "flagintime_pct": 0.95
       }
+    },
+    {
+      "name": "India Feasible Only",
+      "ints_fe": [
+        {
+          "int": "Antenatal monitoring + early C-section",
+          "name": "int_am_csect",
+          "on_off": true,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU only",
+          "coverage": 1,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.29374,
+          "eff_reducing_neo_deaths": 0.29374,
+          "entry": 1
+        },
+        {
+          "int": "Calcium",
+          "name": "int_calcium",
+          "on_off": true,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.666134086,
+          "eff_reducing_PE": 0.33,
+          "eff_reducing_mat_deaths": 0.33,
+          "eff_reducing_neo_deaths": 0.33,
+          "entry": 2
+        },
+        {
+          "int": "Aspirin",
+          "name": "int_aspirin",
+          "on_off": true,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.49436655,
+          "eff_reducing_PE": 0.292922754,
+          "eff_reducing_mat_deaths": 0.292922754,
+          "eff_reducing_neo_deaths": 0.292922754,
+          "entry": 5
+        },
+        {
+          "int": "Antihypertensives",
+          "name": "int_antihyper",
+          "on_off": true,
+          "applied_to": "Hypertensive (and risk stratified)",
+          "location_of_care": "FRU and PHC",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.1,
+          "eff_reducing_neo_deaths": 0.1,
+          "entry": 6
+        }
+      ],
+      "ints_fu": [
+        {
+          "int": "Selenium for PE",
+          "name": "int_selenium",
+          "on_off": false,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.666134086,
+          "eff_reducing_PE": 0.72,
+          "eff_reducing_mat_deaths": 0.72,
+          "eff_reducing_neo_deaths": 0.72,
+          "entry": 3
+        },
+        {
+          "int": "Statins",
+          "name": "int_statins",
+          "on_off": false,
+          "applied_to": "Risk stratified & flagged high risk",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.49436655,
+          "eff_reducing_PE": 0.03,
+          "eff_reducing_mat_deaths": 0.03,
+          "eff_reducing_neo_deaths": 0.03,
+          "entry": 4
+        },
+        {
+          "int": "Incremental magnesium roll-out - FRU",
+          "name": "int_mag_fru",
+          "on_off": false,
+          "applied_to": "Actually high risk (presume can discern)",
+          "location_of_care": "FRU only",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.64,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.46,
+          "entry": 7
+        },
+        {
+          "int": "Incremental magnesium roll-out - PHC",
+          "name": "int_mag_phc",
+          "on_off": false,
+          "applied_to": "Actually high risk (presume can discern)",
+          "location_of_care": "PHC only",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.46,
+          "entry": 8
+        },
+        {
+          "int": "Intrapartum antihypertensives",
+          "name": "int_intantihyper",
+          "on_off": false,
+          "applied_to": "Actually high risk (presume can discern)",
+          "location_of_care": "FRU only",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.015,
+          "eff_reducing_neo_deaths": 0.015,
+          "entry": 9
+        },
+        {
+          "int": "Novel drug",
+          "name": "int_drug",
+          "on_off": false,
+          "applied_to": "All",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0.5,
+          "eff_reducing_mat_deaths": 0.5,
+          "eff_reducing_neo_deaths": 0.5,
+          "entry": 10
+        }
+      ],
+      "pops": {
+        "pop": 25642000,
+        "pe_rate": 0.110204196,
+        "mort_rate_mat": 0.000898843,
+        "mort_rate_neo": 0.008988427,
+        "anc_visits1": 0.742,
+        "anc_visits4": 0.45,
+        "sensitivity": 0.75,
+        "specificity": 0.75,
+        "riskstrat_firstweek": 4,
+        "riskstrat_lastweek": 42,
+        "cfr_fru_maternal": 0.000488501,
+        "cfr_phc_maternal": 0.000977003,
+        "cfr_fru_neonatal": 0.004885015,
+        "cfr_phc_neonatal": 0.009770029,
+        "sys_fru_pct": 0.16,
+        "sys_phc_pct": 0.63,
+        "sys_home_pct": 0.21,
+        "leak_fru_phc": 0.1,
+        "leak_phc_home": 0.1,
+        "pop_ghtn_pct": 0.125,
+        "hr_act_w_ghtn_pct": 0.8,
+        "flagintime_pct": 0.95
+      }
+    },
+    {
+      "name": "India No Interventions",
+      "ints_fe": [
+        {
+          "int": "Antenatal monitoring + early C-section",
+          "name": "int_am_csect",
+          "on_off": false,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU only",
+          "coverage": 1,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.29374,
+          "eff_reducing_neo_deaths": 0.29374,
+          "entry": 1
+        },
+        {
+          "int": "Calcium",
+          "name": "int_calcium",
+          "on_off": false,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.666134086,
+          "eff_reducing_PE": 0.33,
+          "eff_reducing_mat_deaths": 0.33,
+          "eff_reducing_neo_deaths": 0.33,
+          "entry": 2
+        },
+        {
+          "int": "Aspirin",
+          "name": "int_aspirin",
+          "on_off": false,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.49436655,
+          "eff_reducing_PE": 0.292922754,
+          "eff_reducing_mat_deaths": 0.292922754,
+          "eff_reducing_neo_deaths": 0.292922754,
+          "entry": 5
+        },
+        {
+          "int": "Antihypertensives",
+          "name": "int_antihyper",
+          "on_off": false,
+          "applied_to": "Hypertensive (and risk stratified)",
+          "location_of_care": "FRU and PHC",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.1,
+          "eff_reducing_neo_deaths": 0.1,
+          "entry": 6
+        }
+      ],
+      "ints_fu": [
+        {
+          "int": "Selenium for PE",
+          "name": "int_selenium",
+          "on_off": false,
+          "applied_to": "All risk stratified",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.666134086,
+          "eff_reducing_PE": 0.72,
+          "eff_reducing_mat_deaths": 0.72,
+          "eff_reducing_neo_deaths": 0.72,
+          "entry": 3
+        },
+        {
+          "int": "Statins",
+          "name": "int_statins",
+          "on_off": false,
+          "applied_to": "Risk stratified & flagged high risk",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.49436655,
+          "eff_reducing_PE": 0.03,
+          "eff_reducing_mat_deaths": 0.03,
+          "eff_reducing_neo_deaths": 0.03,
+          "entry": 4
+        },
+        {
+          "int": "Incremental magnesium roll-out - FRU",
+          "name": "int_mag_fru",
+          "on_off": false,
+          "applied_to": "Actually high risk (presume can discern)",
+          "location_of_care": "FRU only",
+          "coverage": 0.5,
+          "elig_pop_haircut": 0.64,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.46,
+          "entry": 7
+        },
+        {
+          "int": "Incremental magnesium roll-out - PHC",
+          "name": "int_mag_phc",
+          "on_off": false,
+          "applied_to": "Actually high risk (presume can discern)",
+          "location_of_care": "PHC only",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.46,
+          "entry": 8
+        },
+        {
+          "int": "Intrapartum antihypertensives",
+          "name": "int_intantihyper",
+          "on_off": false,
+          "applied_to": "Actually high risk (presume can discern)",
+          "location_of_care": "FRU only",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0,
+          "eff_reducing_mat_deaths": 0.015,
+          "eff_reducing_neo_deaths": 0.015,
+          "entry": 9
+        },
+        {
+          "int": "Novel drug",
+          "name": "int_drug",
+          "on_off": false,
+          "applied_to": "All",
+          "location_of_care": "FRU, PHC, and Home",
+          "coverage": 0.5,
+          "elig_pop_haircut": 1,
+          "eff_reducing_PE": 0.5,
+          "eff_reducing_mat_deaths": 0.5,
+          "eff_reducing_neo_deaths": 0.5,
+          "entry": 10
+        }
+      ],
+      "pops": {
+        "pop": 25642000,
+        "pe_rate": 0.110204196,
+        "mort_rate_mat": 0.000898843,
+        "mort_rate_neo": 0.008988427,
+        "anc_visits1": 0.742,
+        "anc_visits4": 0.45,
+        "sensitivity": 0.75,
+        "specificity": 0.75,
+        "riskstrat_firstweek": 4,
+        "riskstrat_lastweek": 42,
+        "cfr_fru_maternal": 0.000488501,
+        "cfr_phc_maternal": 0.000977003,
+        "cfr_fru_neonatal": 0.004885015,
+        "cfr_phc_neonatal": 0.009770029,
+        "sys_fru_pct": 0.16,
+        "sys_phc_pct": 0.63,
+        "sys_home_pct": 0.21,
+        "leak_fru_phc": 0.1,
+        "leak_phc_home": 0.1,
+        "pop_ghtn_pct": 0.125,
+        "hr_act_w_ghtn_pct": 0.8,
+        "flagintime_pct": 0.95
+      }
     }
   ];
-
-  scenarios.push(Object.assign({}, scenarios[0]));
-  scenarios.push(Object.assign({}, scenarios[0]));
 
   var appl_vals = [
     "Hypertensive (and risk stratified)",
@@ -412,8 +727,8 @@ $(document).ready(function() {
     html += `
       <div class="ints-control-header-container">
         <div class="ints-control-header">Feasible Standard of Care</div>
-        <div id="fe-all-off" class="ints-all-on-off">all on</div>
-        <div id="fe-all-on" class="ints-all-on-off">all off</div>
+        <div id="fe-all-off${sfx}" class="ints-all-on-off">all on</div>
+        <div id="fe-all-on${sfx}" class="ints-all-on-off">all off</div>
       </div>
     `;
 
@@ -426,8 +741,8 @@ $(document).ready(function() {
     html = `
       <div class="ints-control-header-container">
         <div class="ints-control-header">Future Standard of Care</div>
-        <div id="fu-all-off" class="ints-all-on-off">all on</div>
-        <div id="fu-all-on" class="ints-all-on-off">all off</div>
+        <div id="fu-all-off${sfx}" class="ints-all-on-off">all on</div>
+        <div id="fu-all-on${sfx}" class="ints-all-on-off">all off</div>
       </div>
     `;
     obj.append(html)
@@ -468,7 +783,7 @@ $(document).ready(function() {
 
           <div class="numbers-down-arrow"><i class="material-icons">arrow_downward</i></div>
 
-          <div id="rs-less-detail">
+          <div id="rs-less-detail${sfx}">
             <div id="conf-bounding">
               <div id="conf-fp${sfx}" class="conf-fp conf-box conf-box-red"></div>
               <div id="conf-fn${sfx}" class="conf-fn conf-box conf-box-red"></div>
@@ -504,11 +819,11 @@ $(document).ready(function() {
               <div class="conf-tn-label conf-label">Flagged low risk<br/>and truly low risk</div>
             </div>
             <div class="rs-detail-buttons">
-              <span id="rs-more-detail-button" class="fake-href">More detail</span>
+              <span id="rs-more-detail-button${sfx}" class="fake-href">More detail</span>
             </div>
           </div>
 
-          <div id="rs-more-detail" class="hidden">
+          <div id="rs-more-detail${sfx}" class="hidden">
             <div class="rs-box">
               <div class="rs-header">
                 Actually High Risk (<span class="counter" id="out-hr"></span>)
@@ -595,7 +910,7 @@ $(document).ready(function() {
               </div>
             </div>
             <div class="rs-detail-buttons">
-              <span id="rs-less-detail-button" class="fake-href">Less detail</span>
+              <span id="rs-less-detail-button${sfx}" class="fake-href">Less detail</span>
             </div>
           </div>
 
@@ -606,7 +921,7 @@ $(document).ready(function() {
           <div class="interventions">
             <div class="int-header">
               <span class="semibold">Reduction in Pre-Eclampsia</span>
-              <span class="int-header-smalltext">(pre-int cases: <span class="counter" id="out_pe_reduce_denom${sfx}"></span>)</span>
+              <span class="int-header-smalltext">(pre-intervention cases: <span class="counter" id="out_pe_reduce_denom${sfx}"></span>)</span>
             </div>
             <div class="bar-wrapper">
               <div class="barchart">
@@ -630,7 +945,7 @@ $(document).ready(function() {
 
             <div class="int-header">
               <span class="semibold">Reduction in maternal deaths</span>
-              <span class="int-header-smalltext">(pre-int cases: <span class="counter" id="out_lifesave_mat_denom${sfx}"></span>)</span>
+              <span class="int-header-smalltext">(pre-intervention cases: <span class="counter" id="out_lifesave_mat_denom${sfx}"></span>)</span>
             </div>
             <div class="bar-wrapper">
               <div class="barchart">
@@ -654,7 +969,7 @@ $(document).ready(function() {
 
             <div class="int-header">
               <span class="semibold">Reduction in neonatal deaths</span>
-              <span class="int-header-smalltext">(pre-int cases: <span class="counter" id="out_lifesave_neo_denom${sfx}"></span>)</span>
+              <span class="int-header-smalltext">(pre-intervention cases: <span class="counter" id="out_lifesave_neo_denom${sfx}"></span>)</span>
             </div>
             <div class="bar-wrapper">
               <div class="barchart">
@@ -834,18 +1149,6 @@ $(document).ready(function() {
 
     $(`#output_sc${idx}`).append(output);
 
-    $('.int_check').change(function() {
-      var el = $(this);
-      if (el.is(':checked')) {
-        $('#indicator-' + el.data('int')).addClass('on');
-      } else {
-        $('#indicator-' + el.data('int')).removeClass('on');
-      }
-    });
-
-    $('.collapsible').collapsible();
-    $('select').formSelect();
-
     var slider_vars = [
       "coverage",
       "elig_pop_haircut",
@@ -883,15 +1186,15 @@ $(document).ready(function() {
     }
 
     var idx1 = idx - 1;
-    scenarios[idx1].ints_fe.forEach(function(d) {
+    data.ints_fe.forEach(function(d) {
       makeIntsSliders(d, idx);
     });
 
-    scenarios[idx1].ints_fu.forEach(function(d) {
+    data.ints_fu.forEach(function(d) {
       makeIntsSliders(d, idx);
     });
 
-    $(`#pop${sfx}`).val(scenarios[idx1].pops.pop);
+    $(`#pop${sfx}`).val(data.pops.pop);
 
     // $("#pop").on("change", function(d) {
     //   // TODO: validate positive number
@@ -899,9 +1202,9 @@ $(document).ready(function() {
 
     var sliders = {};
 
-    sliders['pe_rate'] = document.getElementById(`pe_rate_sc${idx}`);
-    noUiSlider.create(sliders['pe_rate'], {
-      start: scenarios[idx1].pops.pe_rate * 100,
+    sliders[`pe_rate${sfx}`] = document.getElementById(`pe_rate${sfx}`);
+    noUiSlider.create(sliders[`pe_rate${sfx}`], {
+      start: data.pops.pe_rate * 100,
       step: 0.1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 20 },
@@ -909,9 +1212,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['mort_rate_mat'] = document.getElementById(`mort_rate_mat_sc${idx}`);
-    noUiSlider.create(sliders['mort_rate_mat'], {
-      start: scenarios[idx1].pops.mort_rate_mat * 100000,
+    sliders[`mort_rate_mat${sfx}`] = document.getElementById(`mort_rate_mat${sfx}`);
+    noUiSlider.create(sliders[`mort_rate_mat${sfx}`], {
+      start: data.pops.mort_rate_mat * 100000,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 1000 },
@@ -919,9 +1222,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['mort_rate_neo'] = document.getElementById(`mort_rate_neo_sc${idx}`);
-    noUiSlider.create(sliders['mort_rate_neo'], {
-      start: scenarios[idx1].pops.mort_rate_neo * 1000,
+    sliders[`mort_rate_neo${sfx}`] = document.getElementById(`mort_rate_neo${sfx}`);
+    noUiSlider.create(sliders[`mort_rate_neo${sfx}`], {
+      start: data.pops.mort_rate_neo * 1000,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -929,9 +1232,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['cfr_fru_maternal'] = document.getElementById(`cfr_fru_maternal_sc${idx}`);
-    noUiSlider.create(sliders['cfr_fru_maternal'], {
-      start: scenarios[idx1].pops.cfr_fru_maternal * 100000,
+    sliders[`cfr_fru_maternal${sfx}`] = document.getElementById(`cfr_fru_maternal${sfx}`);
+    noUiSlider.create(sliders[`cfr_fru_maternal${sfx}`], {
+      start: data.pops.cfr_fru_maternal * 100000,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 400 },
@@ -939,9 +1242,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['cfr_phc_maternal'] = document.getElementById(`cfr_phc_maternal_sc${idx}`);
-    noUiSlider.create(sliders['cfr_phc_maternal'], {
-      start: scenarios[idx1].pops.cfr_phc_maternal * 100000,
+    sliders[`cfr_phc_maternal${sfx}`] = document.getElementById(`cfr_phc_maternal${sfx}`);
+    noUiSlider.create(sliders[`cfr_phc_maternal${sfx}`], {
+      start: data.pops.cfr_phc_maternal * 100000,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 400 },
@@ -949,9 +1252,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['cfr_fru_neonatal'] = document.getElementById(`cfr_fru_neonatal_sc${idx}`);
-    noUiSlider.create(sliders['cfr_fru_neonatal'], {
-      start: scenarios[idx1].pops.cfr_fru_neonatal * 1000,
+    sliders[`cfr_fru_neonatal${sfx}`] = document.getElementById(`cfr_fru_neonatal${sfx}`);
+    noUiSlider.create(sliders[`cfr_fru_neonatal${sfx}`], {
+      start: data.pops.cfr_fru_neonatal * 1000,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 40 },
@@ -959,9 +1262,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['cfr_phc_neonatal'] = document.getElementById(`cfr_phc_neonatal_sc${idx}`);
-    noUiSlider.create(sliders['cfr_phc_neonatal'], {
-      start: scenarios[idx1].pops.cfr_phc_neonatal * 1000,
+    sliders[`cfr_phc_neonatal${sfx}`] = document.getElementById(`cfr_phc_neonatal${sfx}`);
+    noUiSlider.create(sliders[`cfr_phc_neonatal${sfx}`], {
+      start: data.pops.cfr_phc_neonatal * 1000,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 40 },
@@ -969,9 +1272,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['sys_fru_pct'] = document.getElementById(`sys_fru_pct_sc${idx}`);
-    noUiSlider.create(sliders['sys_fru_pct'], {
-      start: scenarios[idx1].pops.sys_fru_pct * 100,
+    sliders[`sys_fru_pct${sfx}`] = document.getElementById(`sys_fru_pct${sfx}`);
+    noUiSlider.create(sliders[`sys_fru_pct${sfx}`], {
+      start: data.pops.sys_fru_pct * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -979,9 +1282,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['sys_phc_pct'] = document.getElementById(`sys_phc_pct_sc${idx}`);
-    noUiSlider.create(sliders['sys_phc_pct'], {
-      start: scenarios[idx1].pops.sys_phc_pct * 100,
+    sliders[`sys_phc_pct${sfx}`] = document.getElementById(`sys_phc_pct${sfx}`);
+    noUiSlider.create(sliders[`sys_phc_pct${sfx}`], {
+      start: data.pops.sys_phc_pct * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -989,9 +1292,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['sys_home_pct'] = document.getElementById(`sys_home_pct_sc${idx}`);
-    noUiSlider.create(sliders['sys_home_pct'], {
-      start: scenarios[idx1].pops.sys_home_pct * 100,
+    sliders[`sys_home_pct${sfx}`] = document.getElementById(`sys_home_pct${sfx}`);
+    noUiSlider.create(sliders[`sys_home_pct${sfx}`], {
+      start: data.pops.sys_home_pct * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -999,9 +1302,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['leak_fru_phc'] = document.getElementById(`leak_fru_phc_sc${idx}`);
-     noUiSlider.create(sliders['leak_fru_phc'], {
-      start: scenarios[idx1].pops.leak_fru_phc * 100,
+    sliders[`leak_fru_phc${sfx}`] = document.getElementById(`leak_fru_phc${sfx}`);
+     noUiSlider.create(sliders[`leak_fru_phc${sfx}`], {
+      start: data.pops.leak_fru_phc * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1009,9 +1312,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['leak_phc_home'] = document.getElementById(`leak_phc_home_sc${idx}`);
-    noUiSlider.create(sliders['leak_phc_home'], {
-      start: scenarios[idx1].pops.leak_phc_home * 100,
+    sliders[`leak_phc_home${sfx}`] = document.getElementById(`leak_phc_home${sfx}`);
+    noUiSlider.create(sliders[`leak_phc_home${sfx}`], {
+      start: data.pops.leak_phc_home * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1019,9 +1322,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['specificity'] = document.getElementById(`specificity_sc${idx}`);
-    noUiSlider.create(sliders['specificity'], {
-      start: scenarios[idx1].pops.specificity * 100,
+    sliders[`specificity${sfx}`] = document.getElementById(`specificity${sfx}`);
+    noUiSlider.create(sliders[`specificity${sfx}`], {
+      start: data.pops.specificity * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1029,9 +1332,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['sensitivity'] = document.getElementById(`sensitivity_sc${idx}`);
-    noUiSlider.create(sliders['sensitivity'], {
-      start: scenarios[idx1].pops.sensitivity * 100,
+    sliders[`sensitivity${sfx}`] = document.getElementById(`sensitivity${sfx}`);
+    noUiSlider.create(sliders[`sensitivity${sfx}`], {
+      start: data.pops.sensitivity * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1040,30 +1343,30 @@ $(document).ready(function() {
     });
 
     // TODO: don't allow firstweek to be greater than lastweek
-    sliders['riskstrat_firstweek'] = document.getElementById(`riskstrat_firstweek_sc${idx}`);
-    noUiSlider.create(sliders['riskstrat_firstweek'], {
-      start: scenarios[idx1].pops.riskstrat_firstweek,
+    sliders[`riskstrat_firstweek${sfx}`] = document.getElementById(`riskstrat_firstweek${sfx}`);
+    noUiSlider.create(sliders[`riskstrat_firstweek${sfx}`], {
+      start: data.pops.riskstrat_firstweek,
       step: 1,
       orientation: 'horizontal',
-      range: { 'min': 0, 'max': 42 },
+      range: { 'min': 1, 'max': 42 },
       format: format,
       pips: pips
     });
 
-    sliders['riskstrat_lastweek'] = document.getElementById(`riskstrat_lastweek_sc${idx}`);
-    noUiSlider.create(sliders['riskstrat_lastweek'], {
-      start: scenarios[idx1].pops.riskstrat_lastweek,
+    sliders[`riskstrat_lastweek${sfx}`] = document.getElementById(`riskstrat_lastweek${sfx}`);
+    noUiSlider.create(sliders[`riskstrat_lastweek${sfx}`], {
+      start: data.pops.riskstrat_lastweek,
       step: 1,
       orientation: 'horizontal',
-      range: { 'min': 0, 'max': 42 },
+      range: { 'min': 1, 'max': 42 },
       format: format,
       pips: pips
     });
 
     // TODO: don't allow anc_visits4 to be greater than anc_visits1
-    sliders['anc_visits1'] = document.getElementById(`anc_visits1_sc${idx}`);
-    noUiSlider.create(sliders['anc_visits1'], {
-      start: scenarios[idx1].pops.anc_visits1 * 100,
+    sliders[`anc_visits1${sfx}`] = document.getElementById(`anc_visits1${sfx}`);
+    noUiSlider.create(sliders[`anc_visits1${sfx}`], {
+      start: data.pops.anc_visits1 * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1071,9 +1374,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['anc_visits4'] = document.getElementById(`anc_visits4_sc${idx}`);
-    noUiSlider.create(sliders['anc_visits4'], {
-      start: scenarios[idx1].pops.anc_visits4 * 100,
+    sliders[`anc_visits4${sfx}`] = document.getElementById(`anc_visits4${sfx}`);
+    noUiSlider.create(sliders[`anc_visits4${sfx}`], {
+      start: data.pops.anc_visits4 * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1081,9 +1384,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['pop_ghtn_pct'] = document.getElementById(`pop_ghtn_pct_sc${idx}`);
-    noUiSlider.create(sliders['pop_ghtn_pct'], {
-      start: scenarios[idx1].pops.pop_ghtn_pct * 100,
+    sliders[`pop_ghtn_pct${sfx}`] = document.getElementById(`pop_ghtn_pct${sfx}`);
+    noUiSlider.create(sliders[`pop_ghtn_pct${sfx}`], {
+      start: data.pops.pop_ghtn_pct * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1091,9 +1394,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['hr_act_w_ghtn_pct'] = document.getElementById(`hr_act_w_ghtn_pct_sc${idx}`);
-    noUiSlider.create(sliders['hr_act_w_ghtn_pct'], {
-      start: scenarios[idx1].pops.hr_act_w_ghtn_pct * 100,
+    sliders[`hr_act_w_ghtn_pct${sfx}`] = document.getElementById(`hr_act_w_ghtn_pct${sfx}`);
+    noUiSlider.create(sliders[`hr_act_w_ghtn_pct${sfx}`], {
+      start: data.pops.hr_act_w_ghtn_pct * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1101,9 +1404,9 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders['flagintime_pct'] = document.getElementById(`flagintime_pct_sc${idx}`);
-    noUiSlider.create(sliders['flagintime_pct'], {
-      start: scenarios[idx1].pops.flagintime_pct * 100,
+    sliders[`flagintime_pct${sfx}`] = document.getElementById(`flagintime_pct${sfx}`);
+    noUiSlider.create(sliders[`flagintime_pct${sfx}`], {
+      start: data.pops.flagintime_pct * 100,
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
@@ -1113,7 +1416,7 @@ $(document).ready(function() {
 
     Object.keys(sliders).forEach(function(k) {
       sliders[k].noUiSlider.on('change', function() {
-        var el = $(`#${k}_sc${idx}`);
+        var el = $(`#${k}`);
         el.data('value', sliders[k].noUiSlider.get());
         el.trigger('change');
       });
@@ -1125,57 +1428,175 @@ $(document).ready(function() {
     //   $("#on_off_int_am_diff_cfl").attr("checked", true);
     // }
 
-    $("#rs-more-detail-button").on("click", function() {
-      $("#rs-more-detail").removeClass("hidden");
-      $("#rs-less-detail").addClass("hidden");
+    $(`#rs-more-detail-button${sfx}`).on("click", function() {
+      $(`#rs-more-detail${sfx}`).removeClass("hidden");
+      $(`#rs-less-detail${sfx}`).addClass("hidden");
     });
 
-    $("#rs-less-detail-button").on("click", function() {
-      $("#rs-less-detail").removeClass("hidden");
-      $("#rs-more-detail").addClass("hidden");
+    $(`#rs-less-detail-button${sfx}`).on("click", function() {
+      $(`#rs-less-detail${sfx}`).removeClass("hidden");
+      $(`#rs-more-detail${sfx}`).addClass("hidden");
     });
 
-    $("#fe-all-off").on("click", function() {
-      scenarios[0].ints_fe.forEach(function(d) {
-        var el = $("#on_off_" + d.name);
+    $(`#fe-all-off${sfx}`).on("click", function() {
+      data.ints_fe.forEach(function(d) {
+        var el = $(`#on_off_${d.name}${sfx}`);
         if (!el.is(':checked')) {
           el.click();
         }
       });
     });
 
-    $("#fu-all-off").on("click", function() {
-      scenarios[0].ints_fu.forEach(function(d) {
-        var el = $("#on_off_" + d.name);
+    $(`#fu-all-off${sfx}`).on("click", function() {
+      data.ints_fu.forEach(function(d) {
+        var el = $(`#on_off_${d.name}${sfx}`);
         if (!el.is(':checked')) {
           el.click();
         }
       });
     });
 
-    $("#fe-all-on").on("click", function() {
+    $(`#fe-all-on${sfx}`).on("click", function() {
       // on_off_int_am_csect
-      scenarios[0].ints_fe.forEach(function(d) {
-        var el = $("#on_off_" + d.name);
+      data.ints_fe.forEach(function(d) {
+        var el = $(`#on_off_${d.name}${sfx}`);
         if (el.is(':checked')) {
           el.click();
         }
       });
     });
 
-    $("#fu-all-on").on("click", function() {
+    $(`#fu-all-on${sfx}`).on("click", function() {
       // on_off_int_am_csect
-      scenarios[0].ints_fu.forEach(function(d) {
-        var el = $("#on_off_" + d.name);
+      data.ints_fu.forEach(function(d) {
+        var el = $(`#on_off_${d.name}${sfx}`);
         if (el.is(':checked')) {
           el.click();
         }
       });
     });
+
+    $(`#output-header-text-sc${idx}`).html(data.name);
   }
 
-  makeOutput(scenarios, 1);
-  makeOutput(scenarios, 2);
+  makeOutput(scenarios[0], 1);
+
+  $("#inputs_sc2").addClass("hidden");
+  $("#inputs_sc3").addClass("hidden");
+
+  $("#output-header-sc2").addClass("hidden");
+  $("#output_sc2").addClass("hidden");
+  $("#output-header-sc3").addClass("hidden");
+  $("#output_sc3").addClass("hidden");
+
+  $("#output-header-sc1").on("click", function() {
+    $("#output-header-sc1").removeClass("inactive");
+    $("#output-header-sc2").addClass("inactive");
+    $("#output-header-sc3").addClass("inactive");
+
+    $("#inputs_sc1").removeClass("hidden");
+    $("#inputs_sc2").addClass("hidden");
+    $("#inputs_sc3").addClass("hidden");
+
+    $("#output-header-top-sc1").addClass("hidden");
+    $("#output-header-top-sc2").addClass("hidden");
+    $("#output-header-top-sc3").addClass("hidden");
+
+    $("#output-header-text-sc1").attr("contenteditable", true);
+    $("#output-header-text-sc2").attr("contenteditable", false);
+    $("#output-header-text-sc3").attr("contenteditable", false);
+  });
+
+  $("#output-header-sc2").on("click", function() {
+    $("#output-header-sc1").addClass("inactive");
+    $("#output-header-sc2").removeClass("inactive");
+    $("#output-header-sc3").addClass("inactive");
+
+    $("#inputs_sc1").addClass("hidden");
+    $("#inputs_sc2").removeClass("hidden");
+    $("#inputs_sc3").addClass("hidden");
+
+    $("#output-header-top-sc1").removeClass("hidden");
+    $("#output-header-top-sc2").addClass("hidden");
+    $("#output-header-top-sc3").addClass("hidden");
+
+    $("#output-header-text-sc1").attr("contenteditable", false);
+    $("#output-header-text-sc2").attr("contenteditable", true);
+    $("#output-header-text-sc3").attr("contenteditable", false);
+  });
+
+  $("#output-header-sc3").on("click", function() {
+    $("#output-header-sc1").addClass("inactive");
+    $("#output-header-sc2").addClass("inactive");
+    $("#output-header-sc3").removeClass("inactive");
+
+    $("#inputs_sc1").addClass("hidden");
+    $("#inputs_sc2").addClass("hidden");
+    $("#inputs_sc3").removeClass("hidden");
+
+    $("#output-header-top-sc1").removeClass("hidden");
+    $("#output-header-top-sc2").removeClass("hidden");
+    $("#output-header-top-sc3").addClass("hidden");
+
+    $("#output-header-text-sc1").attr("contenteditable", false);
+    $("#output-header-text-sc2").attr("contenteditable", false);
+    $("#output-header-text-sc3").attr("contenteditable", true);
+  });
+
+  //*********************
+
+  var sc_opts = `<option value="0" selected>${scenarios[0].name}</option>`;
+  for (var i = 1; i < scenarios.length; i++) {
+    sc_opts += `<option value="${i}">${scenarios[i].name}</option>`;
+  }
+  $("#sc-options").html(sc_opts);
+
+  $("#select-basis").on("click", function() {
+    var idx = parseInt($("#sc-options").val());
+
+    var nActive = 3 - $(".output-header.hidden").length;
+
+    makeOutput(scenarios[idx], 2);
+    $("#output-header-sc2").click();
+    $("#output-header-sc2").removeClass("hidden");
+    $("#output_sc2").removeClass("hidden");
+    Shiny.unbindAll();
+    Shiny.bindAll();
+
+    tippy(".tippy", {
+      delay: 10,
+      arrow: true,
+      arrowType: 'round',
+      size: 'large',
+      duration: 200,
+      animation: 'scale',
+      dynamicTitle: true
+    });
+  });
+
+  //*********************
+
+  $('.int_check').change(function() {
+    var el = $(this);
+    if (el.is(':checked')) {
+      $('#indicator-' + el.data('int')).addClass('on');
+    } else {
+      $('#indicator-' + el.data('int')).removeClass('on');
+    }
+  });
+
+  tippy(".tippy", {
+    delay: 10,
+    arrow: true,
+    arrowType: 'round',
+    size: 'large',
+    duration: 200,
+    animation: 'scale',
+    dynamicTitle: true
+  });
+
+  $('.collapsible').collapsible();
+  $('select').formSelect();
 
   //*********************
 
@@ -1210,15 +1631,6 @@ $(document).ready(function() {
 
   $('.modal').modal();
   // $('.tooltipped').tooltip();
-  tippy(".tippy", {
-    delay: 10,
-    arrow: true,
-    arrowType: 'round',
-    size: 'large',
-    duration: 200,
-    animation: 'scale',
-    dynamicTitle: true
-  });
 });
 
 // countup
