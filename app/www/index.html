@@ -49,7 +49,7 @@
   <div id="add-scenario-modal" class="modal">
     <div class="modal-content">
       <h4>Add a New Scenario</h4>
-      <p>This feature has not yet been implemented, but as envisioned, a new scenario will be created in this window by providing a name and selecting a base scenario for initial settings. Once created, this scenario will appear alongside the other scenarios created and the assumptions / intervention input controls will be attached to it.</p>
+      <p>Choose a pre-defined scenario to use as a basis for a new scenario configuration. If you make changes to this new scenario, you can give it a new name by clicking on the name header in the scenario's output pane.</p>
       <div class="scenario-inputs">
         <!-- <div class="input-field scenario-input-field">
           <input placeholder="My Scenario" id="scenario-name" type="text" class="validate">
@@ -60,6 +60,7 @@
           </select>
           <label>Scenario Basis</label>
         </div>
+        <div class="vpad"></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -84,19 +85,19 @@
   </div>
   <div id="outputs">
     <!-- <div class="output-header-background"></div> -->
-    <div class="output-header subheader" id="output-header-sc1">
+    <div class="output-header subheader" id="output-header-sc1" data-idx="1">
       <div class="output-header-top hidden" id="output-header-top-sc1"></div>
-      <i class="material-icons header-close-icon tippy" id="output-close-sc1" data-tippy-placement="bottom" title="Remove this scenario">close</i>
+      <i class="material-icons header-close-icon tippy" id="output-close-sc1" data-idx="1" data-tippy-placement="bottom" title="Remove this scenario">close</i>
       <span id="output-header-text-sc1" contenteditable="true">Scenario Name</span>
     </div>
-    <div class="output-header subheader inactive" id="output-header-sc2">
+    <div class="output-header subheader inactive" id="output-header-sc2" data-idx="2">
       <div class="output-header-top hidden" id="output-header-top-sc2"></div>
-      <i class="material-icons header-close-icon tippy" id="output-close-sc2" data-tippy-placement="bottom" title="Remove this scenario">close</i>
+      <i class="material-icons header-close-icon tippy" id="output-close-sc2" data-idx="2" data-tippy-placement="bottom" title="Remove this scenario">close</i>
       <span id="output-header-text-sc2" contenteditable="false">Scenario Name</span>
     </div>
-    <div class="output-header subheader inactive" id="output-header-sc3">
+    <div class="output-header subheader inactive" id="output-header-sc3" data-idx="3">
       <div class="output-header-top hidden" id="output-header-top-sc3"></div>
-      <i class="material-icons header-close-icon tippy" id="output-close-sc3" data-tippy-placement="bottom" title="Remove this scenario">close</i>
+      <i class="material-icons header-close-icon tippy" id="output-close-sc3" data-idx="3" data-tippy-placement="bottom" title="Remove this scenario">close</i>
       <span id="output-header-text-sc3" contenteditable="false">Scenario Name</span>
     </div>
     <div id="more-scenarios">

@@ -511,7 +511,7 @@ $(document).ready(function() {
         <div class="active-indicator">
           <div
             class="active-indicator-child ${d.on_off ? 'on' : ''}"
-            id="indicator-${d.name}"
+            id="indicator-${d.name}${sfx}"
           >
           </div>
         </div>
@@ -528,7 +528,7 @@ $(document).ready(function() {
                 type="checkbox"
                 class="int_check shiny-material-switch"
                 id="on_off_${d.name}${sfx}"
-                data-int="${d.name}"
+                data-int="${d.name}${sfx}"
               >
               <span class="lever"></span>
               On
@@ -582,48 +582,50 @@ $(document).ready(function() {
     obj.append(html);
   }
 
-  $.each([0, 1, 2], function(idx) {
-    var obj = $(`#inputs_sc${idx + 1}`);
-    var sfx = `_sc${idx + 1}`;
+  var makeInput = function(data, idx) {
+    var sfx = `_sc${idx}`;
+    var obj = $(`#inputs${sfx}`);
+    obj.empty();
+
     var html = `
     <li>
-      <div class="collapsible-header mutedfocus">
+      <div class="collapsible-header mutedfocus" id="demog${sfx}">
         <span class="settings-icon icon-earth"></span>
         <strong>Demographics</strong>
       </div>
       <div class="collapsible-body">
         <div class="input-field">
+          <label class="slider-label" for="pop${sfx}">Population</label>
           <input id="pop${sfx}" type="number" class="validate">
-          <label class="slider-label" for="pop">Population</label>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="pe_rate">Pre-eclampsia rate</label>
+          <label class="slider-label" for="pe_rate${sfx}">Pre-eclampsia rate</label>
           <div id="pe_rate${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="mort_rate_mat">maternal mort. (deaths per 100,000 live births, cond. PE)</label>
+          <label class="slider-label" for="mort_rate_mat${sfx}">maternal mort. (deaths per 100,000 live births, cond. PE)</label>
           <div id="mort_rate_mat${sfx}" class="shiny-my-slider" data-denom="100000"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="mort_rate_neo">neonatal mort. (deaths per 1,000 live births, cond. PE)</label>
+          <label class="slider-label" for="mort_rate_neo${sfx}">neonatal mort. (deaths per 1,000 live births, cond. PE)</label>
           <div id="mort_rate_neo${sfx}" class="shiny-my-slider" data-denom="1000"></div>
         </div>
 
         <div class="slider-field">
-          <label class="slider-label" for="cfr_fru_maternal">FRU maternal case fatality (per 100,000)</label>
+          <label class="slider-label" for="cfr_fru_maternal${sfx}">FRU maternal case fatality (per 100,000)</label>
           <div id="cfr_fru_maternal${sfx}" class="shiny-my-slider" data-denom="100000"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="cfr_phc_maternal">PHC maternal case fatality (per 100,000)</label>
+          <label class="slider-label" for="cfr_phc_maternal${sfx}">PHC maternal case fatality (per 100,000)</label>
           <div id="cfr_phc_maternal${sfx}" class="shiny-my-slider" data-denom="100000"></div>
         </div>
 
         <div class="slider-field">
-          <label class="slider-label" for="cfr_fru_neonatal">FRU neonatal case fatality (per 1,000)</label>
+          <label class="slider-label" for="cfr_fru_neonatal${sfx}">FRU neonatal case fatality (per 1,000)</label>
           <div id="cfr_fru_neonatal${sfx}" class="shiny-my-slider" data-denom="1000"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="cfr_phc_neonatal">PHC neonatal case fatality (per 1,000)</label>
+          <label class="slider-label" for="cfr_phc_neonatal${sfx}">PHC neonatal case fatality (per 1,000)</label>
           <div id="cfr_phc_neonatal${sfx}" class="shiny-my-slider" data-denom="1000"></div>
         </div>
 
@@ -636,23 +638,23 @@ $(document).ready(function() {
       </div>
       <div class="collapsible-body">
         <div class="slider-field">
-          <label class="slider-label" for="sys_fru_pct">% at FRU (of facility)</label>
+          <label class="slider-label" for="sys_fru_pct${sfx}">% at FRU (of facility)</label>
           <div id="sys_fru_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="sys_phc_pct">% at PHC (of facility)</label>
+          <label class="slider-label" for="sys_phc_pct${sfx}">% at PHC (of facility)</label>
           <div id="sys_phc_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="sys_home_pct">% at home</label>
+          <label class="slider-label" for="sys_home_pct${sfx}">% at home</label>
           <div id="sys_home_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="leak_fru_phc">systems leakage FRU -&gt; PHC</label>
+          <label class="slider-label" for="leak_fru_phc${sfx}">systems leakage FRU -&gt; PHC</label>
           <div id="leak_fru_phc${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="leak_phc_home">systems leakage PHC -&gt; Home</label>
+          <label class="slider-label" for="leak_phc_home${sfx}">systems leakage PHC -&gt; Home</label>
           <div id="leak_phc_home${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
       </div>
@@ -664,11 +666,11 @@ $(document).ready(function() {
       </div>
       <div class="collapsible-body">
         <div class="slider-field">
-          <label class="slider-label" for="anc_visits1">Percentage who have at least 1 ANC visit</label>
+          <label class="slider-label" for="anc_visits1${sfx}">Percentage who have at least 1 ANC visit</label>
           <div id="anc_visits1${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="anc_visits4">Percentage who have at least 4 ANC visits</label>
+          <label class="slider-label" for="anc_visits4${sfx}">Percentage who have at least 4 ANC visits</label>
           <div id="anc_visits4${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
 
@@ -682,15 +684,15 @@ $(document).ready(function() {
       <div class="collapsible-body">
 
         <div class="slider-field">
-          <label class="slider-label" for="pop_ghtn_pct">% of population that has gestational hypertension</label>
+          <label class="slider-label" for="pop_ghtn_pct${sfx}">% of population that has gestational hypertension</label>
           <div id="pop_ghtn_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="hr_act_w_ghtn_pct">% actually high risk that has GHTN</label>
+          <label class="slider-label" for="hr_act_w_ghtn_pct${sfx}">% actually high risk that has GHTN</label>
           <div id="hr_act_w_ghtn_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="flagintime_pct">% patients flagged at right time</label>
+          <label class="slider-label" for="flagintime_pct${sfx}">% patients flagged at right time</label>
           <div id="flagintime_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
 
@@ -704,20 +706,20 @@ $(document).ready(function() {
       </div>
       <div class="collapsible-body">
         <div class="slider-field">
-          <label class="slider-label" for="sensitivity">Sensitivity</label>
+          <label class="slider-label" for="sensitivity${sfx}">Sensitivity</label>
           <div id="sensitivity${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="specificity">Specificity</label>
+          <label class="slider-label" for="specificity${sfx}">Specificity</label>
           <div id="specificity${sfx}" class="shiny-my-slider" data-denom="100"></div>
         </div>
 
         <div class="slider-field">
-          <label class="slider-label" for="riskstrat_firstweek">First week for risk stratification</label>
+          <label class="slider-label" for="riskstrat_firstweek${sfx}">First week for risk stratification</label>
           <div id="riskstrat_firstweek${sfx}" class="shiny-my-slider" data-denom="1"></div>
         </div>
         <div class="slider-field">
-          <label class="slider-label" for="riskstrat_lastweek">Last week for risk stratification</label>
+          <label class="slider-label" for="riskstrat_lastweek${sfx}">Last week for risk stratification</label>
           <div id="riskstrat_lastweek${sfx}" class="shiny-my-slider" data-denom="1"></div>
         </div>
       </div>
@@ -734,8 +736,8 @@ $(document).ready(function() {
 
     obj.append(html);
 
-    $.each(scenarios[idx].ints_fe, function(k, d) {
-      makeIntsControls(k, d, "<span class='settings-icon icon-aid-kit'></span>", idx + 1, obj)
+    $.each(data.ints_fe, function(k, d) {
+      makeIntsControls(k, d, "<span class='settings-icon icon-aid-kit'></span>", idx, obj)
     });
 
     html = `
@@ -747,11 +749,10 @@ $(document).ready(function() {
     `;
     obj.append(html)
 
-    $.each(scenarios[idx].ints_fu, function(k, d) {
-      makeIntsControls(k, d, "<i class='settings-icon2 material-icons'>update</i>", idx + 1, obj)
+    $.each(data.ints_fu, function(k, d) {
+      makeIntsControls(k, d, "<i class='settings-icon2 material-icons'>update</i>", idx, obj)
     });
-
-  });
+  }
 
   //*********************
 
@@ -1147,6 +1148,7 @@ $(document).ready(function() {
     </div>
     `;
 
+    $(`#output_sc${idx}`).empty();
     $(`#output_sc${idx}`).append(output);
 
     var slider_vars = [
@@ -1168,6 +1170,7 @@ $(document).ready(function() {
     });
     var makeIntsSliders = function(d, idx) {
       slider_vars.forEach(function(v) {
+        // debugger;
         var slider = document.getElementById(`${v}_${d.name}_sc${idx}`);
         noUiSlider.create(slider, {
           start: d[v] * 100,
@@ -1476,9 +1479,19 @@ $(document).ready(function() {
       });
     });
 
+    $(".int_check").change(function() {
+      var el = $(this);
+      if (el.is(':checked')) {
+        $("#indicator-" + el.data("int")).addClass("on");
+      } else {
+        $("#indicator-" + el.data("int")).removeClass("on");
+      }
+    });
+
     $(`#output-header-text-sc${idx}`).html(data.name);
   }
 
+  makeInput(scenarios[0], 1);
   makeOutput(scenarios[0], 1);
 
   $("#inputs_sc2").addClass("hidden");
@@ -1553,13 +1566,32 @@ $(document).ready(function() {
 
   $("#select-basis").on("click", function() {
     var idx = parseInt($("#sc-options").val());
+    // debugger;
+    var a = [1, 2, 3];
+    var b = $.map($(".output-header:not(.hidden)"), function(d) {
+      return parseInt($(d).data("idx"));
+    });
+    var nActive = b.length;
 
-    var nActive = 3 - $(".output-header.hidden").length;
+    var diff = a.filter(function(x) { return b.indexOf(x) < 0 })
+    var next = diff[0];
 
-    makeOutput(scenarios[idx], 2);
-    $("#output-header-sc2").click();
-    $("#output-header-sc2").removeClass("hidden");
-    $("#output_sc2").removeClass("hidden");
+    if (nActive === 2) {
+      $("#more-scenarios").addClass("hidden");
+    }
+
+    Shiny.unbindAll();
+    makeInput(scenarios[idx], next);
+    makeOutput(scenarios[idx], next);
+    Shiny.bindAll();
+
+    $(`#output-header-sc${next}`).css("left", 430 * nActive);
+    $(`#output_sc${next}`).css("left", 430 * nActive);
+    $("#more-scenarios").css("left", 430 * (nActive + 1));
+
+    $(`#output-header-sc${next}`).click();
+    $(`#output-header-sc${next}`).removeClass("hidden");
+    $(`#output_sc${next}`).removeClass("hidden");
     Shiny.unbindAll();
     Shiny.bindAll();
 
@@ -1572,18 +1604,21 @@ $(document).ready(function() {
       animation: 'scale',
       dynamicTitle: true
     });
+
+    // $("#pop_sc2").focus();
+  });
+
+  $(".header-close-icon").on("click", function() {
+    var idx = $(this).data("idx");
+    $(`#output-header-sc${idx}`).addClass("hidden");
+    $(`#output_sc${idx}`).addClass("hidden");
   });
 
   //*********************
 
-  $('.int_check').change(function() {
-    var el = $(this);
-    if (el.is(':checked')) {
-      $('#indicator-' + el.data('int')).addClass('on');
-    } else {
-      $('#indicator-' + el.data('int')).removeClass('on');
-    }
-  });
+  // $("#demog_sc2").on("click", function() {
+  //   $("#pop_sc2").focus();
+  // });
 
   tippy(".tippy", {
     delay: 10,
