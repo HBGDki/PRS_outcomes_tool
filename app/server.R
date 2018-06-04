@@ -29,7 +29,7 @@ function(input, output) {
   })
 
   der_react_sc1 <- reactive({
-    get_der(pop_react_sc1(), anc_cdf)
+    get_der(pop_react_sc1(), anc_cdfs)
   })
 
   ints_react_sc1 <- reactive({
@@ -85,7 +85,7 @@ function(input, output) {
   })
 
   der_react_sc2 <- reactive({
-    get_der(pop_react_sc2(), anc_cdf)
+    get_der(pop_react_sc2(), anc_cdfs)
   })
 
   ints_react_sc2 <- reactive({
@@ -141,7 +141,7 @@ function(input, output) {
   })
 
   der_react_sc3 <- reactive({
-    get_der(pop_react_sc3(), anc_cdf)
+    get_der(pop_react_sc3(), anc_cdfs)
   })
 
   ints_react_sc3 <- reactive({

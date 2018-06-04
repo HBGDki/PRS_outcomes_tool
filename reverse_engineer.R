@@ -137,7 +137,59 @@ pop$mort_rate_mat <- 0.000898843
 pop$mort_rate_neo <- 0.008988427
 
 # antenatal care CDF
-anc_cdf <- c(0, 0, 0, 0.01829094, 0.04074504, 0.06759664, 0.09890153, 0.13451205, 0.17407471, 0.21704612, 0.2627304, 0.31033117, 0.35900826, 0.4079359, 0.45635737, 0.50361507, 0.54917553, 0.59263585, 0.63371515, 0.67224082, 0.70812972, 0.74136858, 0.77199645, 0.80008893, 0.82574634, 0.84908342, 0.87022135, 0.8892825, 0.90638642, 0.92164761, 0.93517563, 0.94707578, 0.95745043, 0.966402205, 0.974035475, 0.980457902, 0.985781404, 0.990121752, 0.993596935, 0.996325447, 0.998423229, 1.000000019)
+# anc_cdf <- c(0, 0, 0, 0.01829094, 0.04074504, 0.06759664, 0.09890153, 0.13451205, 0.17407471, 0.21704612, 0.2627304, 0.31033117, 0.35900826, 0.4079359, 0.45635737, 0.50361507, 0.54917553, 0.59263585, 0.63371515, 0.67224082, 0.70812972, 0.74136858, 0.77199645, 0.80008893, 0.82574634, 0.84908342, 0.87022135, 0.8892825, 0.90638642, 0.92164761, 0.93517563, 0.94707578, 0.95745043, 0.966402205, 0.974035475, 0.980457902, 0.985781404, 0.990121752, 0.993596935, 0.996325447, 0.998423229, 1.000000019)
+
+anc_cdfs <- list(
+  africa_whole = list(
+    name = "Africa (whole)",
+    fname = "africa_whole",
+    source = "Tawiah (2011); KDE (smoothing) done by BCG.",
+    cdf = c(0.007768444, 0.017561733, 0.029506813, 0.043618093, 0.059788543, 0.077802343, 0.097373023, 0.118197913, 0.140024913, 0.162714613, 0.186281173, 0.210903323, 0.236897883, 0.264659773, 0.294579843, 0.326957143, 0.361927103, 0.399416943, 0.439140643, 0.480628433, 0.523283973, 0.566448793, 0.609463123, 0.651710203, 0.692638073, 0.731766873, 0.768686063, 0.803046323, 0.834565193, 0.863032503, 0.888323433, 0.910409123, 0.929360333, 0.945341023, 0.958590413, 0.969400533, 0.978088529, 0.984971594, 0.990350454, 0.994496128, 0.997645313, 0.999999999)
+  ),
+  africa_east = list(
+    name = "East Africa",
+    fname = "africa_east",
+    source = "Tawiah (2011); KDE (smoothing) done by BCG.",
+    cdf = c(0.004581418, 0.010369186, 0.017455322, 0.025877991, 0.035621599, 0.046630239, 0.058835899, 0.07219607, 0.08673522, 0.10257884, 0.119971071, 0.139266811, 0.160896652, 0.185307922, 0.212892173, 0.243912204, 0.278447654, 0.316365805, 0.357326966, 0.400818347, 0.446209068, 0.492807439, 0.53991156, 0.586843271, 0.632962413, 0.677671414, 0.720415965, 0.760683875, 0.798026986, 0.832078217, 0.862579328, 0.889401078, 0.912551729, 0.932170159, 0.9485035, 0.96187719, 0.97265769, 0.981220535, 0.987927431, 0.993106781, 0.997048175, 1)
+  ),
+  africa_west = list(
+    name = "West Africa",
+    fname = "africa_west",
+    source = "Tawiah (2011); KDE (smoothing) done by BCG.",
+    cdf = c(0.01502597, 0.03224051, 0.05165803, 0.07323825, 0.09688939, 0.12247581, 0.14982911, 0.17876082, 0.20907691, 0.24059012, 0.2731283, 0.30653972, 0.34069269, 0.37547091, 0.41076498, 0.44646332, 0.48244089, 0.518551299, 0.554621309, 0.590449309, 0.625807609, 0.660450019, 0.694121099, 0.726567079, 0.757548649, 0.786851279, 0.814294249, 0.839737299, 0.863085249, 0.884288599, 0.903342969, 0.920285489, 0.935190009, 0.948161429, 0.959328779, 0.968838943, 0.976850087, 0.983524775, 0.989024968, 0.993507493, 0.997120419, 1)
+  ),
+  india = list(
+    name = "India",
+    fname = "india",
+    source = "ICO (Bihar + UP, average taken); from BMGF. (2017)",
+    cdf = c(0.01502597, 0.03224051, 0.05165803, 0.07323825, 0.09688939, 0.12247581, 0.14982911, 0.17876082, 0.20907691, 0.24059012, 0.2731283, 0.30653972, 0.34069269, 0.37547091, 0.41076498, 0.44646332, 0.48244089, 0.5185513, 0.55462131, 0.59044931, 0.62580761, 0.66045002, 0.6941211, 0.72656708, 0.75754865, 0.78685128, 0.81429425, 0.8397373, 0.86308525, 0.8842886, 0.90334297, 0.92028549, 0.93519001, 0.94816143, 0.95932878, 0.968838944, 0.976850088, 0.983524776, 0.989024969, 0.993507494, 0.99712042, 1)
+  ),
+  india_adj = list(
+    name = "India (adj)",
+    fname = "india_adj",
+    source = "Not provided",
+    cdf = c(0, 0, 0, 0.01829094, 0.04074504, 0.06759664, 0.09890153, 0.13451205, 0.17407471, 0.21704612, 0.2627304, 0.31033117, 0.35900826, 0.4079359, 0.45635737, 0.50361507, 0.54917553, 0.59263585, 0.63371515, 0.67224082, 0.70812972, 0.74136858, 0.77199645, 0.80008893, 0.82574634, 0.84908342, 0.87022135, 0.8892825, 0.90638642, 0.92164761, 0.93517563, 0.94707578, 0.95745043, 0.966402205, 0.974035475, 0.980457902, 0.985781404, 0.990121752, 0.993596935, 0.996325447, 0.998423229, 1)
+  )
+)
+
+# library(ggplot2)
+
+# for (obj in anc_cdfs) {
+#   d <- data.frame(week = 1:42, cdf = obj$cdf)
+#   p <- ggplot(d, aes(week, obj$cdf * 100)) +
+#     geom_point() +
+#     geom_line(size = 1) +
+#     theme_bw() +
+#     labs(
+#       x = "Week",
+#       y = "Percentage of patients who have sought ANC",
+#       title = paste("ANC Cumulative Distribution Function for", obj$name),
+#       subtitle = paste0("Source: ", obj$source))
+#   ggsave(filename = paste0("app/www/images/", obj$fname, ".png"),
+#     plot = p, width = 6.533937, height = 4.162896)
+# }
+# 300 * 4.162896 / 6.533937
+
 # percentage who have 1, 2, 3, 4 visits
 pop$anc_visits1 <- 0.742 # field:C36
 # pop$anc_visits2 <- 0.644666667 # field:C37 # NOT USED!!!
@@ -183,6 +235,9 @@ pop$flagintime_pct <- 0.95 # field:C58
 # # % deaths during labor avoided
 # death_labor_avoid_pct <- 0.4 # field:C60 # NOT USED!!!
 
+
+pop$anc_cdf <- "india_adj"
+
 ## derived
 ##---------------------------------------------------------
 
@@ -190,7 +245,7 @@ der <- list()
 
 der$n_pe <- pop$pop * pop$pe_rate # field:C12
 # % who get risk stratified
-der$riskstrat_pct <- (anc_cdf[pop$riskstrat_lastweek] - anc_cdf[pop$riskstrat_firstweek]) *
+der$riskstrat_pct <- (anc_cdfs[[pop$anc_cdf]]$cdf[pop$riskstrat_lastweek] - anc_cdfs[[pop$anc_cdf]]$cdf[pop$riskstrat_firstweek]) *
   pop$anc_visits1 # field:C89
 
 der$hr_tp <- pop$sensitivity * der$n_pe * der$riskstrat_pct # field:E94
@@ -228,7 +283,7 @@ der$locs_of_care <- c(
 der$ante_pct <- pop$anc_visits4 / der$riskstrat_pct # 0.617768559 # field:C55
 
 # % early onset that are caught in right period # field:C46
-der$eo_caught <- pop$anc_visits4 + (anc_cdf[34] - anc_cdf[25]) * pop$anc_visits1
+der$eo_caught <- pop$anc_visits4 + (anc_cdfs[[pop$anc_cdf]]$cdf[34] - anc_cdfs[[pop$anc_cdf]]$cdf[25]) * pop$anc_visits1
 # % actually high risk that are early onset # field:C47
 der$hr_act_eo <- der$eo_caught * 0.1
 
@@ -488,7 +543,7 @@ pe_int_inputs3$on_off <- FALSE
 pe_int_inputs_orig <- list(pe_int_inputs, pe_int_inputs2, pe_int_inputs3)
 pop_orig <- list(pop, pop, pop)
 
-# save(base_tab_empty, anc_cdf, pop_orig, pe_int_inputs_orig, file = "app/_data.Rdata")
+# save(base_tab_empty, anc_cdfs, pop_orig, pe_int_inputs_orig, file = "app/_data.Rdata")
 
 sc <- list(
   list(
@@ -513,3 +568,18 @@ sc <- list(
 
 jsonlite::toJSON(sc, pretty = TRUE, auto_unbox = TRUE, digits = NA)
 
+
+cat(paste(sapply(anc_cdfs, function(x) {
+  paste0('<option value="', x$fname, '">', x$name, '</option>')
+}), collapse = "\n"))
+
+cat(paste(sapply(anc_cdfs, function(x) {
+  paste0('<div id="img_', x$fname, '" style="display: none;"><img src="images/', x$fname, '.png" /></div>')
+}), collapse = "\n"))
+
+
+
+anc_cdfs2 <- unname(lapply(anc_cdfs, function(x) {
+  x[c("name", "fname")]
+}))
+jsonlite::toJSON(anc_cdfs2, pretty = TRUE, auto_unbox = TRUE, digits = NA)

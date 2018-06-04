@@ -146,6 +146,7 @@ $(document).ready(function() {
         "pe_rate": 0.110204196,
         "mort_rate_mat": 0.000898843,
         "mort_rate_neo": 0.008988427,
+        "anc_cdf": "india_adj",
         "anc_visits1": 0.742,
         "anc_visits4": 0.45,
         "sensitivity": 0.75,
@@ -305,6 +306,7 @@ $(document).ready(function() {
         "pe_rate": 0.110204196,
         "mort_rate_mat": 0.000898843,
         "mort_rate_neo": 0.008988427,
+        "anc_cdf": "india_adj",
         "anc_visits1": 0.742,
         "anc_visits4": 0.45,
         "sensitivity": 0.75,
@@ -464,6 +466,7 @@ $(document).ready(function() {
         "pe_rate": 0.110204196,
         "mort_rate_mat": 0.000898843,
         "mort_rate_neo": 0.008988427,
+        "anc_cdf": "india_adj",
         "anc_visits1": 0.742,
         "anc_visits4": 0.45,
         "sensitivity": 0.75,
@@ -595,7 +598,7 @@ $(document).ready(function() {
       </div>
       <div class="collapsible-body">
         <div class="input-field">
-          <label class="slider-label" for="pop${sfx}">Population</label>
+          <label class="slider-label active" for="pop${sfx}">Population</label>
           <input id="pop${sfx}" type="number" class="validate">
         </div>
         <div class="slider-field">
@@ -665,6 +668,19 @@ $(document).ready(function() {
         <strong>ANC Visits</strong>
       </div>
       <div class="collapsible-body">
+        <div class="input-field">
+          <select id="anc_cdf${sfx}" class="shiny-material-dropdown">
+            <option value="africa_whole" ${data.pops.anc_cdf === 'africa_whole' ? 'selected' : ''}>Africa (whole)</option>
+            <option value="africa_east" ${data.pops.anc_cdf === 'africa_east' ? 'selected' : ''}>East Africa</option>
+            <option value="africa_west" ${data.pops.anc_cdf === 'africa_west' ? 'selected' : ''}>West Africa</option>
+            <option value="india" ${data.pops.anc_cdf === 'india' ? 'selected' : ''}>India</option>
+            <option value="india_adj" ${data.pops.anc_cdf === 'india_adj' ? 'selected' : ''}>India (adj)</option>
+          </select>
+          <label>
+            ANC Cumulative Distribution Function
+            <i id="anc_cdf_info${sfx}" class="material-icons info-icon" data-tippy-placement="right" data-tippy="">info_outline</i>
+          </label>
+        </div>
         <div class="slider-field">
           <label class="slider-label" for="anc_visits1${sfx}">Percentage who have at least 1 ANC visit</label>
           <div id="anc_visits1${sfx}" class="shiny-my-slider" data-denom="100"></div>
@@ -1488,6 +1504,34 @@ $(document).ready(function() {
       }
     });
 
+    tippy(`#anc_cdf_info${sfx}`, {
+      delay: 10,
+      arrow: true,
+      arrowType: 'round',
+      size: 'large',
+      duration: 200,
+      flip: false,
+      offset: '0, 2000px',
+      animation: 'scale',
+      theme: "cdf",
+      html: document.querySelector(`#img_${data.pops.anc_cdf}`).cloneNode(true)
+    });
+
+    $(`#anc_cdf${sfx}`).on("change", function(x) {
+      tippy(`#anc_cdf_info${sfx}`, {
+        delay: 10,
+        arrow: true,
+        arrowType: 'round',
+        size: 'large',
+        duration: 200,
+        flip: false,
+        offset: '0, 2000px',
+        animation: 'scale',
+        theme: "cdf",
+        html: document.querySelector(`#img_${$(this).val()}`).cloneNode(true)
+      });
+    })
+
     $(`#output-header-text-sc${idx}`).html(data.name);
   }
 
@@ -1502,58 +1546,68 @@ $(document).ready(function() {
   $("#output-header-sc3").addClass("hidden");
   $("#output_sc3").addClass("hidden");
 
+  var headerClick = function(idx) {
+    if (idx === 1) {
+      $("#output-header-sc1").removeClass("inactive");
+      $("#output-header-sc2").addClass("inactive");
+      $("#output-header-sc3").addClass("inactive");
+
+      $("#inputs_sc1").removeClass("hidden");
+      $("#inputs_sc2").addClass("hidden");
+      $("#inputs_sc3").addClass("hidden");
+
+      $("#output-header-top-sc1").addClass("hidden");
+      $("#output-header-top-sc2").addClass("hidden");
+      $("#output-header-top-sc3").addClass("hidden");
+
+      $("#output-header-text-sc1").attr("contenteditable", true);
+      $("#output-header-text-sc2").attr("contenteditable", false);
+      $("#output-header-text-sc3").attr("contenteditable", false);
+    } else if (idx === 2) {
+      $("#output-header-sc1").addClass("inactive");
+      $("#output-header-sc2").removeClass("inactive");
+      $("#output-header-sc3").addClass("inactive");
+
+      $("#inputs_sc1").addClass("hidden");
+      $("#inputs_sc2").removeClass("hidden");
+      $("#inputs_sc3").addClass("hidden");
+
+      $("#output-header-top-sc1").removeClass("hidden");
+      $("#output-header-top-sc2").addClass("hidden");
+      $("#output-header-top-sc3").addClass("hidden");
+
+      $("#output-header-text-sc1").attr("contenteditable", false);
+      $("#output-header-text-sc2").attr("contenteditable", true);
+      $("#output-header-text-sc3").attr("contenteditable", false);
+    } else if (idx === 3) {
+      $("#output-header-sc1").addClass("inactive");
+      $("#output-header-sc2").addClass("inactive");
+      $("#output-header-sc3").removeClass("inactive");
+
+      $("#inputs_sc1").addClass("hidden");
+      $("#inputs_sc2").addClass("hidden");
+      $("#inputs_sc3").removeClass("hidden");
+
+      $("#output-header-top-sc1").removeClass("hidden");
+      $("#output-header-top-sc2").removeClass("hidden");
+      $("#output-header-top-sc3").addClass("hidden");
+
+      $("#output-header-text-sc1").attr("contenteditable", false);
+      $("#output-header-text-sc2").attr("contenteditable", false);
+      $("#output-header-text-sc3").attr("contenteditable", true);
+    }
+  }
+
   $("#output-header-sc1").on("click", function() {
-    $("#output-header-sc1").removeClass("inactive");
-    $("#output-header-sc2").addClass("inactive");
-    $("#output-header-sc3").addClass("inactive");
-
-    $("#inputs_sc1").removeClass("hidden");
-    $("#inputs_sc2").addClass("hidden");
-    $("#inputs_sc3").addClass("hidden");
-
-    $("#output-header-top-sc1").addClass("hidden");
-    $("#output-header-top-sc2").addClass("hidden");
-    $("#output-header-top-sc3").addClass("hidden");
-
-    $("#output-header-text-sc1").attr("contenteditable", true);
-    $("#output-header-text-sc2").attr("contenteditable", false);
-    $("#output-header-text-sc3").attr("contenteditable", false);
+    headerClick(1);
   });
 
   $("#output-header-sc2").on("click", function() {
-    $("#output-header-sc1").addClass("inactive");
-    $("#output-header-sc2").removeClass("inactive");
-    $("#output-header-sc3").addClass("inactive");
-
-    $("#inputs_sc1").addClass("hidden");
-    $("#inputs_sc2").removeClass("hidden");
-    $("#inputs_sc3").addClass("hidden");
-
-    $("#output-header-top-sc1").removeClass("hidden");
-    $("#output-header-top-sc2").addClass("hidden");
-    $("#output-header-top-sc3").addClass("hidden");
-
-    $("#output-header-text-sc1").attr("contenteditable", false);
-    $("#output-header-text-sc2").attr("contenteditable", true);
-    $("#output-header-text-sc3").attr("contenteditable", false);
+    headerClick(2);
   });
 
   $("#output-header-sc3").on("click", function() {
-    $("#output-header-sc1").addClass("inactive");
-    $("#output-header-sc2").addClass("inactive");
-    $("#output-header-sc3").removeClass("inactive");
-
-    $("#inputs_sc1").addClass("hidden");
-    $("#inputs_sc2").addClass("hidden");
-    $("#inputs_sc3").removeClass("hidden");
-
-    $("#output-header-top-sc1").removeClass("hidden");
-    $("#output-header-top-sc2").removeClass("hidden");
-    $("#output-header-top-sc3").addClass("hidden");
-
-    $("#output-header-text-sc1").attr("contenteditable", false);
-    $("#output-header-text-sc2").attr("contenteditable", false);
-    $("#output-header-text-sc3").attr("contenteditable", true);
+    headerClick(3);
   });
 
   //*********************
@@ -1610,14 +1664,56 @@ $(document).ready(function() {
 
   $(".header-close-icon").on("click", function() {
     var idx = $(this).data("idx");
+    var left = parseInt($(`#output-header-sc${idx}`).css("left").replace(/[^\d\.]/g, ""));
+
     $(`#output-header-sc${idx}`).addClass("hidden");
     $(`#output_sc${idx}`).addClass("hidden");
+
+    // var nothidden = $(".output-header:not(.hidden)");
+    // var nothiddenia = $(".output-header.inactive:not(.hidden)");
+    // console.log(nothidden.length)
+    // console.log(nothiddenia.length)
+    // if (nothidden.length > 0) { // && nothidden.length === nothiddenia.length) {
+    //   headerClick($(nothidden[0]).data("idx"));
+    //   // $(`#output-header-sc${$(nothidden[0]).data("idx")}`).click();
+    // }
+
+    var nextIdx = 0;
+    $(".output-header:not(.hidden)").each(function() {
+      var curIdx = $(this).data("idx");
+      var curLeft = parseInt($(this).css("left").replace(/[^\d\.]/g, ""));
+
+      if (curLeft === left + 430) {
+        nextIdx = curIdx;
+      }
+
+      if (curLeft > left) {
+        $(this).css("left", `${curLeft - 430}px`);
+        $(`#output_sc${curIdx}`).css("left", `${curLeft - 430}px`);
+      }
+    });
+    var curMSLeft = parseInt($("#more-scenarios").css("left").replace(/[^\d\.]/g, ""));
+    $("#more-scenarios").css("left", `${curMSLeft - 430}px`);
+
+    if (nextIdx !== 0) {
+      debugger;
+      setTimeout(function() {
+        // if (!$(`#output-header-sc${nextIdx}`).hasClass("inactive")) {
+          headerClick(nextIdx);
+        // }
+      }, 100);
+
+      // $(`#output-header-sc${nextIdx}`).click();
+    }
+
   });
 
   //*********************
 
   // $("#demog_sc2").on("click", function() {
-  //   $("#pop_sc2").focus();
+  //   setTimeout(function() {
+  //     $("#pop_sc2").focus();
+  //   }, 1000);
   // });
 
   tippy(".tippy", {

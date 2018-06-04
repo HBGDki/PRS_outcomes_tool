@@ -500,6 +500,10 @@ label {
   cursor: pointer;
 }
 
+.tippy-tooltip.cdf-theme {
+  left: 420px;
+}
+
 .hidden {
   display: none !important;
 }

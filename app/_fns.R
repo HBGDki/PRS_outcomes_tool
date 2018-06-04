@@ -115,11 +115,11 @@ get_int_data <- function(cur_nm, prev_nm, ints, base_tab, pe_int_inputs, pop, de
   obj
 }
 
-get_der <- function(pop, anc_cdf) {
+get_der <- function(pop, anc_cdfs) {
   der <- list()
   der$n_pe <- pop$pop * pop$pe_rate # field:C12
   # % who get risk stratified
-  der$riskstrat_pct <- (anc_cdf[pop$riskstrat_lastweek] - anc_cdf[pop$riskstrat_firstweek]) *
+  der$riskstrat_pct <- (anc_cdfs[[pop$anc_cdf]]$cdf[pop$riskstrat_lastweek] - anc_cdfs[[pop$anc_cdf]]$cdf[pop$riskstrat_firstweek]) *
     pop$anc_visits1 # field:C89
 
   der$hr_tp <- pop$sensitivity * der$n_pe * der$riskstrat_pct # field:E94
@@ -157,7 +157,7 @@ get_der <- function(pop, anc_cdf) {
   der$ante_pct <- pop$anc_visits4 / der$riskstrat_pct # 0.617768559 # field:C55
 
   # % early onset that are caught in right period # field:C46
-  der$eo_caught <- pop$anc_visits4 + (anc_cdf[34] - anc_cdf[25]) * pop$anc_visits1
+  der$eo_caught <- pop$anc_visits4 + (anc_cdfs[[pop$anc_cdf]]$cdf[34] - anc_cdfs[[pop$anc_cdf]]$cdf[25]) * pop$anc_visits1
   # % actually high risk that are early onset # field:C47
   der$hr_act_eo <- der$eo_caught * 0.1
 
