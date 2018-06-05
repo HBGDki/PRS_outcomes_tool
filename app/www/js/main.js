@@ -1532,6 +1532,8 @@ $(document).ready(function() {
       });
     })
 
+    $('select').formSelect();
+
     $(`#output-header-text-sc${idx}`).html(data.name);
   }
 
@@ -1669,23 +1671,14 @@ $(document).ready(function() {
     $(`#output-header-sc${idx}`).addClass("hidden");
     $(`#output_sc${idx}`).addClass("hidden");
 
-    // var nothidden = $(".output-header:not(.hidden)");
-    // var nothiddenia = $(".output-header.inactive:not(.hidden)");
-    // console.log(nothidden.length)
-    // console.log(nothiddenia.length)
-    // if (nothidden.length > 0) { // && nothidden.length === nothiddenia.length) {
-    //   headerClick($(nothidden[0]).data("idx"));
-    //   // $(`#output-header-sc${$(nothidden[0]).data("idx")}`).click();
-    // }
-
-    var nextIdx = 0;
+    // var nextIdx = 0;
     $(".output-header:not(.hidden)").each(function() {
       var curIdx = $(this).data("idx");
       var curLeft = parseInt($(this).css("left").replace(/[^\d\.]/g, ""));
 
-      if (curLeft === left + 430) {
-        nextIdx = curIdx;
-      }
+      // if (curLeft === left + 430) {
+      //   nextIdx = curIdx;
+      // }
 
       if (curLeft > left) {
         $(this).css("left", `${curLeft - 430}px`);
@@ -1695,17 +1688,21 @@ $(document).ready(function() {
     var curMSLeft = parseInt($("#more-scenarios").css("left").replace(/[^\d\.]/g, ""));
     $("#more-scenarios").css("left", `${curMSLeft - 430}px`);
 
-    if (nextIdx !== 0) {
-      debugger;
+    // if (nextIdx !== 0) {
+    //   debugger;
+    //   setTimeout(function() {
+    //     headerClick(nextIdx);
+    //   }, 100);
+    // }
+
+    var nothidden = $(".output-header:not(.hidden)");
+    var nothiddenia = $(".output-header.inactive:not(.hidden)");
+    if (nothidden.length > 0) { // && nothidden.length === nothiddenia.length) {
       setTimeout(function() {
-        // if (!$(`#output-header-sc${nextIdx}`).hasClass("inactive")) {
-          headerClick(nextIdx);
-        // }
+        headerClick($(nothidden[0]).data("idx"));
       }, 100);
-
-      // $(`#output-header-sc${nextIdx}`).click();
+      // $(`#output-header-sc${$(nothidden[0]).data("idx")}`).click();
     }
-
   });
 
   //*********************
@@ -1727,7 +1724,6 @@ $(document).ready(function() {
   });
 
   $('.collapsible').collapsible();
-  $('select').formSelect();
 
   //*********************
 
@@ -1760,6 +1756,7 @@ $(document).ready(function() {
 
   setDimensions();
 
+  $('select').formSelect();
   $('.modal').modal();
   // $('.tooltipped').tooltip();
 });
