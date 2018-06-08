@@ -54,6 +54,11 @@ h1,h2,h3,h4,h5,h6 {
   font-family: 'DIN-Medium', sans-serif;
 }
 
+#scenario_state {
+  width: 0px;
+  height: 0px;
+}
+
 .header-text {
   font-family: 'DIN-Bold', sans-serif;
   font-size: 1.5em;

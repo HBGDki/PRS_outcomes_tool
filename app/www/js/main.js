@@ -146,7 +146,6 @@ $(document).ready(function() {
         "pe_rate": 0.110204196,
         "mort_rate_mat": 0.000898843,
         "mort_rate_neo": 0.008988427,
-        "anc_cdf": "india_adj",
         "anc_visits1": 0.742,
         "anc_visits4": 0.45,
         "sensitivity": 0.75,
@@ -164,11 +163,12 @@ $(document).ready(function() {
         "leak_phc_home": 0.1,
         "pop_ghtn_pct": 0.125,
         "hr_act_w_ghtn_pct": 0.8,
-        "flagintime_pct": 0.95
+        "flagintime_pct": 0.95,
+        "anc_cdf": "india_adj"
       }
     },
     {
-      "name": "India Feasible Only",
+      "name": "East Africa Baseline",
       "ints_fe": [
         {
           "int": "Antenatal monitoring + early C-section",
@@ -190,7 +190,7 @@ $(document).ready(function() {
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.666134086,
+          "elig_pop_haircut": 0.75,
           "eff_reducing_PE": 0.33,
           "eff_reducing_mat_deaths": 0.33,
           "eff_reducing_neo_deaths": 0.33,
@@ -203,10 +203,10 @@ $(document).ready(function() {
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.49436655,
-          "eff_reducing_PE": 0.292922754,
-          "eff_reducing_mat_deaths": 0.292922754,
-          "eff_reducing_neo_deaths": 0.292922754,
+          "elig_pop_haircut": 0.5,
+          "eff_reducing_PE": 0.546439687,
+          "eff_reducing_mat_deaths": 0.546439687,
+          "eff_reducing_neo_deaths": 0.546439687,
           "entry": 5
         },
         {
@@ -231,7 +231,7 @@ $(document).ready(function() {
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.666134086,
+          "elig_pop_haircut": 0.75,
           "eff_reducing_PE": 0.72,
           "eff_reducing_mat_deaths": 0.72,
           "eff_reducing_neo_deaths": 0.72,
@@ -240,11 +240,11 @@ $(document).ready(function() {
         {
           "int": "Statins",
           "name": "int_statins",
-          "on_off": false,
+          "on_off": true,
           "applied_to": "Risk stratified & flagged high risk",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.49436655,
+          "elig_pop_haircut": 0.5,
           "eff_reducing_PE": 0.03,
           "eff_reducing_mat_deaths": 0.03,
           "eff_reducing_neo_deaths": 0.03,
@@ -253,11 +253,11 @@ $(document).ready(function() {
         {
           "int": "Incremental magnesium roll-out - FRU",
           "name": "int_mag_fru",
-          "on_off": false,
+          "on_off": true,
           "applied_to": "Actually high risk (presume can discern)",
           "location_of_care": "FRU only",
           "coverage": 0.5,
-          "elig_pop_haircut": 0.64,
+          "elig_pop_haircut": 0.75,
           "eff_reducing_PE": 0,
           "eff_reducing_mat_deaths": 0.46,
           "entry": 7
@@ -265,7 +265,7 @@ $(document).ready(function() {
         {
           "int": "Incremental magnesium roll-out - PHC",
           "name": "int_mag_phc",
-          "on_off": false,
+          "on_off": true,
           "applied_to": "Actually high risk (presume can discern)",
           "location_of_care": "PHC only",
           "coverage": 0.5,
@@ -277,7 +277,7 @@ $(document).ready(function() {
         {
           "int": "Intrapartum antihypertensives",
           "name": "int_intantihyper",
-          "on_off": false,
+          "on_off": true,
           "applied_to": "Actually high risk (presume can discern)",
           "location_of_care": "FRU only",
           "coverage": 0.5,
@@ -290,8 +290,8 @@ $(document).ready(function() {
         {
           "int": "Novel drug",
           "name": "int_drug",
-          "on_off": false,
-          "applied_to": "All",
+          "on_off": true,
+          "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
           "elig_pop_haircut": 1,
@@ -302,21 +302,20 @@ $(document).ready(function() {
         }
       ],
       "pops": {
-        "pop": 25642000,
-        "pe_rate": 0.110204196,
-        "mort_rate_mat": 0.000898843,
-        "mort_rate_neo": 0.008988427,
-        "anc_cdf": "india_adj",
+        "pop": 13926208,
+        "pe_rate": 0.205583027,
+        "mort_rate_mat": 0.002033886,
+        "mort_rate_neo": 0.020338862,
         "anc_visits1": 0.742,
         "anc_visits4": 0.45,
         "sensitivity": 0.75,
         "specificity": 0.75,
         "riskstrat_firstweek": 4,
         "riskstrat_lastweek": 42,
-        "cfr_fru_maternal": 0.000488501,
-        "cfr_phc_maternal": 0.000977003,
-        "cfr_fru_neonatal": 0.004885015,
-        "cfr_phc_neonatal": 0.009770029,
+        "cfr_fru_maternal": 0.0005,
+        "cfr_phc_maternal": 0.002210746,
+        "cfr_fru_neonatal": 0.01105373,
+        "cfr_phc_neonatal": 0.022107459,
         "sys_fru_pct": 0.16,
         "sys_phc_pct": 0.63,
         "sys_home_pct": 0.21,
@@ -324,167 +323,8 @@ $(document).ready(function() {
         "leak_phc_home": 0.1,
         "pop_ghtn_pct": 0.125,
         "hr_act_w_ghtn_pct": 0.8,
-        "flagintime_pct": 0.95
-      }
-    },
-    {
-      "name": "India No Interventions",
-      "ints_fe": [
-        {
-          "int": "Antenatal monitoring + early C-section",
-          "name": "int_am_csect",
-          "on_off": false,
-          "applied_to": "All risk stratified",
-          "location_of_care": "FRU only",
-          "coverage": 1,
-          "elig_pop_haircut": 1,
-          "eff_reducing_PE": 0,
-          "eff_reducing_mat_deaths": 0.29374,
-          "eff_reducing_neo_deaths": 0.29374,
-          "entry": 1
-        },
-        {
-          "int": "Calcium",
-          "name": "int_calcium",
-          "on_off": false,
-          "applied_to": "All risk stratified",
-          "location_of_care": "FRU, PHC, and Home",
-          "coverage": 0.5,
-          "elig_pop_haircut": 0.666134086,
-          "eff_reducing_PE": 0.33,
-          "eff_reducing_mat_deaths": 0.33,
-          "eff_reducing_neo_deaths": 0.33,
-          "entry": 2
-        },
-        {
-          "int": "Aspirin",
-          "name": "int_aspirin",
-          "on_off": false,
-          "applied_to": "All risk stratified",
-          "location_of_care": "FRU, PHC, and Home",
-          "coverage": 0.5,
-          "elig_pop_haircut": 0.49436655,
-          "eff_reducing_PE": 0.292922754,
-          "eff_reducing_mat_deaths": 0.292922754,
-          "eff_reducing_neo_deaths": 0.292922754,
-          "entry": 5
-        },
-        {
-          "int": "Antihypertensives",
-          "name": "int_antihyper",
-          "on_off": false,
-          "applied_to": "Hypertensive (and risk stratified)",
-          "location_of_care": "FRU and PHC",
-          "coverage": 0.5,
-          "elig_pop_haircut": 1,
-          "eff_reducing_PE": 0,
-          "eff_reducing_mat_deaths": 0.1,
-          "eff_reducing_neo_deaths": 0.1,
-          "entry": 6
-        }
-      ],
-      "ints_fu": [
-        {
-          "int": "Selenium for PE",
-          "name": "int_selenium",
-          "on_off": false,
-          "applied_to": "All risk stratified",
-          "location_of_care": "FRU, PHC, and Home",
-          "coverage": 0.5,
-          "elig_pop_haircut": 0.666134086,
-          "eff_reducing_PE": 0.72,
-          "eff_reducing_mat_deaths": 0.72,
-          "eff_reducing_neo_deaths": 0.72,
-          "entry": 3
-        },
-        {
-          "int": "Statins",
-          "name": "int_statins",
-          "on_off": false,
-          "applied_to": "Risk stratified & flagged high risk",
-          "location_of_care": "FRU, PHC, and Home",
-          "coverage": 0.5,
-          "elig_pop_haircut": 0.49436655,
-          "eff_reducing_PE": 0.03,
-          "eff_reducing_mat_deaths": 0.03,
-          "eff_reducing_neo_deaths": 0.03,
-          "entry": 4
-        },
-        {
-          "int": "Incremental magnesium roll-out - FRU",
-          "name": "int_mag_fru",
-          "on_off": false,
-          "applied_to": "Actually high risk (presume can discern)",
-          "location_of_care": "FRU only",
-          "coverage": 0.5,
-          "elig_pop_haircut": 0.64,
-          "eff_reducing_PE": 0,
-          "eff_reducing_mat_deaths": 0.46,
-          "entry": 7
-        },
-        {
-          "int": "Incremental magnesium roll-out - PHC",
-          "name": "int_mag_phc",
-          "on_off": false,
-          "applied_to": "Actually high risk (presume can discern)",
-          "location_of_care": "PHC only",
-          "coverage": 0.5,
-          "elig_pop_haircut": 1,
-          "eff_reducing_PE": 0,
-          "eff_reducing_mat_deaths": 0.46,
-          "entry": 8
-        },
-        {
-          "int": "Intrapartum antihypertensives",
-          "name": "int_intantihyper",
-          "on_off": false,
-          "applied_to": "Actually high risk (presume can discern)",
-          "location_of_care": "FRU only",
-          "coverage": 0.5,
-          "elig_pop_haircut": 1,
-          "eff_reducing_PE": 0,
-          "eff_reducing_mat_deaths": 0.015,
-          "eff_reducing_neo_deaths": 0.015,
-          "entry": 9
-        },
-        {
-          "int": "Novel drug",
-          "name": "int_drug",
-          "on_off": false,
-          "applied_to": "All",
-          "location_of_care": "FRU, PHC, and Home",
-          "coverage": 0.5,
-          "elig_pop_haircut": 1,
-          "eff_reducing_PE": 0.5,
-          "eff_reducing_mat_deaths": 0.5,
-          "eff_reducing_neo_deaths": 0.5,
-          "entry": 10
-        }
-      ],
-      "pops": {
-        "pop": 25642000,
-        "pe_rate": 0.110204196,
-        "mort_rate_mat": 0.000898843,
-        "mort_rate_neo": 0.008988427,
-        "anc_cdf": "india_adj",
-        "anc_visits1": 0.742,
-        "anc_visits4": 0.45,
-        "sensitivity": 0.75,
-        "specificity": 0.75,
-        "riskstrat_firstweek": 4,
-        "riskstrat_lastweek": 42,
-        "cfr_fru_maternal": 0.000488501,
-        "cfr_phc_maternal": 0.000977003,
-        "cfr_fru_neonatal": 0.004885015,
-        "cfr_phc_neonatal": 0.009770029,
-        "sys_fru_pct": 0.16,
-        "sys_phc_pct": 0.63,
-        "sys_home_pct": 0.21,
-        "leak_fru_phc": 0.1,
-        "leak_phc_home": 0.1,
-        "pop_ghtn_pct": 0.125,
-        "hr_act_w_ghtn_pct": 0.8,
-        "flagintime_pct": 0.95
+        "flagintime_pct": 0.95,
+        "anc_cdf": "africa_east"
       }
     }
   ];
@@ -772,10 +612,10 @@ $(document).ready(function() {
 
   //*********************
 
-  var makeOutput = function(data, idx) {
+  var makeOutput = function(data, idx, baseline_idx) {
     var sfx = `_sc${idx}`;
     var output = `
-    <div">
+    <div id="output_content${sfx}" data-baseline="${baseline_idx}">
       <div class="info-more">
         <div class="big-numbers">
           <div class="big-number-wrapper">
@@ -1538,7 +1378,7 @@ $(document).ready(function() {
   }
 
   makeInput(scenarios[0], 1);
-  makeOutput(scenarios[0], 1);
+  makeOutput(scenarios[0], 1, 0);
 
   $("#inputs_sc2").addClass("hidden");
   $("#inputs_sc3").addClass("hidden");
@@ -1618,10 +1458,10 @@ $(document).ready(function() {
   for (var i = 1; i < scenarios.length; i++) {
     sc_opts += `<option value="${i}">${scenarios[i].name}</option>`;
   }
-  $("#sc-options").html(sc_opts);
+  $("#sc_options").html(sc_opts);
 
   $("#select-basis").on("click", function() {
-    var idx = parseInt($("#sc-options").val());
+    var idx = parseInt($("#sc_options").val());
     // debugger;
     var a = [1, 2, 3];
     var b = $.map($(".output-header:not(.hidden)"), function(d) {
@@ -1638,8 +1478,10 @@ $(document).ready(function() {
 
     Shiny.unbindAll();
     makeInput(scenarios[idx], next);
-    makeOutput(scenarios[idx], next);
+    makeOutput(scenarios[idx], next, idx);
     Shiny.bindAll();
+
+    $("#scenario_state").trigger("change");
 
     $(`#output-header-sc${next}`).css("left", 430 * nActive);
     $(`#output_sc${next}`).css("left", 430 * nActive);

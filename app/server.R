@@ -4,7 +4,9 @@ load("_data.Rdata")
 function(input, output) {
 
   pe_int_inputs_react_sc1 <- reactive({
-    res <- pe_int_inputs_orig[[1]]
+    sc <- input$scenario_state
+
+    res <- pe_int_inputs_orig[[sc[1]]]
     for (i in 2:nrow(res)) {
       for (vr in names(res[-c(1, 2)])) {
         nm <- paste0(vr, "_", res$name[i], "_sc1")
@@ -16,14 +18,16 @@ function(input, output) {
   })
 
   pop_react_sc1 <- reactive({
+    sc <- input$scenario_state
+
     res <- list()
-    for (nm in names(pop_orig[[1]])) {
+    for (nm in names(pop_orig[[sc[1]]])) {
       nm2 <- paste0(nm, "_sc1")
       if (!is.null(input[[nm2]]) && !is.na(input[[nm2]])) {
         res[[nm]] <- input[[nm2]]
       }
       if (is.null(res[[nm]]))
-        res[[nm]] <- pop_orig[[1]][[nm]]
+        res[[nm]] <- pop_orig[[sc[1]]][[nm]]
     }
     res
   })
@@ -60,7 +64,9 @@ function(input, output) {
   ##---------------------------------------------------------
 
   pe_int_inputs_react_sc2 <- reactive({
-    res <- pe_int_inputs_orig[[2]]
+    sc <- input$scenario_state
+
+    res <- pe_int_inputs_orig[[sc[2]]]
     for (i in 2:nrow(res)) {
       for (vr in names(res[-c(1, 2)])) {
         nm <- paste0(vr, "_", res$name[i], "_sc2")
@@ -72,14 +78,16 @@ function(input, output) {
   })
 
   pop_react_sc2 <- reactive({
+    sc <- input$scenario_state
+
     res <- list()
-    for (nm in names(pop_orig[[2]])) {
+    for (nm in names(pop_orig[[sc[2]]])) {
       nm2 <- paste0(nm, "_sc2")
       if (!is.null(input[[nm2]]) && !is.na(input[[nm2]])) {
         res[[nm]] <- input[[nm2]]
       }
       if (is.null(res[[nm]]))
-        res[[nm]] <- pop_orig[[2]][[nm]]
+        res[[nm]] <- pop_orig[[sc[2]]][[nm]]
     }
     res
   })
@@ -116,7 +124,9 @@ function(input, output) {
   ##---------------------------------------------------------
 
   pe_int_inputs_react_sc3 <- reactive({
-    res <- pe_int_inputs_orig[[3]]
+    sc <- input$scenario_state
+
+    res <- pe_int_inputs_orig[[sc[3]]]
     for (i in 2:nrow(res)) {
       for (vr in names(res[-c(1, 2)])) {
         nm <- paste0(vr, "_", res$name[i], "_sc3")
@@ -128,14 +138,16 @@ function(input, output) {
   })
 
   pop_react_sc3 <- reactive({
+    sc <- input$scenario_state
+
     res <- list()
-    for (nm in names(pop_orig[[3]])) {
+    for (nm in names(pop_orig[[sc[3]]])) {
       nm2 <- paste0(nm, "_sc3")
       if (!is.null(input[[nm2]]) && !is.na(input[[nm2]])) {
         res[[nm]] <- input[[nm2]]
       }
       if (is.null(res[[nm]]))
-        res[[nm]] <- pop_orig[[3]][[nm]]
+        res[[nm]] <- pop_orig[[sc[3]]][[nm]]
     }
     res
   })

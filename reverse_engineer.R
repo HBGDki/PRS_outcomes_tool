@@ -127,15 +127,6 @@ get_int_data <- function(cur_nm, prev_nm, ints, base_tab, pe_int_inputs, pop, de
 ## inputs
 ##---------------------------------------------------------
 
-pop <- list()
-
-pop$pop <- 25642000 # field:C10
-pop$pe_rate <- 0.110204196 # field:C11
-
-# % maternal mortality rate (conditioned pre-eclampsia)
-pop$mort_rate_mat <- 0.000898843
-pop$mort_rate_neo <- 0.008988427
-
 # antenatal care CDF
 # anc_cdf <- c(0, 0, 0, 0.01829094, 0.04074504, 0.06759664, 0.09890153, 0.13451205, 0.17407471, 0.21704612, 0.2627304, 0.31033117, 0.35900826, 0.4079359, 0.45635737, 0.50361507, 0.54917553, 0.59263585, 0.63371515, 0.67224082, 0.70812972, 0.74136858, 0.77199645, 0.80008893, 0.82574634, 0.84908342, 0.87022135, 0.8892825, 0.90638642, 0.92164761, 0.93517563, 0.94707578, 0.95745043, 0.966402205, 0.974035475, 0.980457902, 0.985781404, 0.990121752, 0.993596935, 0.996325447, 0.998423229, 1.000000019)
 
@@ -189,6 +180,15 @@ anc_cdfs <- list(
 #     plot = p, width = 6.533937, height = 4.162896)
 # }
 # 300 * 4.162896 / 6.533937
+
+pop <- list()
+
+pop$pop <- 25642000 # field:C10
+pop$pe_rate <- 0.110204196 # field:C11
+
+# % maternal mortality rate (conditioned pre-eclampsia)
+pop$mort_rate_mat <- 0.000898843
+pop$mort_rate_neo <- 0.008988427
 
 # percentage who have 1, 2, 3, 4 visits
 pop$anc_visits1 <- 0.742 # field:C36
@@ -290,6 +290,118 @@ der$hr_act_eo <- der$eo_caught * 0.1
 # % of low risk that has GHTN # field:C48
 der$lr_act_w_ghtn_pct <- (pop$pop_ghtn_pct * pop$pop - pop$hr_act_w_ghtn_pct * der$n_pe) / (pop$pop - der$n_pe)
 
+## population data for East Africa
+##---------------------------------------------------------
+
+pop_ea <- list()
+
+pop_ea$pop <- 13926208 # field:C10
+pop_ea$pe_rate <- 0.205583027 # field:C11
+
+# % maternal mortality rate (conditioned pre-eclampsia)
+pop_ea$mort_rate_mat <- 0.002033886
+pop_ea$mort_rate_neo <- 0.020338862
+
+# percentage who have 1, 2, 3, 4 visits
+pop_ea$anc_visits1 <- 0.742 # field:C36
+# pop_ea$anc_visits2 <- 0.644666667 # field:C37 # NOT USED!!!
+# pop_ea$anc_visits3 <- 0.547333333 # field:C38 # NOT USED!!!
+pop_ea$anc_visits4 <- 0.45 # field:C39
+
+pop_ea$sensitivity <- 0.75 # field:C30
+pop_ea$specificity <- 0.75 # field:C311
+pop_ea$riskstrat_firstweek <- 4 # field:C32
+pop_ea$riskstrat_lastweek <- 42 # field:C33
+
+# case fatality rate
+pop_ea$cfr_fru_maternal <- 0.0005 # field:C19
+pop_ea$cfr_phc_maternal <- 0.002210746 # field:C20
+pop_ea$cfr_fru_neonatal <- 0.01105373 # field:C21
+pop_ea$cfr_phc_neonatal <- 0.022107459 # field:C22
+
+# systems
+pop_ea$sys_fru_pct <- 0.16 # field:C25
+pop_ea$sys_phc_pct <- 0.63 # field:C26
+pop_ea$sys_home_pct <- 0.21 # field:C27
+
+pop_ea$leak_fru_phc <- 0.1 # field:C51
+pop_ea$leak_phc_home <- 0.1 # field:C52
+
+# % of population that has gestational hypertension
+pop_ea$pop_ghtn_pct <- 0.125 # field:C42
+
+# % actually high risk that has GHTN
+pop_ea$hr_act_w_ghtn_pct <- 0.8 # field:C45
+# # % early onset that are caught in right period
+# % actually high risk that are early onset
+
+# Antenatal monitor settings
+# # % of deaths before labor
+# death_prelabor_pct <- 0.48 # field:C56 # NOT USED!!!
+# # % of deaths in labor
+# death_labor_pct <- 0.173 # field:C57 # NOT USED!!!
+# % patients flagged at right time
+pop_ea$flagintime_pct <- 0.95 # field:C58
+# # % deaths before labor avoided
+# death_prelabor_avoid_pct <- 0.5 # field:C59 # NOT USED!!!
+# # % deaths during labor avoided
+# death_labor_avoid_pct <- 0.4 # field:C60 # NOT USED!!!
+
+pop_ea$anc_cdf <- "africa_east"
+
+## derived data for East Africa
+##---------------------------------------------------------
+
+der_ea <- list()
+
+der_ea$n_pe <- pop_ea$pop * pop_ea$pe_rate # field:C12
+# % who get risk stratified
+der_ea$riskstrat_pct <- (anc_cdfs[[pop_ea$anc_cdf]]$cdf[pop_ea$riskstrat_lastweek] - anc_cdfs[[pop_ea$anc_cdf]]$cdf[pop_ea$riskstrat_firstweek]) *
+  pop_ea$anc_visits1 # field:C89
+
+der_ea$hr_tp <- pop_ea$sensitivity * der_ea$n_pe * der_ea$riskstrat_pct # field:E94
+der_ea$lr_tn <- pop_ea$specificity * (pop_ea$pop - der_ea$n_pe) * der_ea$riskstrat_pct # field:E98
+der_ea$hr_fp <- der_ea$riskstrat_pct * (pop_ea$pop - der_ea$n_pe) - der_ea$lr_tn # field:E95
+der_ea$lr_fn <- der_ea$riskstrat_pct * der_ea$n_pe - der_ea$hr_tp # field: E99
+
+der_ea$hr_flagged <- der_ea$hr_tp + der_ea$hr_fp # field: E93
+der_ea$lr_flagged <- der_ea$lr_tn + der_ea$lr_fn # field: E97
+
+der_ea$n_riskstrat <- der_ea$hr_flagged + der_ea$lr_flagged  # field:C90
+
+der_ea$hr_tp_pct <- der_ea$hr_tp / (der_ea$hr_tp + der_ea$lr_tn + der_ea$hr_fp + der_ea$lr_fn + der_ea$lr_flagged)
+der_ea$hr_fp_pct <- der_ea$hr_fp / (der_ea$hr_tp + der_ea$lr_tn + der_ea$hr_fp + der_ea$lr_fn + der_ea$lr_flagged)
+
+der_ea$lr_tn_pct <- der_ea$lr_tn / (der_ea$hr_tp + der_ea$lr_tn + der_ea$hr_fp + der_ea$lr_fn + der_ea$lr_flagged)
+der_ea$lr_fn_pct <- der_ea$lr_fn / (der_ea$hr_tp + der_ea$lr_tn + der_ea$hr_fp + der_ea$lr_fn + der_ea$lr_flagged)
+
+der_ea$hr_flagged_pct <- der_ea$hr_tp_pct + der_ea$hr_fp_pct
+der_ea$lr_flagged_pct <- der_ea$lr_tn_pct + der_ea$lr_fn_pct
+
+der_ea$nostrat_hr <- ((pop_ea$pop - der_ea$n_riskstrat) / pop_ea$pop) * der_ea$n_pe
+der_ea$nostrat_lr <- ((pop_ea$pop - der_ea$n_riskstrat) / pop_ea$pop) * (pop_ea$pop - der_ea$n_pe)
+
+der_ea$locs_of_care <- c(
+  "FRU only" = pop_ea$sys_fru_pct,
+  "PHC only" = pop_ea$sys_phc_pct,
+  "Home only" = pop_ea$sys_home_pct,
+  "FRU and PHC" = pop_ea$sys_fru_pct + pop_ea$sys_phc_pct,
+  "FRU, PHC, and Home" = pop_ea$sys_fru_pct + pop_ea$sys_phc_pct + pop_ea$sys_home_pct,
+  "None" = 0
+)
+
+# % who get it
+der_ea$ante_pct <- pop_ea$anc_visits4 / der_ea$riskstrat_pct # 0.617768559 # field:C55
+
+# % early onset that are caught in right period # field:C46
+der_ea$eo_caught <- pop_ea$anc_visits4 + (anc_cdfs[[pop_ea$anc_cdf]]$cdf[34] - anc_cdfs[[pop_ea$anc_cdf]]$cdf[25]) * pop_ea$anc_visits1
+# % actually high risk that are early onset # field:C47
+der_ea$hr_act_eo <- der_ea$eo_caught * 0.1
+
+# % of low risk that has GHTN # field:C48
+der_ea$lr_act_w_ghtn_pct <- (pop_ea$pop_ghtn_pct * pop_ea$pop - pop_ea$hr_act_w_ghtn_pct * der_ea$n_pe) / (pop_ea$pop - der_ea$n_pe)
+
+
 ## data
 ##---------------------------------------------------------
 
@@ -339,6 +451,19 @@ Incremental magnesium roll-out - FRU,int_mag_fru,TRUE,Actually high risk (presum
 Incremental magnesium roll-out - PHC,int_mag_phc,TRUE,Actually high risk (presume can discern),PHC only,0.5,1,0,0.46,
 Intrapartum antihypertensives,int_intantihyper,TRUE,Actually high risk (presume can discern),FRU only,0.5,1,0,0.015,0.015
 Novel drug,int_drug,TRUE,All,"FRU, PHC, and Home",0.5,1,0.5,0.5,0.5')
+
+pe_int_inputs_ea <- readr::read_csv('int,name,on_off,applied_to,location_of_care,coverage,elig_pop_haircut,eff_reducing_PE,eff_reducing_mat_deaths,eff_reducing_neo_deaths
+Antenatal monitoring + diff CFL,int_am_diff_cfl,TRUE,,,,,,,
+Antenatal monitoring + early C-section,int_am_csect,TRUE,All risk stratified,FRU only,1,1,0,0.29374,0.29374
+Calcium,int_calcium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.75,0.33,0.33,0.33
+Selenium for PE,int_selenium,FALSE,All risk stratified,"FRU, PHC, and Home",0.5,0.75,0.72,0.72,0.72
+Statins,int_statins,TRUE,Risk stratified & flagged high risk,"FRU, PHC, and Home",0.5,0.5,0.03,0.03,0.03
+Aspirin,int_aspirin,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.5,0.546439687,0.546439687,0.546439687
+Antihypertensives,int_antihyper,TRUE,Hypertensive (and risk stratified),FRU and PHC,0.5,1,0,0.1,0.1
+Incremental magnesium roll-out - FRU,int_mag_fru,TRUE,Actually high risk (presume can discern),FRU only,0.5,0.75,0,0.46,NA
+Incremental magnesium roll-out - PHC,int_mag_phc,TRUE,Actually high risk (presume can discern),PHC only,0.5,1,0,0.46,NA
+Intrapartum antihypertensives,int_intantihyper,TRUE,Actually high risk (presume can discern),FRU only,0.5,1,0,0.015,0.015
+Novel drug,int_drug,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,1,0.5,0.5,0.5')
 
 ##
 ##---------------------------------------------------------
@@ -533,15 +658,16 @@ int_fe <- c("int_am_csect", "int_calcium", "int_aspirin", "int_antihyper")
 int_fu <- c("int_selenium", "int_statins", "int_mag_fru", "int_mag_phc", "int_intantihyper", "int_drug")
 
 pe_int_inputs$entry <- seq_len(nrow(pe_int_inputs)) - 1
-pe_int_inputs2 <- pe_int_inputs
-pe_int_inputs2$on_off[pe_int_inputs$name %in% int_fe] <- TRUE
-pe_int_inputs2$on_off[pe_int_inputs$name %in% int_fu] <- FALSE
+pe_int_inputs_ea$entry <- seq_len(nrow(pe_int_inputs_ea)) - 1
+# pe_int_inputs2 <- pe_int_inputs
+# pe_int_inputs2$on_off[pe_int_inputs$name %in% int_fe] <- TRUE
+# pe_int_inputs2$on_off[pe_int_inputs$name %in% int_fu] <- FALSE
 
-pe_int_inputs3 <- pe_int_inputs
-pe_int_inputs3$on_off <- FALSE
+# pe_int_inputs3 <- pe_int_inputs
+# pe_int_inputs3$on_off <- FALSE
 
-pe_int_inputs_orig <- list(pe_int_inputs, pe_int_inputs2, pe_int_inputs3)
-pop_orig <- list(pop, pop, pop)
+pe_int_inputs_orig <- list(pe_int_inputs, pe_int_inputs_ea)
+pop_orig <- list(pop, pop_ea)
 
 # save(base_tab_empty, anc_cdfs, pop_orig, pe_int_inputs_orig, file = "app/_data.Rdata")
 
@@ -553,17 +679,17 @@ sc <- list(
     pops = pop_orig[[1]]
   ),
   list(
-    name = "India Feasible Only",
+    name = "East Africa Baseline",
     ints_fe = filter(pe_int_inputs_orig[[2]], name %in% int_fe),
     ints_fu = filter(pe_int_inputs_orig[[2]], name %in% int_fu),
-    pops = pop_orig[[1]]
-  ),
-  list(
-    name = "India No Interventions",
-    ints_fe = filter(pe_int_inputs_orig[[3]], name %in% int_fe),
-    ints_fu = filter(pe_int_inputs_orig[[3]], name %in% int_fu),
-    pops = pop_orig[[1]]
+    pops = pop_orig[[2]]
   )
+  # list(
+  #   name = "India No Interventions",
+  #   ints_fe = filter(pe_int_inputs_orig[[3]], name %in% int_fe),
+  #   ints_fu = filter(pe_int_inputs_orig[[3]], name %in% int_fu),
+  #   pops = pop_orig[[1]]
+  # )
 )
 
 jsonlite::toJSON(sc, pretty = TRUE, auto_unbox = TRUE, digits = NA)

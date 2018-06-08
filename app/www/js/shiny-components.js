@@ -39,6 +39,35 @@ $.extend(mySliderBinding, {
 
 Shiny.inputBindings.register(mySliderBinding);
 
+
+
+var scenarioStateBinding = new Shiny.InputBinding();
+$.extend(scenarioStateBinding, {
+  find: function(scope) {
+    return $(scope).find(".shiny-scenario-state");
+  },
+  getValue: function(el) {
+    var ret = $.map([1, 2, 3], function(d) {
+      var sfx = `_sc${d}`;
+      return parseFloat($(`#output_content${sfx}`).data("baseline") + 1);
+    });
+    return ret;
+  },
+  subscribe: function(el, callback) {
+    $(el).on("change.scenarioStateBinding", function(e) {
+      callback();
+    });
+  },
+  unsubscribe: function(el) {
+    $(el).off(".scenarioStateBinding");
+  }
+});
+
+Shiny.inputBindings.register(scenarioStateBinding);
+
+
+
+
 var myTimer;
 
 var prsDataOutputBinding = new Shiny.OutputBinding();
@@ -255,17 +284,6 @@ $.extend(prsDataOutputBinding, {
   }
 });
 Shiny.outputBindings.register(prsDataOutputBinding);
-
-
-// var activeScenarioBinding = new Shiny.OutputBinding();
-// $.extend(activeScenarioBinding, {
-//   find: function(scope) {
-//     return $(scope).find('.shiny-active-scenario');
-//   },
-//   renderValue: function(el, data) {
-//   }
-// });
-// Shiny.outputBindings.register(activeScenarioBinding);
 
 
 // var countUpOutputBinding = new Shiny.OutputBinding();
