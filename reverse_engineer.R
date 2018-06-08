@@ -443,7 +443,7 @@ pe_int_inputs <- readr::read_csv('int,name,on_off,applied_to,location_of_care,co
 Antenatal monitoring + diff CFL,int_am_diff_cfl,TRUE,,,,,,,
 Antenatal monitoring + early C-section,int_am_csect,TRUE,All risk stratified,FRU only,1,1,0,0.29374,0.29374
 Calcium,int_calcium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.33,0.33,0.33
-Selenium for PE,int_selenium,FALSE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.72,0.72,0.72
+Selenium for PE,int_selenium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.666134086,0.72,0.72,0.72
 Statins,int_statins,TRUE,Risk stratified & flagged high risk,"FRU, PHC, and Home",0.5,0.49436655,0.03,0.03,0.03
 Aspirin,int_aspirin,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.49436655,0.292922754,0.292922754,0.292922754
 Antihypertensives,int_antihyper,TRUE,Hypertensive (and risk stratified),FRU and PHC,0.5,1,0,0.1,0.1
@@ -456,7 +456,7 @@ pe_int_inputs_ea <- readr::read_csv('int,name,on_off,applied_to,location_of_care
 Antenatal monitoring + diff CFL,int_am_diff_cfl,TRUE,,,,,,,
 Antenatal monitoring + early C-section,int_am_csect,TRUE,All risk stratified,FRU only,1,1,0,0.29374,0.29374
 Calcium,int_calcium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.75,0.33,0.33,0.33
-Selenium for PE,int_selenium,FALSE,All risk stratified,"FRU, PHC, and Home",0.5,0.75,0.72,0.72,0.72
+Selenium for PE,int_selenium,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.75,0.72,0.72,0.72
 Statins,int_statins,TRUE,Risk stratified & flagged high risk,"FRU, PHC, and Home",0.5,0.5,0.03,0.03,0.03
 Aspirin,int_aspirin,TRUE,All risk stratified,"FRU, PHC, and Home",0.5,0.5,0.546439687,0.546439687,0.546439687
 Antihypertensives,int_antihyper,TRUE,Hypertensive (and risk stratified),FRU and PHC,0.5,1,0,0.1,0.1

@@ -67,7 +67,7 @@ $(document).ready(function() {
         {
           "int": "Selenium for PE",
           "name": "int_selenium",
-          "on_off": false,
+          "on_off": true,
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
@@ -227,7 +227,7 @@ $(document).ready(function() {
         {
           "int": "Selenium for PE",
           "name": "int_selenium",
-          "on_off": false,
+          "on_off": true,
           "applied_to": "All risk stratified",
           "location_of_care": "FRU, PHC, and Home",
           "coverage": 0.5,
