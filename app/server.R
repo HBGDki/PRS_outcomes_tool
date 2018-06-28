@@ -29,6 +29,14 @@ function(input, output) {
       if (is.null(res[[nm]]))
         res[[nm]] <- pop_orig[[sc[1]]][[nm]]
     }
+    if (!is.null(input$sys_deliv_pct_sc1)) {
+      tmp <- input$sys_deliv_pct_sc1
+      if (length(tmp) == 2) {
+        res$sys_fru_pct <- tmp[1] / 100
+        res$sys_phc_pct <- (tmp[2] - tmp[1]) / 100
+        res$sys_home_pct <- (100 - tmp[2]) / 100
+      }
+    }
     res
   })
 
@@ -89,6 +97,14 @@ function(input, output) {
       if (is.null(res[[nm]]))
         res[[nm]] <- pop_orig[[sc[2]]][[nm]]
     }
+    if (!is.null(input$sys_deliv_pct_sc2)) {
+      tmp <- input$sys_deliv_pct_sc2
+      if (length(tmp) == 2) {
+        res$sys_fru_pct <- tmp[1] / 100
+        res$sys_phc_pct <- (tmp[2] - tmp[1]) / 100
+        res$sys_home_pct <- (100 - tmp[2]) / 100
+      }
+    }
     res
   })
 
@@ -148,6 +164,14 @@ function(input, output) {
       }
       if (is.null(res[[nm]]))
         res[[nm]] <- pop_orig[[sc[3]]][[nm]]
+    }
+    if (!is.null(input$sys_deliv_pct_sc3)) {
+      tmp <- input$sys_deliv_pct_sc3
+      if (length(tmp) == 2) {
+        res$sys_fru_pct <- tmp[1] / 100
+        res$sys_phc_pct <- (tmp[2] - tmp[1]) / 100
+        res$sys_home_pct <- (100 - tmp[2]) / 100
+      }
     }
     res
   })

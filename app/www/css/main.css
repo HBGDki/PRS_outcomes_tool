@@ -417,6 +417,36 @@ h1,h2,h3,h4,h5,h6 {
   padding-bottom: 5px;
 }
 
+.deliv-connect1 { height: 4px; background: #1F77B4 !important; }
+.deliv-connect2 { height: 4px; background: #FF7F0E !important; }
+.deliv-connect3 { height: 4px; background: #2CA02C !important; }
+
+.deliv-handle {
+  background: #aaa !important;
+}
+
+.deliv-info {
+  margin-top: -8px;
+}
+
+.deliv-info-cell {
+  display: inline-block;
+  width: 95px;
+  text-align: center;
+}
+
+.deliv-info-1 {
+  color: #1F77B4;
+}
+
+.deliv-info-2 {
+  color: #FF7F0E;
+}
+
+.deliv-info-3 {
+  color: #2CA02C;
+}
+
 label {
   color: #333333 !important;
 }

@@ -40,6 +40,37 @@ $.extend(mySliderBinding, {
 Shiny.inputBindings.register(mySliderBinding);
 
 
+var myMultiSliderBinding = new Shiny.InputBinding();
+$.extend(myMultiSliderBinding, {
+  find: function(scope) {
+    return $(scope).find(".shiny-my-multi-slider");
+  },
+  getValue: function(el) {
+    debugger;
+    // console.log($(el).attr('id'))
+    // console.log($(el).data('value'))
+    var denom = parseFloat($(el).data('denom'))
+    var data = $(el).data('value');
+    if (data !== undefined) {
+      for (var i = 0; i < data.length; i++) {
+        data[i] = parseFloat(data[i]) / denom;
+      }
+    }
+    return data;
+  },
+  subscribe: function(el, callback) {
+    $(el).on("change.myMultiSliderBinding", function(e) {
+      callback();
+    });
+  },
+  unsubscribe: function(el) {
+    $(el).off(".myMultiSliderBinding");
+  }
+});
+
+Shiny.inputBindings.register(myMultiSliderBinding);
+
+
 
 var scenarioStateBinding = new Shiny.InputBinding();
 $.extend(scenarioStateBinding, {

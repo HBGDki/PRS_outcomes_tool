@@ -481,16 +481,13 @@ $(document).ready(function() {
       </div>
       <div class="collapsible-body">
         <div class="slider-field">
-          <label class="slider-label" for="sys_fru_pct${sfx}">% at FRU (of facility)</label>
-          <div id="sys_fru_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
+          <label class="slider-label" for="sys_deliv_pct${sfx}">delivery location distribution</label>
+          <div id="sys_deliv_pct${sfx}" class="shiny-my-multi-slider" data-denom="100"></div>
         </div>
-        <div class="slider-field">
-          <label class="slider-label" for="sys_phc_pct${sfx}">% at PHC (of facility)</label>
-          <div id="sys_phc_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
-        </div>
-        <div class="slider-field">
-          <label class="slider-label" for="sys_home_pct${sfx}">% at home</label>
-          <div id="sys_home_pct${sfx}" class="shiny-my-slider" data-denom="100"></div>
+        <div class="deliv-info">
+          <div class="deliv-info-cell deliv-info-1">1</div>
+          <div class="deliv-info-cell deliv-info-2">2</div>
+          <div class="deliv-info-cell deliv-info-3">3</div>
         </div>
         <div class="slider-field">
           <label class="slider-label" for="leak_fru_phc${sfx}">systems leakage FRU -&gt; PHC</label>
@@ -1131,35 +1128,80 @@ $(document).ready(function() {
       pips: pips
     });
 
-    sliders[`sys_fru_pct${sfx}`] = document.getElementById(`sys_fru_pct${sfx}`);
-    noUiSlider.create(sliders[`sys_fru_pct${sfx}`], {
-      start: data.pops.sys_fru_pct * 100,
+    var v1 = data.pops.sys_fru_pct * 100;
+    var v2 = v1 + data.pops.sys_phc_pct * 100;
+
+    sliders[`sys_deliv_pct${sfx}`] = document.getElementById(`sys_deliv_pct${sfx}`);
+    noUiSlider.create(sliders[`sys_deliv_pct${sfx}`], {
+      start: [v1, v2],
+      connect: [true, true, true],
       step: 1,
       orientation: 'horizontal',
       range: { 'min': 0, 'max': 100 },
+      tooltips: false,
       format: format,
       pips: pips
     });
 
-    sliders[`sys_phc_pct${sfx}`] = document.getElementById(`sys_phc_pct${sfx}`);
-    noUiSlider.create(sliders[`sys_phc_pct${sfx}`], {
-      start: data.pops.sys_phc_pct * 100,
-      step: 1,
-      orientation: 'horizontal',
-      range: { 'min': 0, 'max': 100 },
-      format: format,
-      pips: pips
+    var connect = sliders[`sys_deliv_pct${sfx}`].querySelectorAll('.noUi-connect');
+    var classes = ["deliv-connect1", "deliv-connect2", "deliv-connect3"];
+    for ( var i = 0; i < connect.length; i++ ) {
+      connect[i].classList.add(classes[i]);
+    }
+
+    var tmp = sliders[`sys_deliv_pct${sfx}`].querySelectorAll('.noUi-handle');
+    for ( var i = 0; i < tmp.length; i++ ) {
+      tmp[i].classList.add("deliv-handle");
+    }
+    var tmp = sliders[`sys_deliv_pct${sfx}`].querySelectorAll('.noUi-horizontal .noUi-handle');
+    for ( var i = 0; i < tmp.length; i++ ) {
+      tmp[i].classList.add("deliv-handle");
+    }
+    var tmp = sliders[`sys_deliv_pct${sfx}`].querySelectorAll('.noUi-target.noUi-horizontal .noUi-tooltip');
+    for ( var i = 0; i < tmp.length; i++ ) {
+      tmp[i].classList.add("deliv-handle");
+    }
+
+    sliders[`sys_deliv_pct${sfx}`].noUiSlider.on("update", function(values) {
+      debugger;
+      var v1 = parseFloat(values[0]);
+      var v2 = parseFloat(values[1]) - v1;
+      var v3 = 100 - v2 - v1;
+
+      $(".deliv-info-1").html(`FRU: ${v1}%`);
+      $(".deliv-info-2").html(`PHC: ${v2}%`);
+      $(".deliv-info-3").html(`Home: ${v3}%`);
     });
 
-    sliders[`sys_home_pct${sfx}`] = document.getElementById(`sys_home_pct${sfx}`);
-    noUiSlider.create(sliders[`sys_home_pct${sfx}`], {
-      start: data.pops.sys_home_pct * 100,
-      step: 1,
-      orientation: 'horizontal',
-      range: { 'min': 0, 'max': 100 },
-      format: format,
-      pips: pips
-    });
+    // sliders[`sys_fru_pct${sfx}`] = document.getElementById(`sys_fru_pct${sfx}`);
+    // noUiSlider.create(sliders[`sys_fru_pct${sfx}`], {
+    //   start: data.pops.sys_fru_pct * 100,
+    //   step: 1,
+    //   orientation: 'horizontal',
+    //   range: { 'min': 0, 'max': 100 },
+    //   format: format,
+    //   pips: pips
+    // });
+
+    // sliders[`sys_phc_pct${sfx}`] = document.getElementById(`sys_phc_pct${sfx}`);
+    // noUiSlider.create(sliders[`sys_phc_pct${sfx}`], {
+    //   start: data.pops.sys_phc_pct * 100,
+    //   step: 1,
+    //   orientation: 'horizontal',
+    //   range: { 'min': 0, 'max': 100 },
+    //   format: format,
+    //   pips: pips
+    // });
+
+    // sliders[`sys_home_pct${sfx}`] = document.getElementById(`sys_home_pct${sfx}`);
+    // noUiSlider.create(sliders[`sys_home_pct${sfx}`], {
+    //   start: data.pops.sys_home_pct * 100,
+    //   step: 1,
+    //   orientation: 'horizontal',
+    //   range: { 'min': 0, 'max': 100 },
+    //   format: format,
+    //   pips: pips
+    // });
 
     sliders[`leak_fru_phc${sfx}`] = document.getElementById(`leak_fru_phc${sfx}`);
      noUiSlider.create(sliders[`leak_fru_phc${sfx}`], {
